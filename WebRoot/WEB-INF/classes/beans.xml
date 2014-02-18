@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/wsim?characterEncoding=utf8"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>cn/edu/ustc/wsim/bean/GroupRequest.hbm.xml</value>
+				<value>cn/edu/ustc/wsim/bean/Friend.hbm.xml</value>
+				<value>cn/edu/ustc/wsim/bean/User.hbm.xml</value>
+				<value>cn/edu/ustc/wsim/bean/GroupUser.hbm.xml</value>
+				<value>cn/edu/ustc/wsim/bean/FriendGroup.hbm.xml</value>
+				<value>cn/edu/ustc/wsim/bean/GroupMessage.hbm.xml</value>
+				<value>cn/edu/ustc/wsim/bean/FriendRequest.hbm.xml</value>
+				<value>cn/edu/ustc/wsim/bean/Group.hbm.xml</value>
+				<value>cn/edu/ustc/wsim/bean/Admin.hbm.xml</value>
+				<value>cn/edu/ustc/wsim/bean/Message.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+				<prop key="hibernate.autoReconnect">true</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+
+
+	<!-- 全局常量配置 -->
+	<bean id="globalFinal" class="cn.edu.ustc.wsim.datastructure.GlobalFinal">
+		<property name="serverIP" value="127.0.0.1"></property>
+		<property name="defaultFriendGroupName" value="My Friends"></property>
+	</bean>
+	
+
+	
+	<!-- base相关配置 -->
+	
+	<bean id="baseDao" class="cn.edu.ustc.wsim.dao.impl.BaseDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="baseDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="baseDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="baseService" class="cn.edu.ustc.wsim.service.impl.BaseServiceImpl">
+		<property name="dao" ref="baseDaoProxy"></property>
+	</bean>
+	
+	<bean id="baseServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="baseService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+
+
+	<!-- admin相关配置  -->
+	
+	<bean id="adminDao" class="cn.edu.ustc.wsim.dao.impl.AdminDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="adminDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="adminDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="adminService" class="cn.edu.ustc.wsim.service.impl.AdminServiceImpl" parent="baseService">
+		<property name="adminDao" ref="adminDaoProxy"></property>
+	</bean>
+	
+	<bean id="adminServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="adminService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_admin" class="cn.edu.ustc.wsim.action.AdminAction">
+		<property name="adminService" ref="adminServiceProxy"></property>
+	</bean>
+
+
+ 	
+	<!-- friend相关配置  -->
+	
+	<bean id="friendDao" class="cn.edu.ustc.wsim.dao.impl.FriendDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="friendDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="friendDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="friendService" class="cn.edu.ustc.wsim.service.impl.FriendServiceImpl" parent="baseService">
+		<property name="friendDao" ref="friendDaoProxy"></property>
+		<property name="friendGroupService" ref="friendGroupServiceProxy"></property>
+		<property name="userService" ref="userServiceProxy"></property>
+	</bean>
+	
+	<bean id="friendServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="friendService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_friend" class="cn.edu.ustc.wsim.action.FriendAction">
+		<property name="friendService" ref="friendServiceProxy"></property>
+		<property name="friendGroupService" ref="friendGroupServiceProxy"></property>
+		<property name="userService" ref="userServiceProxy"></property>
+	</bean>
+	
+	
+	
+	<!-- friendGroup相关配置  -->
+ 
+ 	<bean id="friendGroupDao" class="cn.edu.ustc.wsim.dao.impl.FriendGroupDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="friendGroupDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="friendGroupDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="friendGroupService" class="cn.edu.ustc.wsim.service.impl.FriendGroupServiceImpl" parent="baseService">
+		<property name="friendGroupDao" ref="friendGroupDaoProxy"></property>
+		<property name="friendService" ref="friendServiceProxy"></property>
+	</bean>
+	
+	<bean id="friendGroupServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="friendGroupService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_friendGroup" class="cn.edu.ustc.wsim.action.FriendGroupAction">
+		<property name="friendGroupService" ref="friendGroupServiceProxy"></property>
+	</bean>
+	
+	<bean id="_displayFriends" class="cn.edu.ustc.wsim.action.DisplayFriends">
+		<property name="friendGroupService" ref="friendGroupServiceProxy"></property>
+		<property name="friendService" ref="friendServiceProxy"></property>
+	</bean>
+ 	
+	
+	
+	<!-- friendRequest相关配置  -->
+	
+	<bean id="friendRequestDao" class="cn.edu.ustc.wsim.dao.impl.FriendRequestDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="friendRequestDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="friendRequestDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="friendRequestService" class="cn.edu.ustc.wsim.service.impl.FriendRequestServiceImpl" parent="baseService">
+		<property name="friendRequestDao" ref="friendRequestDaoProxy"></property>
+	</bean>
+	
+	<bean id="friendRequestServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="friendRequestService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_friendRequest" class="cn.edu.ustc.wsim.action.FriendRequestAction">
+		<property name="friendRequestService" ref="friendRequestServiceProxy"></property>
+	</bean>	
+	
+	
+	
+	<!-- group相关配置  -->
+	
+	<bean id="groupDao" class="cn.edu.ustc.wsim.dao.impl.GroupDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="groupDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="groupDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="groupService" class="cn.edu.ustc.wsim.service.impl.GroupServiceImpl" parent="baseService">
+		<property name="groupDao" ref="groupDaoProxy"></property>
+	</bean>
+	
+	<bean id="groupServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="groupService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_group" class="cn.edu.ustc.wsim.action.GroupAction">
+		<property name="groupService" ref="groupServiceProxy"></property>
+		<property name="groupUserService" ref="groupUserServiceProxy"></property>
+	</bean>	
+	
+	
+	
+	<!-- groupMessage相关配置  -->
+	
+	<bean id="groupMessageDao" class="cn.edu.ustc.wsim.dao.impl.GroupMessageDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="groupMessageDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="groupMessageDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="groupMessageService" class="cn.edu.ustc.wsim.service.impl.GroupMessageServiceImpl" parent="baseService">
+		<property name="groupMessageDao" ref="groupMessageDaoProxy"></property>
+	</bean>
+	
+	<bean id="groupMessageServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="groupMessageService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_groupMessage" class="cn.edu.ustc.wsim.action.GroupMessageAction">
+		<property name="groupMessageService" ref="groupMessageServiceProxy"></property>
+	</bean>	
+	
+	
+	
+	<!-- groupRequest相关配置  -->
+	
+	<bean id="groupRequestDao" class="cn.edu.ustc.wsim.dao.impl.GroupRequestDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="groupRequestDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="groupRequestDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="groupRequestService" class="cn.edu.ustc.wsim.service.impl.GroupRequestServiceImpl" parent="baseService">
+		<property name="groupRequestDao" ref="groupRequestDaoProxy"></property>
+		<property name="groupUserService" ref="groupUserServiceProxy"></property>
+	</bean>
+	
+	<bean id="groupRequestServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="groupRequestService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_groupRequest" class="cn.edu.ustc.wsim.action.GroupRequestAction">
+		<property name="groupRequestService" ref="groupRequestServiceProxy"></property>
+	</bean>
+	
+	
+	
+	<!-- groupUser相关配置  -->
+	
+	<bean id="groupUserDao" class="cn.edu.ustc.wsim.dao.impl.GroupUserDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="groupUserDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="groupUserDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="groupUserService" class="cn.edu.ustc.wsim.service.impl.GroupUserServiceImpl" parent="baseService">
+		<property name="groupUserDao" ref="groupUserDaoProxy"></property>
+	</bean>
+	
+	<bean id="groupUserServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="groupUserService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_groupUser" class="cn.edu.ustc.wsim.action.GroupUserAction">
+		<property name="groupUserService" ref="groupUserServiceProxy"></property>
+	</bean>	
+	
+	
+	
+	<!-- message相关配置  -->
+	
+	<bean id="messageDao" class="cn.edu.ustc.wsim.dao.impl.MessageDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="messageDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="messageDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="messageService" class="cn.edu.ustc.wsim.service.impl.MessageServiceImpl" parent="baseService">
+		<property name="messageDao" ref="messageDaoProxy"></property>
+	</bean>
+	
+	<bean id="messageServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="messageService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_message" class="cn.edu.ustc.wsim.action.MessageAction">
+		<property name="messageService" ref="messageServiceProxy"></property>
+	</bean>	
+	
+	
+	
+	<!-- user相关配置  -->
+	
+	<bean id="userDao" class="cn.edu.ustc.wsim.dao.impl.UserDaoImpl" parent="baseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="userDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="userDao"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="userService" class="cn.edu.ustc.wsim.service.impl.UserServiceImpl" parent="baseService">
+		<property name="userDao" ref="userDaoProxy"></property>
+		<property name="friendGroupService" ref="friendGroupServiceProxy"></property>
+	</bean>
+	
+	<bean id="userServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="target" ref="userService"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="_user" class="cn.edu.ustc.wsim.action.UserAction">
+		<property name="userService" ref="userServiceProxy"></property>
+	</bean>
+		
+	<bean id="_login" class="cn.edu.ustc.wsim.action.LoginAction">
+		<property name="userService" ref="userServiceProxy"></property>
+	</bean>
+	
+	<bean id="_register" class="cn.edu.ustc.wsim.action.RegisterAction">
+		<property name="userService" ref="userServiceProxy"></property>
+		<property name="friendGroupService" ref="friendGroupServiceProxy"></property>
+	</bean>
+	
+	
+	
+	
+	
+
+</beans>

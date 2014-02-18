@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+
+	<constant name="struts.objectFactory" value="spring" />
+	
+	<!--配置struts开发模式	-->
+	<constant name="struts.devMode" value="true" />
+	
+	<constant name="struts.i18n.encoding" value="utf8" />
+
+	
+	<package name="wsim" extends="struts-default" namespace="/">
+	
+		<action name="admin_*" class="cn.edu.ustc.wsim.action.AdminAction" method="{1}">
+			<result name="addAdminInputError">admin/addAdmin.jsp</result>
+			<result name="adminLoginInputError">admin/adminLogin.jsp</result>
+			<result name="changePasswordInputError">admin/changePassword.jsp</result>
+			
+			<result name="adminLoginError">error.jsp</result>
+			<result name="adminLoginSuccess">success.jsp</result>
+			<result name="adminLogout">success.jsp</result>
+			<result name="addError">error.jsp</result>
+			<result name="addSuccess">success.jsp</result>
+			<result name="delError">error.jsp</result>
+			<result name="delSuccess">success.jsp</result>
+			<result name="changePasswordError">error.jsp</result>
+			<result name="changePasswordSuccess">success.jsp</result>
+			<result name="list">admin/listAdmins.jsp</result>
+		</action>
+	
+		<action name="login" class="cn.edu.ustc.wsim.action.LoginAction">
+			<result name="success">user/loginSuccess.jsp</result>
+			<result name="error">error.jsp</result>
+			<result name="input">user/login.jsp</result>
+		</action>
+		
+		<action name="register" class="cn.edu.ustc.wsim.action.RegisterAction">
+			<result name="success">success.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="user_*" class="cn.edu.ustc.wsim.action.UserAction" method="{1}">
+			<result name="cannotSearch">user/cannotSearch.jsp</result>
+			<result name="searchSuccess">user/searchUserResult.jsp</result>
+			<result name="userLogout">success.jsp</result>
+			<result name="delSuccess">success.jsp</result>
+			<result name="delError">error.jsp</result>
+			<result name="changeStatusSuccess">success.jsp</result>
+			<result name="changeStatusError">error.jsp</result>
+			<result name="changeStatusTempSuccess">success.jsp</result>
+			<result name="changeNameSuccess">success.jsp</result>
+			<result name="changeNameError">error.jsp</result>
+			<result name="changePasswordError">error.jsp</result>
+			<result name="changePasswordSuccess">success.jsp</result>
+		</action>
+		
+		<action name="friend_*" class="cn.edu.ustc.wsim.action.FriendAction" method="{1}">
+			<result name="cannotSearch">friend/cannotSearch.jsp</result>
+			<result name="searchSuccess">friend/searchFriendResult.jsp</result>
+			<result name="changeRemarkError">error.jsp</result>
+			<result name="changeRemarkSuccess">success.jsp</result>
+			<result name="delSuccess">success.jsp</result>
+			<result name="delError">error.jsp</result>
+			
+		</action>
+		
+		<action name="friendRequest_*" class="cn.edu.ustc.wsim.action.FriendRequestAction" method="{1}">
+			<result name="addError">error.jsp</result>
+			<result name="addSuccess">success.jsp</result>
+			<result name="listUndealFriendRequest">friend/listUndealFriendRequest.jsp</result>
+			<result name="dealFriendRequestSuccess">success.jsp</result>
+			<result name="dealFriendRequestError">error.jsp</result>
+		</action>
+		
+		<action name="friendGroup_*" class="cn.edu.ustc.wsim.action.FriendGroupAction" method="{1}">
+			<result name="addError">error.jsp</result>
+			<result name="addSuccess">success.jsp</result>
+			<result name="changeNameError">error.jsp</result>
+			<result name="changeNameSuccess">success.jsp</result>
+		</action>
+		
+		<action name="message_*" class="cn.edu.ustc.wsim.action.MessageAction" method="{1}">
+			<result name="showResult">message/messageRecords.jsp</result>
+			<result name="noResult">message/noResult.jsp</result>
+		</action>
+		
+		<action name="displayFriends" class="cn.edu.ustc.wsim.action.DisplayFriends">
+			<result name="success">friend/displayFriends.jsp</result>
+		</action>
+		
+		<action name="group_*" class="cn.edu.ustc.wsim.action.GroupAction" method="{1}">
+			<result name="createrSuccess">success.jsp</result>
+			<result name="createError">error.jsp</result>
+			<result name="delSuccess">success.jsp</result>
+			<result name="delError">error.jsp</result>
+			<result name="updateSuccess">success.jsp</result>
+			<result name="updateError">error.jsp</result>
+			<result name="listGroupOfUser">listGroupOfUser.jsp</result>
+			<result name="cannotSearch">group/cannotSearch.jsp</result>
+			<result name="searchSuccess">group/searchGroupResult.jsp</result>
+		</action>
+		
+		<action name="groupUser_*" class="cn.edu.ustc.wsim.action.GroupUserAction" method="{1}">
+			<result name="quitGroupSuccess">success.jsp</result>
+			<result name="quitGroupError">error.jsp</result>
+			<result name="changeNameSuccess">success.jsp</result>
+			<result name="changeNameError">error.jsp</result>
+		</action>
+		
+		<action name="groupRequest_*" class="cn.edu.ustc.wsim.action.GroupRequestAction" method="{1}">
+			<result name="addError">error.jsp</result>
+			<result name="addSuccess">success.jsp</result>
+			<result name="listAllUndealGroupRequest">group/listUndealGroupRequest.jsp</result>
+			<result name="dealGroupRequestSuccess">success.jsp</result>
+			<result name="dealGroupRequestError">error.jsp</result>
+		</action>
+		
+		<action name="groupMessage_*" class="cn.edu.ustc.wsim.action.GroupMessageAction" method="{1}">
+			<result name="showResult">groupMessage/groupMessageRecords.jsp</result>
+			<result name="noResult">groupMessage/noResult.jsp</result>
+		</action>
+	
+		<action name="displayOnlineUsers" class="cn.edu.ustc.wsim.action.DisplayOnlineUsers">
+			<result name="success">displayOnlineUsers.jsp</result>
+		</action>
+		
+		<action name="room_*" class="cn.edu.ustc.wsim.action.RoomAction" method="{1}">
+			<result name="createSuccess">websocket/room/chatRoom.jsp</result>
+			<result name="noSuchRoom">error.jsp</result>
+			<result name="joinRoomError">error.jsp</result>
+			<result name="joinRoomSuccess">websocket/room/chatRoom.jsp</result>
+			<result name="quitRoomSuccess">success.jsp</result>
+		</action>
+	
+	</package>
+	
+	<package name="json" extends="json-default">
+	<!-- 
+		我们只要输出person对象的name属性值
+    	<param name="root">person.name</param>    
+    	
+    	excludeNullProperties 参数：表示是否去掉空值， 默认值是false，如果设置为true会自动将为空的值过滤，只输出不为空的值。
+    	<param name="excludeNullProperties">true</param>	
+    	
+    	ignoreHierarchy 参数：表示是否忽略等级，也就是继承关系，比如：TestAction继承于BaseAction，那么TestAction中返回的json字符串
+    	默认是不会包含父类BaseAction的属性值，ignoreHierarchy值默认为true，设置为false后会将父类和子类的属性一起返回。
+    	<param name="ignoreHierarchy">false</param>		
+    	
+    	includeProperties 参数：输出结果中需要包含的属性值，这里正则表达式和属性名匹配，可以用“,”分割填充多个正则表达式。
+    	<param name="includeProperties">person.*, person\.name</param> 
+    		
+    	excludeProperties 参数：输出结果需要剔除的属性值，也支持正则表达式匹配属性名，可以用“,”分割填充多个正则表达式，类同includeProperties
+	 -->
+		<action name="changeStatusTemp" class="cn.edu.ustc.wsim.action.UserAction" method="changeStatusTemp">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="changeStatus" class="cn.edu.ustc.wsim.action.UserAction" method="changeStatus">
+			<result type="json"></result>
+		</action>
+	</package>
+	
+</struts>
