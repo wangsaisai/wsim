@@ -28,5 +28,8 @@ public interface GroupUserService extends BaseService {
 	public boolean isBelong(User user, Group group);
 	
 	public GroupUser get(User user, Group group);
+	
+	//判断当前登录用户是否是群主
+	public boolean isCreater(User user, Group group);
 
 }

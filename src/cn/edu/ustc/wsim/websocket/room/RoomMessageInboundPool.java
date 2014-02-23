@@ -9,6 +9,8 @@ import java.util.Set;
 
 public class RoomMessageInboundPool {
 
+	
+	
 	//保存连接的MAP容器
 	private static final Map<String,RoomMessageInbound > connections = new HashMap<String,RoomMessageInbound>();
 	

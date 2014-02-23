@@ -16,9 +16,9 @@
 	<package name="wsim" extends="struts-default" namespace="/">
 	
 		<action name="admin_*" class="cn.edu.ustc.wsim.action.AdminAction" method="{1}">
-			<result name="addAdminInputError">admin/addAdmin.jsp</result>
-			<result name="adminLoginInputError">admin/adminLogin.jsp</result>
-			<result name="changePasswordInputError">admin/changePassword.jsp</result>
+			<result name="addAdminInputError">module/admin/addAdmin.jsp</result>
+			<result name="adminLoginInputError">module/admin/adminLogin.jsp</result>
+			<result name="changePasswordInputError">module/admin/changePassword.jsp</result>
 			
 			<result name="adminLoginError">error.jsp</result>
 			<result name="adminLoginSuccess">success.jsp</result>
@@ -29,13 +29,13 @@
 			<result name="delSuccess">success.jsp</result>
 			<result name="changePasswordError">error.jsp</result>
 			<result name="changePasswordSuccess">success.jsp</result>
-			<result name="list">admin/listAdmins.jsp</result>
+			<result name="list">module/admin/listAdmins.jsp</result>
 		</action>
 	
 		<action name="login" class="cn.edu.ustc.wsim.action.LoginAction">
-			<result name="success">user/loginSuccess.jsp</result>
+			<result name="success">module/user/loginSuccess.jsp</result>
 			<result name="error">error.jsp</result>
-			<result name="input">user/login.jsp</result>
+			<result name="input">module/user/login.jsp</result>
 		</action>
 		
 		<action name="register" class="cn.edu.ustc.wsim.action.RegisterAction">
@@ -44,8 +44,8 @@
 		</action>
 		
 		<action name="user_*" class="cn.edu.ustc.wsim.action.UserAction" method="{1}">
-			<result name="cannotSearch">user/cannotSearch.jsp</result>
-			<result name="searchSuccess">user/searchUserResult.jsp</result>
+			<result name="cannotSearch">module/user/cannotSearch.jsp</result>
+			<result name="searchSuccess">module/user/searchUserResult.jsp</result>
 			<result name="userLogout">success.jsp</result>
 			<result name="delSuccess">success.jsp</result>
 			<result name="delError">error.jsp</result>
@@ -53,14 +53,15 @@
 			<result name="changeStatusError">error.jsp</result>
 			<result name="changeStatusTempSuccess">success.jsp</result>
 			<result name="changeNameSuccess">success.jsp</result>
-			<result name="changeNameError">error.jsp</result>
-			<result name="changePasswordError">error.jsp</result>
+			<result name="changeNameError">module/user/changeName.jsp</result>
+			<result name="changePasswordError">module/user/changePassword.jsp</result>
 			<result name="changePasswordSuccess">success.jsp</result>
+			<result name="getUserStatus">module/user/changeDefaultLoginStatus.jsp</result>
 		</action>
 		
 		<action name="friend_*" class="cn.edu.ustc.wsim.action.FriendAction" method="{1}">
-			<result name="cannotSearch">friend/cannotSearch.jsp</result>
-			<result name="searchSuccess">friend/searchFriendResult.jsp</result>
+			<result name="cannotSearch">module/friend/cannotSearch.jsp</result>
+			<result name="searchSuccess">module/friend/searchFriendResult.jsp</result>
 			<result name="changeRemarkError">error.jsp</result>
 			<result name="changeRemarkSuccess">success.jsp</result>
 			<result name="delSuccess">success.jsp</result>
@@ -71,7 +72,7 @@
 		<action name="friendRequest_*" class="cn.edu.ustc.wsim.action.FriendRequestAction" method="{1}">
 			<result name="addError">error.jsp</result>
 			<result name="addSuccess">success.jsp</result>
-			<result name="listUndealFriendRequest">friend/listUndealFriendRequest.jsp</result>
+			<result name="listUndealFriendRequest">module/friend/listUndealFriendRequest.jsp</result>
 			<result name="dealFriendRequestSuccess">success.jsp</result>
 			<result name="dealFriendRequestError">error.jsp</result>
 		</action>
@@ -84,24 +85,24 @@
 		</action>
 		
 		<action name="message_*" class="cn.edu.ustc.wsim.action.MessageAction" method="{1}">
-			<result name="showResult">message/messageRecords.jsp</result>
-			<result name="noResult">message/noResult.jsp</result>
+			<result name="showResult">module/message/messageRecords.jsp</result>
+			<result name="noResult">module/message/noResult.jsp</result>
 		</action>
 		
 		<action name="displayFriends" class="cn.edu.ustc.wsim.action.DisplayFriends">
-			<result name="success">friend/displayFriends.jsp</result>
+			<result name="success">module/friend/displayFriends.jsp</result>
 		</action>
 		
 		<action name="group_*" class="cn.edu.ustc.wsim.action.GroupAction" method="{1}">
-			<result name="createrSuccess">success.jsp</result>
+			<result name="createrSuccess">module/group/createGroupSuccess.jsp</result>
 			<result name="createError">error.jsp</result>
 			<result name="delSuccess">success.jsp</result>
 			<result name="delError">error.jsp</result>
 			<result name="updateSuccess">success.jsp</result>
 			<result name="updateError">error.jsp</result>
-			<result name="listGroupOfUser">listGroupOfUser.jsp</result>
-			<result name="cannotSearch">group/cannotSearch.jsp</result>
-			<result name="searchSuccess">group/searchGroupResult.jsp</result>
+			<result name="listGroupOfUser">module/group/listGroupOfUser.jsp</result>
+			<result name="cannotSearch">module/group/cannotSearch.jsp</result>
+			<result name="searchSuccess">module/group/searchGroupResult.jsp</result>
 		</action>
 		
 		<action name="groupUser_*" class="cn.edu.ustc.wsim.action.GroupUserAction" method="{1}">
@@ -109,19 +110,20 @@
 			<result name="quitGroupError">error.jsp</result>
 			<result name="changeNameSuccess">success.jsp</result>
 			<result name="changeNameError">error.jsp</result>
+			<result name="listGroupOfUser">module/group/listGroupOfUser.jsp</result>
 		</action>
 		
 		<action name="groupRequest_*" class="cn.edu.ustc.wsim.action.GroupRequestAction" method="{1}">
 			<result name="addError">error.jsp</result>
 			<result name="addSuccess">success.jsp</result>
-			<result name="listAllUndealGroupRequest">group/listUndealGroupRequest.jsp</result>
+			<result name="listAllUndealGroupRequest">module/group/listUndealGroupRequest.jsp</result>
 			<result name="dealGroupRequestSuccess">success.jsp</result>
 			<result name="dealGroupRequestError">error.jsp</result>
 		</action>
 		
 		<action name="groupMessage_*" class="cn.edu.ustc.wsim.action.GroupMessageAction" method="{1}">
-			<result name="showResult">groupMessage/groupMessageRecords.jsp</result>
-			<result name="noResult">groupMessage/noResult.jsp</result>
+			<result name="showResult">module/groupMessage/groupMessageRecords.jsp</result>
+			<result name="noResult">module/groupMessage/noResult.jsp</result>
 		</action>
 	
 		<action name="displayOnlineUsers" class="cn.edu.ustc.wsim.action.DisplayOnlineUsers">
@@ -129,10 +131,10 @@
 		</action>
 		
 		<action name="room_*" class="cn.edu.ustc.wsim.action.RoomAction" method="{1}">
-			<result name="createSuccess">websocket/room/chatRoom.jsp</result>
+			<result name="createSuccess">module/room/createRoomSuccess.jsp</result>
 			<result name="noSuchRoom">error.jsp</result>
-			<result name="joinRoomError">error.jsp</result>
-			<result name="joinRoomSuccess">websocket/room/chatRoom.jsp</result>
+			<result name="joinRoomError">module/room/joinRoom.jsp?roomId=${id}</result>
+			<result name="joinRoomSuccess">module/room/chatRoom.jsp</result>
 			<result name="quitRoomSuccess">success.jsp</result>
 		</action>
 	
@@ -162,6 +164,11 @@
 		</action>
 		<action name="changeStatus" class="cn.edu.ustc.wsim.action.UserAction" method="changeStatus">
 			<result type="json"></result>
+		</action>
+		<action name="loginAjax" class="cn.edu.ustc.wsim.action.LoginAction">
+			<result type="json" name="success">
+				<param name="root">result</param>
+			</result>
 		</action>
 	</package>
 	

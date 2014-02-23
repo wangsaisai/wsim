@@ -44,5 +44,21 @@ public class OnlineUsers {
 		return users;
 	}
 	
+	public static User getUser(Integer userId) {
+		if(users.containsKey(userId))
+			return users.get(userId);
+		else
+			return null;
+	}
+	
+	
+	
+	
+	
+	//////////////////////////////
+	public static void show() {
+		System.out.println("在线用户数： " + countOnlineUsers());
+	}
+	
 
 }

@@ -120,8 +120,7 @@ public class FriendServiceImpl extends BaseServiceImpl implements FriendService 
 	public List<Friend> searchFriend(String searchinfo) {
 		List<Friend> friends = new ArrayList<Friend>();
 		
-		CheckEmail ce = new CheckEmail();
-		if(ce.isEmail(searchinfo)) {	//email搜索
+		if(CheckEmail.isEmail(searchinfo)) {	//email搜索
 			User user = userService.getUserByEmail(searchinfo);
 			Friend friend = this.getFriend(getLoginUser(), user);
 			if(friend != null)
@@ -132,8 +131,8 @@ public class FriendServiceImpl extends BaseServiceImpl implements FriendService 
 			for (FriendGroup friendGroup : friendGroups) {
 				List<Friend> friendss = this.getFriendsOfFriendGroup(friendGroup);
 				for (Friend friend : friendss) {
-					//如果好友的name 字符串中包含searchinfo这个子串
-					if(friend.getUser().getName().contains(searchinfo))
+					//如果好友的name 字符串中包含searchinfo这个子串          或者        好友备注名中包含输入信息
+					if(friend.getUser().getName().contains(searchinfo) || friend.getRemark().contains(searchinfo))
 						friends.add(friend);
 				}
 			}

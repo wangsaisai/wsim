@@ -1,0 +1,79 @@
+.icon-word {
+    background-image:url( /Leetop/classes/resources/images/page_white_word.png) !important;
+}
+
+.icon-ppt {
+    background-image:url( /Leetop/classes/resources/images/page_white_powerpoint.png ) !important;
+}
+
+.icon-excel {
+    background-image:url( /Leetop/classes/resources/images/page_white_excel.png ) !important;
+}
+
+.icon-folder {
+    background-image:url( /Leetop/classes/resources/images/folder.gif ) !important;
+}
+
+.icon-app {
+    background-image:url( /Leetop/classes/resources/images/application.png ) !important;
+}
+
+.icon-net-address {
+    background-image:url( /Leetop/classes/resources/images/page_world.png ) !important;
+}
+
+.icon-personality {
+    background-image:url( /Leetop/classes/resources/images/bricks.png ) !important;
+}
+
+.icon-title-shortcut {
+    background-image:url( /Leetop/classes/resources/images/shape_move_forwards.png ) !important;
+}
+
+.icon-cascade-shortcut {
+    background-image:url( /Leetop/classes/resources/images/shape_move_front.png ) !important;
+}
+
+.icon-sort-shortcut {
+    background-image:url( /Leetop/classes/resources/images/hmenu-asc.gif ) !important;
+}
+
+.icon-layout-shortcut {
+    background-image:url( /Leetop/classes/resources/images/shape_group.png ) !important;
+}
+
+.icon-refresh {
+    background-image:url( /Leetop/classes/resources/images/refresh.gif ) !important;
+}
+
+.icon-display-desktop {
+    background-image:url( /Leetop/classes/resources/images/shape_handles.png ) !important;
+}
+
+.icon-console {
+    background-image:url( /Leetop/classes/resources/images/console.png ) !important;
+}
+
+.icon-terminal {
+    background-image:url( /Leetop/classes/resources/images/terminal.png ) !important;
+}
+
+.icon-console-error-show {
+    background-image:url( /Leetop/classes/resources/images/console_error_show.png ) !important;
+}
+.icon-console-update-show {
+    background-image:url( /Leetop/classes/resources/images/console_update_show.png ) !important;
+}
+.icon-console-clear {
+    background-image:url( /Leetop/classes/resources/images/console_clear.png ) !important;
+}
+
+.icon-console-lock {
+    background-image:url( /Leetop/classes/resources/images/console_lock.png ) !important;
+}
+
+.icon-console-unlock {
+    background-image:url( /Leetop/classes/resources/images/console_unlock.png ) !important;
+}
+
+

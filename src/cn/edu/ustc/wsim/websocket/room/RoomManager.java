@@ -67,5 +67,11 @@ public class RoomManager {
 	public static Integer countRoom() {
 		return rooms.size();
 	}
+	
+	
+	//////////////////////////////
+	public static void show() {
+		System.out.println("在线room数： " + countRoom());
+	}
 
 }

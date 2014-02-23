@@ -16,7 +16,7 @@ public interface GroupService extends BaseService {
 	public boolean createrGroup(Group group);
 	
 	//判断当前登录用户是否是群主
-	public boolean isCreater(User user, Group group);
+//	public boolean isCreater(User user, Group group);
 	
 	public List<Group> searchGroup(String searchinfo);
 

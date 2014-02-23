@@ -38,6 +38,9 @@ public class RoomMessageInbound extends MessageInbound {
 	protected void onClose(int status) {
 		// 触发关闭事件，在连接池中移除连接
 		RoomMessageInboundPool.removeMessageInbound(this);
+		
+		//从room中清除该用户
+		RoomManager.quitRoom(sender, room.getId());
 	}
 
 	@Override

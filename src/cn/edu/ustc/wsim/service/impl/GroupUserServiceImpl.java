@@ -104,4 +104,12 @@ public class GroupUserServiceImpl extends BaseServiceImpl implements GroupUserSe
 		return this.getGroupsByGroupUsers(groupUserDao.getGroupUsersByCreaterOrManager(user));
 	}
 
+	@Override
+	public boolean isCreater(User user, Group group) {
+		if(groupUserDao.get(user, group) == null)
+			return false;
+		else
+			return true;
+	}
+
 }

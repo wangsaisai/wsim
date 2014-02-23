@@ -26,6 +26,8 @@ public class GroupAction extends ActionSupport {
 	
 	private List groups;
 	
+	private Group group;
+	
 	private GroupService groupService;
 	private GroupUserService groupUserService;
 	private UserService userService;
@@ -38,7 +40,7 @@ public class GroupAction extends ActionSupport {
 	
 	public String createGroup() {
 		
-		Group group = new Group();
+		group = new Group();
 		number = groupService.genGroupNumber();
 		group.setNumber(number);
 		group.setName(name);
@@ -54,6 +56,8 @@ public class GroupAction extends ActionSupport {
 			groupUser.setRemark(groupService.getLoginUser().getName());
 			groupUser.setRole(GroupRole.CREATER);
 			groupUser.setUser(groupService.getLoginUser());
+			groupUserService.add(groupUser);
+			
 			return "createrSuccess";
 		} else {
 			errorMsg = "创建群失败，请重试";
@@ -61,17 +65,17 @@ public class GroupAction extends ActionSupport {
 		}
 	}
 	
-	public String listGroupOfUser() {
-		User user = groupService.getLoginUser();
-		this.groups = groupUserService.getGroupsByUser(user);
-		return "listGroupOfUser";
-	}
+//	public String listGroupOfUser() {
+//		User user = groupService.getLoginUser();
+//		this.groups = groupUserService.getGroupsByUser(user);
+//		return "listGroupOfUser";
+//	}
 	
 	
 	//该群相关的groupuser 和 grouprequest 都会被级联删除
 	public String delGroup() {
 		Group group = (Group) groupService.get(id);
-		if(!groupService.isCreater(groupService.getLoginUser(), group) )
+		if(!groupUserService.isCreater(groupService.getLoginUser(), group) )
 		{
 			errorMsg = "只有群主才能删除群";
 			return "delError";
@@ -87,7 +91,7 @@ public class GroupAction extends ActionSupport {
 	
 	public String updateGroup() {
 		Group group = (Group) groupService.get(id);
-		if(!groupService.isCreater(groupService.getLoginUser(), group) )
+		if(!groupUserService.isCreater(groupService.getLoginUser(), group) )
 		{
 			errorMsg = "只有群主才能修改群信息";
 			return "updateError";
@@ -208,6 +212,14 @@ public class GroupAction extends ActionSupport {
 
 	public void setGroupUserService(GroupUserService groupUserService) {
 		this.groupUserService = groupUserService;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
 

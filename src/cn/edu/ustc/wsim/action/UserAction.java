@@ -1,12 +1,20 @@
 package cn.edu.ustc.wsim.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import net.sf.json.JSONObject;
+
+import cn.edu.ustc.wsim.bean.Friend;
+import cn.edu.ustc.wsim.bean.FriendGroup;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.datastructure.OnlineUsers;
 import cn.edu.ustc.wsim.enumerates.UserStatus;
+import cn.edu.ustc.wsim.service.FriendGroupService;
+import cn.edu.ustc.wsim.service.FriendService;
 import cn.edu.ustc.wsim.service.UserService;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -33,10 +41,28 @@ public class UserAction extends ActionSupport {
 	private List<Boolean> relations;
 	
 	private UserService userService;
+	private FriendService friendService;
+	private FriendGroupService friendGroupService;
 	
 	private String errorMsg;
 	
 	private String result;
+	
+	
+	public String getFriendsJson() {
+		Map<String, Object> map = new HashMap<>();
+		List<FriendGroup> fgs = friendGroupService.getAllFriendGroupOfUser(userService.getLoginUser());
+		
+		for (FriendGroup friendGroup : fgs) {
+			List<Friend> friends = friendService.getFriendsOfFriendGroup(friendGroup);
+			map.put("friendGroupName", friendGroup.getName());
+			map.put("friends", friends);
+		}
+		JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
+		result = json.toString();//给result赋值，传递给页面
+		System.out.println(result);
+		return SUCCESS;
+	}
 	
 	
 	public String search() {
@@ -99,14 +125,21 @@ public class UserAction extends ActionSupport {
 	//获取枚举类型的status
 	private UserStatus getStatus(String statusStr) {
 		switch (statusStr) {
-		case "busy":	return UserStatus.BUSY;
-		case "donotDisturb":	return UserStatus.DONOTDISTURB;
-		case "invisible":	return UserStatus.INVISIBLE;
-		case "online":	return UserStatus.ONLINE;
+		case "BUSY":	return UserStatus.BUSY;
+		case "DONOTDISTURB":	return UserStatus.DONOTDISTURB;
+		case "INVISIBLE":	return UserStatus.INVISIBLE;
+		case "ONLINE":	return UserStatus.ONLINE;
 		default:	return UserStatus.ONLINE;
 		}
 	}
 	
+	
+	public String getUserStatus() {
+		int id = userService.getLoginUser().getId();
+		User user = OnlineUsers.getUser(id);
+		status = user.getStatus();
+		return "getUserStatus";
+	}
 	
 	//修改默认登录状态
 	public String changeStatus() {
@@ -127,17 +160,21 @@ public class UserAction extends ActionSupport {
 	public String changeStatusTemp() {
 		User user = userService.getLoginUser();
 		status = this.getStatus(statusStr);
-		user.setStatus(status);
+//		user.setStatus(status);
 		
-		OnlineUsers.updateUserStatus(userService.getLoginUser().getId(), status);
+		OnlineUsers.updateUserStatus(user.getId(), status);
 		result = "{\"result\":\"success\"}";
 		return SUCCESS;
 	}
 	
 	
 	public String changeName() {
-		
+		int id = userService.getLoginUser().getId();
 		User user = (User) userService.get(id);
+		if(name.equals(user.getName())) {
+			errorMsg = "name与原来的name一致，请重新修改";
+			return "changeNameError";
+		}
 		user.setName(name);
 		if(userService.update(user)) {
 			return "changeNameSuccess";
@@ -146,6 +183,8 @@ public class UserAction extends ActionSupport {
 			return "changeNameError";
 		}
 	}
+	
+	
 
 
 	public Integer getId() {
@@ -258,6 +297,26 @@ public class UserAction extends ActionSupport {
 
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+
+	public FriendService getFriendService() {
+		return friendService;
+	}
+	
+
+	public void setFriendService(FriendService friendService) {
+		this.friendService = friendService;
+	}
+
+
+	public FriendGroupService getFriendGroupService() {
+		return friendGroupService;
+	}
+
+
+	public void setFriendGroupService(FriendGroupService friendGroupService) {
+		this.friendGroupService = friendGroupService;
 	}
 
 

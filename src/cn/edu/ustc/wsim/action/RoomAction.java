@@ -23,8 +23,7 @@ public class RoomAction extends ActionSupport {
 
 	public String createRoom() {
 		room = RoomManager.createRoom();
-		room.addUser(name);
-//		id = room.getId();
+		id = room.getId();
 		return "createSuccess";
 	}
 

@@ -8,6 +8,7 @@ import cn.edu.ustc.wsim.bean.GroupRequest;
 import cn.edu.ustc.wsim.bean.GroupUser;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.enumerates.GroupRequestResult;
+import cn.edu.ustc.wsim.enumerates.GroupRole;
 import cn.edu.ustc.wsim.service.GroupRequestService;
 import cn.edu.ustc.wsim.service.GroupService;
 import cn.edu.ustc.wsim.service.GroupUserService;
@@ -103,6 +104,7 @@ public class GroupRequestAction extends ActionSupport {
 				GroupUser gu = new GroupUser();
 				gu.setGroup(groupRequest.getGroup());
 				gu.setUser(groupRequest.getUser());
+				gu.setRole(GroupRole.USER);
 				groupUserService.add(gu);
 				//给用户发送消息
 				break;

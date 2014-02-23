@@ -42,7 +42,7 @@ public class UserMessageInbound extends MessageInbound {
 	//客户端发送消息到服务器时触发事件
 	@Override
 	protected void onTextMessage(CharBuffer message) throws IOException {
-//		UserMessageInboundPool.sendMessage(sender, receiver, message.toString());
+		UserMessageInboundPool.sendMessage(user, message.toString());
 	}
 
 

@@ -1,10 +1,12 @@
 package cn.edu.ustc.wsim.action;
 
+import java.util.List;
+
 import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.GroupUser;
 import cn.edu.ustc.wsim.bean.User;
+import cn.edu.ustc.wsim.enumerates.GroupRole;
 import cn.edu.ustc.wsim.service.GroupUserService;
-import cn.edu.ustc.wsim.service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -19,58 +21,66 @@ public class GroupUserAction extends ActionSupport {
 	private Integer userId;
 	private String remark;
 
+	private List groupUsers;
+
 	private GroupUserService groupUserService;
-	
+
 	private String errorMsg;
-	
-	
-	
+
 	public String addGroupUser() {
-		//设默认备注名为用户额name
-		if(remark == null || "".equals(remark))
+		// 设默认备注名为用户额name
+		if (remark == null || "".equals(remark))
 			remark = groupUserService.getLoginUser().getName();
-		
+
 		GroupUser groupUser = new GroupUser();
 		groupUser.setGroup(new Group(groupId));
 		groupUser.setRemark(remark);
 		groupUser.setUser(new User(userId));
-		
-		if(groupUserService.add(groupUser))
+		groupUser.setRole(GroupRole.USER);
+
+		if (groupUserService.add(groupUser))
 			return "addSuccess";
 		else {
 			errorMsg = "add GroupUser error";
 			return "addError";
 		}
-				
+
 	}
-	
+
+	public String listGroupOfUser() {
+		User user = groupUserService.getLoginUser();
+		this.setGroupUsers(groupUserService.getGroupUsersByUser(user));
+		return "listGroupOfUser";
+	}
+
 	public String delGroupUser() {
 		int intId = id;
-		if(groupUserService.del(intId))
+		if (groupUserService.del(intId))
 			return "delSuccess";
 		else {
 			errorMsg = "del error";
 			return "delError";
 		}
 	}
-	
+
 	public String quitGroup() {
-		User user = groupUserService.getLoginUser();
-		Group group = new Group(groupId);
-		if(groupUserService.quitGroup(user, group))
+//		User user = groupUserService.getLoginUser();
+//		Group group = new Group(groupId);
+		int groupUserId = id;
+		if (groupUserService.del(groupUserId))
 			return "quitGroupSuccess";
 		else
 			return "quitGroupError";
 	}
-	
-	//修改群名片
+
+	// 修改群名片
 	public String changeRemark() {
 		User user = groupUserService.getLoginUser();
 		Group group = new Group(groupId);
 		GroupUser groupUser = (GroupUser) groupUserService.get(user, group);
-		
+
 		groupUser.setRemark(remark);
-		if(groupUserService.update(groupUser)) {
+		if (groupUserService.update(groupUser)) {
 			return "changeNameSuccess";
 		} else {
 			errorMsg = "change name Error";
@@ -125,5 +135,14 @@ public class GroupUserAction extends ActionSupport {
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
 	}
+
+	public List getGroupUsers() {
+		return groupUsers;
+	}
+
+	public void setGroupUsers(List groupUsers) {
+		this.groupUsers = groupUsers;
+	}
+
 
 }

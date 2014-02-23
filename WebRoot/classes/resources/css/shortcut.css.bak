@@ -1,0 +1,140 @@
+.accordion-shortcut {
+	background-image: url(/Leetop/classes/resources/images/im32x32.gif);
+	background-repeat: no-repeat;
+}
+
+.cpu-shortcut {
+	background-image: url(/Leetop/classes/resources/images/statusLarge.png);
+	background-repeat: no-repeat;
+}
+
+.grid-shortcut {
+	background-image: url(/Leetop/classes/resources/images/grid32x32.gif);
+	background-repeat: no-repeat;
+}
+
+.notepad-shortcut {
+	background-image: url(/Leetop/classes/resources/images/notepadLarge.png);
+	background-repeat: no-repeat;
+}
+
+.qq-shortcut {
+	background-image: url(/Leetop/classes/resources/images/qq.png);
+	background-repeat: no-repeat;
+}
+
+.app-shortcut {
+	background-image:
+		url(/Leetop/classes/resources/images/appbar_manage.png);
+	background-repeat: no-repeat;
+}
+
+.t-shortcut {
+	background-image: url(/Leetop/classes/resources/images/t.png);
+	background-repeat: no-repeat;
+}
+
+.mail-shortcut {
+	background-image: url(/Leetop/classes/resources/images/mail.png);
+	background-repeat: no-repeat;
+}
+
+.plugin-shortcut {
+	background-image: url(/Leetop/classes/resources/images/plugin.png);
+	background-repeat: no-repeat;
+}
+
+.qzone-shortcut {
+	background-image: url(/Leetop/classes/resources/images/qzone.png);
+	background-repeat: no-repeat;
+}
+
+.tt-shortcut {
+	background-image: url(/Leetop/classes/resources/images/tt.png);
+	background-repeat: no-repeat;
+}
+
+.douban-shortcut {
+	background-image: url(/Leetop/classes/resources/images/douban.png);
+	background-repeat: no-repeat;
+}
+
+.qmusic-shortcut {
+	background-image: url(/Leetop/classes/resources/images/qmusic.png);
+	background-repeat: no-repeat;
+}
+
+.qmusic-small-shortcut {
+	background-image: url(/Leetop/classes/resources/images/qmusic-small.png);
+	background-repeat: no-repeat;
+}
+
+.pengyou-shortcut {
+	background-image: url(/Leetop/classes/resources/images/pengyou.png);
+	background-repeat: no-repeat;
+}
+
+.friend-shortcut {
+	background-image: url(/Leetop/classes/resources/images/friend.png);
+	background-repeat: no-repeat;
+}
+
+.shipin-shortcut {
+	background-image: url(/Leetop/classes/resources/images/shipin.png);
+	background-repeat: no-repeat;
+}
+
+.dic-shortcut {
+	background-image: url(/Leetop/classes/resources/images/dic.png);
+	background-repeat: no-repeat;
+}
+
+.map-shortcut {
+	background-image: url(/Leetop/classes/resources/images/map.png);
+	background-repeat: no-repeat;
+}
+
+.map-small-shortcut {
+	background-image: url(/Leetop/classes/resources/images/map-small.png);
+	background-repeat: no-repeat;
+}
+
+.bianqian-shortcut {
+	background-image: url(/Leetop/classes/resources/images/bianqian.png);
+	background-repeat: no-repeat;
+}
+
+.nethard-shortcut {
+	background-image: url(/Leetop/classes/resources/images/nethard.png);
+	background-repeat: no-repeat;
+}
+
+.douban-shortcut {
+	background-image: url(/Leetop/classes/resources/images/douban.png);
+	background-repeat: no-repeat;
+}
+
+.douban-shortcut-small {
+	background-image: url(/Leetop/classes/resources/images/douban-small.png);
+	background-repeat: no-repeat;
+}
+
+.tt-shortcut-small {
+	background-image: url(/Leetop/classes/resources/images/tt-small.png);
+	background-repeat: no-repeat;
+}
+
+.clock-shortcut {
+	background-image: url(/Leetop/classes/resources/images/clock.png);
+	background-repeat: no-repeat;
+}
+
+.wether-shortcut {
+	background-image: url(/Leetop/classes/resources/images/wether.png);
+	background-repeat: no-repeat;
+}
+
+.folder-shortcut {
+	background-image:url(/Leetop/classes/resources/images/folder-shortcut.png);
+	background-repeat: no-repeat;
+}

@@ -1,0 +1,621 @@
+/*!
+* Ext JS Library 4.0
+* Copyright(c) 2006-2011 Sencha Inc.
+* licensing@sencha.com
+* http://www.sencha.com/license
+*/
+/* line 1, ../sass/scrollbars.scss */
+.iScroll ::-webkit-scrollbar {
+	width: 7px;
+	height: 9px;
+}
+
+/* line 6, ../sass/scrollbars.scss */
+.iScroll ::-webkit-scrollbar-button:start:decrement,.iScroll ::-webkit-scrollbar-button:end:increment
+	{
+	display: block;
+	height: 0;
+	background-color: transparent;
+}
+
+/* line 11, ../sass/scrollbars.scss */
+.iScroll ::-webkit-scrollbar-track-piece {
+	-webkit-border-radius: 0;
+	-webkit-border-bottom-right-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+}
+
+/* line 16, ../sass/scrollbars.scss */
+.iScroll ::-webkit-scrollbar-thumb:vertical {
+	height: 50px;
+	background-color: rgba(0, 0, 0, 0.15);
+	-webkit-border-radius: 4px;
+}
+
+/* line 21, ../sass/scrollbars.scss */
+.iScroll ::-webkit-scrollbar-thumb:horizontal {
+	width: 50px;
+	background-color: rgba(0, 0, 0, 0.15);
+	-webkit-border-radius: 4px;
+}
+
+#poweredby {
+	position: absolute;
+	bottom: 40px;
+	right: 20px;
+	z-index: 15000;
+	/* IE 5-7 */
+	filter: alpha(opacity = 70);
+	/* Netscape */
+	-moz-opacity: 0.7;
+	/* Safari 1.x */
+	-khtml-opacity: 0.7;
+	/* Good browsers */
+	opacity: 0.7;
+}
+
+#poweredby div {
+	position: relative;
+	width: 150px;
+	height: 25px;
+	background-image:
+		url(../images/powered-by-ext-js.png);
+	background-repeat: no-repeat;
+}
+
+/* The simple background image PNG does not work in IE6-8, but does in IE9 */
+.x-ie6 #poweredby div,.x-ie7 #poweredby div,.x-ie8 #poweredby div {
+	background-image: none;
+	filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'resources/images/powered-by-ext-js.png', sizingMethod = 'scale' );
+}
+
+.search-item {
+	padding: 5px 10px;
+	white-space: normal;
+	color: #555;
+}
+
+.search-item h3 {
+	display: block;
+	font: inherit;
+	font-weight: bold;
+	color: #222;
+}
+
+.search-item h3 span {
+	float: right;
+	font-weight: normal;
+	margin: 0 0 5px 5px;
+	width: 115px;
+	clear: none;
+}
+
+/*----------------------------------------------------
+    Start Button
+*/
+.ux-start-button-icon {
+	/*background-image: url(../images/taskbar/sencha.gif) !important;*/
+	background-image:
+		url(../images/taskbar/favicon.gif) !important;
+	background-color: transparent;
+}
+
+.ux-start-button .x-btn-arrow {
+	background-image: none;
+}
+
+.ux-start-button .x-btn-arrow-right {
+	padding-left: 10px;
+}
+
+.ux-taskbar {
+	padding-left: 4px !important;
+	z-index: 8999;
+}
+
+/*
+    Start Button (Black)
+*/
+.ux-desktop-black .ux-start-button {
+	height: 28px;
+	padding: 0px;
+	display: block;
+}
+
+.ux-desktop-black .ux-start-button em {
+	margin-top: 5px;
+}
+
+.ux-desktop-black .ux-start-button .x-btn-inner {
+	color: black;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.ux-desktop-black .ux-start-button {
+	background-image: -moz-linear-gradient(center top, #E4F3FF, #D9EDFF 48%, #C2D8F2 52%,
+		#C6DCF6);
+	border-radius: 8px 8px 8px 8px;
+	border-color: #81A4D0;
+}
+
+/*----------------------------------------------------
+    Start Menu
+*/
+.ux-start-menu-toolbar .x-btn-inner {
+	text-align: left;
+}
+
+.ux-start-menu-toolbar {
+	padding: 4px !important;
+}
+
+/*----------------------------------------------------
+    TaskBar
+*/
+.ux-taskbar .x-toolbar {
+	background: transparent none;
+	border-color: transparent;
+}
+
+.ux-toolbar-splitter {
+	cursor: move;
+}
+
+.x-ie6 .ux-taskbar .x-toolbar {
+	border-color: #d3e1f1;
+}
+
+.ux-desktop-windowbar .x-btn-inner,.x-nbr .ux-desktop-windowbar .x-btn-icon-text-left button
+	{
+	text-align: left !important;
+}
+
+.ux-taskbar .x-toolbar {
+	height: 30px;
+}
+
+.ux-taskbar {
+	height: 30px;
+	padding: 0;
+}
+
+.x-toolbar .x-toolbar {
+	padding: 0;
+}
+
+/*
+    TaskBar (Black)
+*/
+.ux-desktop-black .ux-taskbar {
+	background: transparent
+		url('../images/taskbar/black/taskbar-start-panel-bg.gif')
+		repeat-x left top;
+	border-color: transparent;
+	/*height: 30px;*/
+}
+
+.ux-desktop-black .ux-taskbar .x-splitter {
+	background: transparent
+		url(../images/taskbar/black/taskbar-split-h.gif)
+		no-repeat scroll 0 -2px;
+}
+
+.ux-desktop-black .ux-taskbar .x-toolbar-text {
+	color: white !important;
+}
+
+.ux-desktop-black .ux-taskbar .x-btn-default-toolbar-small-over {
+	background-color: yellow;
+}
+
+.ux-desktop-black .ux-taskbar .x-btn-inner {
+	color: white;
+}
+
+.ux-desktop-black .ux-taskbar .x-btn-pressed .x-btn-inner,.ux-taskbar .x-btn-over .x-btn-inner
+	{
+	color: black;
+}
+
+/*----------------------------------------------------
+    Tray Clock
+*/
+.ux-desktop-trayclock {
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+/*----------------------------------------------------
+    classes DataView
+*/
+.ux-wallpaper {
+	background-color: #3d71b8;
+}
+
+.ux-wallpaper-tiled {
+	background-repeat: repeat;
+}
+
+.ux-desktop-shortcut-column {
+	float: left;
+}
+
+.ux-desktop-shortcut {
+	cursor: pointer;
+	text-align: center;
+	margin: 10px;
+	width: 60px;
+	height: 60px;
+	overflow: hidden;
+}
+
+.ux-desktop-shortcut-over {
+	cursor: pointer;
+	text-align: center;
+	margin: 10px;
+	width: 60px;
+	height: 60px;
+	overflow: hidden;
+	background-image:
+		url("../images/appbutton_mouseover_bg.png");
+}
+
+.ux-desktop-shortcut-selected {
+	background: #efefef
+		url("../images/appbutton_mouseover_bg.png");
+	cursor: pointer;
+	text-align: center;
+	margin: 10px;
+	width: 60px;
+	height: 60px;
+	overflow: hidden;
+}
+
+.ux-desktop-shortcut-icon {
+	height: 32px;
+	margin: 5px auto 1px;
+	overflow: hidden;
+	position: relative;
+	width: 32px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+.ux-desktop-shortcut-text {
+	font: normal 11px tahoma, arial, verdana, sans-serif;
+	background: url("../images/portal_all_png.png")
+		no-repeat scroll -40px -560px transparent;
+	color: white;
+	cursor: pointer;
+	height: 20px;
+	overflow: hidden;
+	padding: 2px 5px;
+	text-align: center;
+}
+
+.ux-desktop-shortcut-text-inner {
+	overflow: hidden;
+	height: 20px;
+	text-overflow: ellipsis;
+	white-space: nowrap !important;
+	font-size: 10px;
+}
+
+.x-view-over .ux-desktop-shortcut-text {
+	text-decoration: underline;
+}
+
+.ux-backgroud-item-over {
+	border: 1px solid #dddddd;
+	background: #efefef url(../images/item_over.gif)
+		repeat-x left top;
+	padding: 4px;
+}
+
+.ux-backgroud-item-selected {
+	background: #eff5fb
+		url(../images/item_selected.gif) repeat-y right
+		bottom;
+	border: 1px solid #99bbe8;
+	padding: 4px;
+}
+
+.ux-backgroud-item-selected .ux-backgroud-item {
+	background: transparent;
+}
+
+.ux-backgroud-item {
+	background: #dddddd;
+	padding: 3px;
+	padding-bottom: 3px;
+}
+
+.ux-backgroud-item img {
+	height: 85px;
+	width: 134px;
+}
+
+.ux-backgroud-item-wrap {
+	border: 1px solid #dddde8;
+	float: left;
+	margin: 4px;
+	margin-right: 0;
+	padding: 5px;
+}
+
+.ux-backgroud-item-wrap span {
+	display: block;
+	overflow: hidden;
+	text-align: center;
+	white-space: nowrap !important;
+	text-overflow: ellipsis;
+}
+
+.ux-theme-item-over {
+	border: 1px solid #dddddd;
+	background: #efefef url(../images/item_over.gif)
+		repeat-x left top;
+	padding: 4px;
+}
+
+.ux-theme-item-selected {
+	background: #eff5fb
+		url(../images/item_selected.gif) repeat-y right
+		bottom;
+	border: 1px solid #99bbe8;
+	padding: 4px;
+}
+
+.ux-theme-item-selected .ux-backgroud-item {
+	background: transparent;
+}
+
+.ux-theme-item {
+	background: #dddddd;
+	padding: 3px;
+	padding-bottom: 3px;
+}
+
+.ux-theme-item img {
+	height: 110px;
+	width: 186px;
+}
+
+.ux-theme-item-wrap {
+	border: 1px solid #dddde8;
+	float: left;
+	margin: 4px;
+	margin-right: 0;
+	padding: 5px;
+}
+
+.ux-theme-item-wrap span {
+	display: block;
+	overflow: hidden;
+	text-align: center;
+	white-space: nowrap !important;
+	text-overflow: ellipsis;
+}
+
+/*----------------------------------------------------
+    Various icon classes
+*/
+.x-ie6 .accordion-shortcut {
+	background-image: none;
+	filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'resources/images/im32x32.gif', sizingMethod = 'scale' );
+}
+
+.x-ie6 .cpu-shortcut {
+	background-image: none;
+	filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'resources/images/statusLarge.png', sizingMethod = 'scale' );
+}
+
+.x-ie6 .grid-shortcut {
+	background-image: none;
+	filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'resources/images/grid48x48.png', sizingMethod = 'scale' );
+}
+
+.x-ie6 .notepad-shortcut {
+	background-image: none;
+	filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		'resources/images/notepadLarge.png', sizingMethod = 'scale' );
+}
+
+.video {
+	background-image: url(../images/gears.gif);
+}
+
+.bogus {
+	background-image: url( ../images/bogus.png )
+		!important;
+}
+
+.notepad {
+	background-image: url( ../images/bogus.png )
+		!important;
+}
+
+.logout {
+	background-image: url( ../images/logout.gif )
+		!important;
+}
+
+.settings {
+	background-image: url( ../images/gears.gif )
+		!important;
+}
+
+.icon-grid {
+	background-image: url( ../images/grid.png )
+		!important;
+}
+
+.icon-grid-large {
+	background-image: url( ../images/grid48x48.png )
+		!important;
+}
+
+.icon-user-face {
+	background-image:
+		url( ../images/taskbar/face.png ) !important;
+}
+
+.add {
+	background-image: url(../images/add.gif)
+		!important;
+}
+
+.option {
+	background-image: url(../images/plugin.gif)
+		!important;
+}
+
+.remove {
+	background-image: url(../images/delete.gif)
+		!important;
+}
+
+.save {
+	background-image: url(../icons/save.gif)
+		!important;
+}
+
+.accordion {
+	background-image: url(../images/accordian.gif)
+		!important;
+}
+
+.tabs {
+	background-image: url(../images/tabs.gif)
+		!important;
+}
+
+/*----------------------------------------------------
+    IM window icons
+*/
+.user {
+	background-image: url( ../images/user.gif )
+		!important;
+}
+
+.user-add {
+	background-image: url(../images/user_add.gif)
+		!important;
+}
+
+.user-delete {
+	background-image: url(../images/user_delete.gif)
+		!important;
+}
+
+.connect {
+	background-image: url(../images/connect.gif)
+		!important;
+}
+
+.user-girl {
+	background-image: url(../images/user_female.gif)
+		!important;
+}
+
+.user-kid {
+	background-image: url(../images/user_green.gif)
+		!important;
+}
+
+.user-suit {
+	background-image: url(../images/user_suit.gif)
+		!important;
+}
+
+.x-form-list-trigger {
+	background-image:
+		url(/Leetop/lib/ext4/resources/themes/images/default/form/list-trigger.gif);
+}
+
+.x-form-goto-trigger {
+	background-image:
+		url(/Leetop/lib/ext4/resources/themes/images/default/form/goto-trigger.gif);
+}
+
+.x-form-refresh-trigger {
+	background-image:
+		url(/Leetop/lib/ext4/resources/themes/images/default/form/refresh-trigger.gif);
+}
+
+.x-form-clear-trigger {
+	background-image:
+		url(/Leetop/lib/ext4/resources/themes/images/default/form/clear-trigger.gif);
+}
+
+.x-form-search-trigger {
+	background-image:
+		url(/Leetop/lib/ext4/resources/themes/images/default/form/search-trigger.gif);
+}
+
+.x-browser-white {
+	background: url(../images/browser/add.png)
+		no-repeat 1px 2px;
+}
+
+.x-browser-add-icon {
+	background-image: url(../images/browser/add.png)
+		!important;
+}
+
+.x-browser-back-icon {
+	background-image: url(../images/browser/back.png);
+}
+
+.x-browser-next-icon {
+	background-image: url(../images/browser/next.png);
+}
+
+.x-browser-home-icon {
+	background-image: url(../images/browser/home.png);
+}
+
+.x-browser-gear-icon {
+	background-image: url(../images/browser/gear.png);
+}
+
+.x-browser-page-icon {
+	background-image: url(../images/browser/page.png);
+}
+
+.x-browser-plugin-icon {
+	background-image:
+		url(../images/browser/plugin.png);
+}
+
+.x-browser-favorites-icon {
+	background-image:
+		url(../images/browser/favorites.png);
+}
+
+.x-browser-load-icon {
+	background-image: url(../images/browser/load.gif);
+}
+
+.ux-console-body {
+	border: none;
+	color: #fff;
+	background-color: #000;
+	font-size: 13px;
+	padding-left: 6px;
+	padding-top: 6px;
+}
+
+.x-message-box .ext-mb-download {
+	background: url("../images/download.gif")
+		no-repeat scroll 6px 0px transparent;
+	font-size: 12px;
+	height: 52px !important;
+}

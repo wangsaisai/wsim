@@ -76,10 +76,10 @@ public class GroupServiceImpl extends BaseServiceImpl implements GroupService {
 			return false;
 	}
 
-	@Override
-	public boolean isCreater(User user, Group group) {
-			return false;
-	}
+//	@Override
+//	public boolean isCreater(User user, Group group) {
+//			return false;
+//	}
 
 	private boolean isGroupNumberType(String str) {
 		String regGroupNumber ="[0-9]{1,8}";
