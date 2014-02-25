@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.catalina.websocket.StreamInbound;
 
-import cn.edu.ustc.wsim.bean.User;
-
 
 @WebServlet(urlPatterns = { "/user.ws"})
 //如果要接收浏览器的ws://协议的请求就必须实现WebSocketServlet这个类
@@ -19,7 +17,13 @@ public class UserMessageServlet extends org.apache.catalina.websocket.WebSocketS
     @Override
     protected StreamInbound createWebSocketInbound(String subProtocol,HttpServletRequest request) {
     	String userId = request.getParameter("userId");
-    	User user = new User(Integer.parseInt(userId));
-        return new UserMessageInbound(user);
+    	Integer uid;
+		try {
+			uid = Integer.parseInt(userId);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return null;
+		}
+        return new UserMessageInbound(uid);
     }
 }

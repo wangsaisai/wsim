@@ -478,7 +478,10 @@
 	
 	
 	
+	<!-- <bean id="_uum" class="cn.edu.ustc.wsim.websocket.user.UndealUserMessages" init-method="init">
+		<property name="friendRequestService" ref="friendRequestServiceProxy"></property>
+	</bean> -->
 	
-	
+	<bean id="spring" class="cn.edu.ustc.wsim.util.SpringUtil" />  
 
 </beans>

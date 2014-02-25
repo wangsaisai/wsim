@@ -1,85 +1,43 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>下拉框select demo</title>
-</head>
-<style type="text/css">
-* {
-    padding:0;
-    margin:0
-}
-body {
-    font-size:12px
-}
-.select_box {
-    background: url("images/select_bg.gif") no-repeat scroll left top transparent;
-    color: #444444;
-    cursor: pointer;
-    float: left;
-    position: relative;
-    width: 98px;
-}
-.select_txt {
-    cursor: pointer;
-    display: inline-block;
-    height: 24px;
-    line-height: 24px;
-    overflow: hidden;
-    padding-left: 10px;
-    width: 88px;
-}
-.option {
-    border: 1px solid #EDE7D6;
-    display: none;
-    left: -1px;
-    overflow: hidden;
-    position: absolute;
-    top: 24px;
-    width: 98px;
-    z-index: 2;
-}
-.option a {
-    background: none repeat scroll 0 0 #FFFFFF;
-    display: block;
-    height: 26px;
-    line-height: 26px;
-    padding: 0 10px;
-    text-align: left;
-    width: 100%;
-}
-</style>
-<body>
-<div class="select_box"><span class="select_txt">所在地区</span>
-  <div class="option"><a>生产加工</a><a>经销批发</a><a>招商代理</a><a>商业服务</a><a>其他</a></div>
-</div>
-</body>
-<script type="text/javascript" src="common/js/jquery-2.1.0.min.js"></script>
 
-<script type="text/javascript">
-//select下拉框
-$(document).ready(function(){
-$(".select_box").click(function(event){   
-event.stopPropagation();
-$(this).find(".option").toggle();
-$(this).parent().siblings().find(".option").hide();
-});
-$(document).click(function(event){
-var eo=$(event.target);
-if($(".select_box").is(":visible") && eo.attr("class")!="option" && !eo.parent(".option").length)
-$('.option').hide();       
-});
-/*赋值给文本框*/
-$(".option a").click(function(){
-var value=$(this).text();
-$(this).parent().siblings(".select_txt").text(value);
-$("#select_value").val(value)
- })
-})
-</script>
+<html>
+<head>
+	<base href="<%=basePath%>">
+	<title>WebSocket 聊天室</title>
+	<!-- 引入CSS文件 -->
+	<link rel="stylesheet" type="text/css" href="lib/ext4/resources/css/ext-all.css">
+	<link rel="stylesheet" type="text/css" href="lib/ext4/shared/example.css" />
+	<link rel="stylesheet" type="text/css" href="common/css/websocket.css" />
+	
+	<!-- 映入Ext的JS开发包，及自己实现的webscoket. -->
+	<script type="text/javascript" src="lib/ext4/ext-all-debug.js"></script>
+	<script type="text/javascript" src="common/js/startws.js"></script>
+	<script type="text/javascript">
+		var userId = "${user.id }";
+	</script>
+</head>
+
+<body>
+	<h1>WebSocket聊天室</h1>
+	<p>通过HTML5标准提供的API与Ext富客户端框架相结合起来，实现聊天室，有以下特点：</p>
+	<ul class="feature-list" style="padding-left: 10px;">
+		<li>实时获取数据，由服务器推送，实现即时通讯</li>
+		<li>利用WebSocket完成数据通讯，区别于轮询，长连接等技术，节省服务器资源</li>
+		<li>结合Ext进行页面展示</li>
+		<li>用户上线下线通知</li>
+	</ul>
+	
+	<br>
+	
+	<input type="button" onclick="createWindow()" value="create"/>
+  	
+  	<br><br>
+	
+	<div id="websocket_button"></div>
+</body>
 </html>

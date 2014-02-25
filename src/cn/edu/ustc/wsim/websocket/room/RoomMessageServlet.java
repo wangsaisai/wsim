@@ -16,10 +16,16 @@ public class RoomMessageServlet extends org.apache.catalina.websocket.WebSocketS
 	//跟平常Servlet不同的是，需要实现createWebSocketInbound，在这里初始化自定义的WebSocket连接对象
     @Override
     protected StreamInbound createWebSocketInbound(String subProtocol,HttpServletRequest request) {
-    	String sender = request.getParameter("sender");
+    	String user = request.getParameter("user");
     	String roomStr = request.getParameter("roomId");
-    	Integer roomId = Integer.parseInt(roomStr);
-    	Room room = RoomManager.getRoom(roomId);
-        return new RoomMessageInbound(sender, room);
+    	Integer roomId;
+		try {
+			roomId = Integer.parseInt(roomStr);
+//			Room room = RoomManager.getRoom(roomId);
+	        return new RoomMessageInbound(user, roomId);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return null;
+		}
     }
 }

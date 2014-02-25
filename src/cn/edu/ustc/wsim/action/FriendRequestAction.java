@@ -23,6 +23,7 @@ public class FriendRequestAction extends ActionSupport {
 	private Integer requesterId;
 	private Integer responderId;
 	private FriendRequestResult result;
+	private String remark;
 	
 	private String resultStr;
 	
@@ -53,11 +54,14 @@ public class FriendRequestAction extends ActionSupport {
 		friendRequest.setRequester(requester);
 		friendRequest.setResponder(responder);
 		friendRequest.setResult(FriendRequestResult.UNDEAL);
+		friendRequest.setRemark(remark);
 		
 		if(friendRequestService.add(friendRequest)) {
 			//如果该用户在线，则通知该用户
+			//将id信息添加到newFriendRequest对象中
+			FriendRequest newFriendRequest = friendRequestService.get(requester, responder);
 			if(OnlineUsers.isLogin(responderId)) {
-				UserMessageInboundPool.sendFriendRequestMessage(responder, requester);
+				UserMessageInboundPool.sendFriendRequestMessage(newFriendRequest);
 			}
 			return "addSuccess";
 		}
@@ -206,6 +210,16 @@ public class FriendRequestAction extends ActionSupport {
 
 	public void setResultStr(String resultStr) {
 		this.resultStr = resultStr;
+	}
+
+
+	public String getRemark() {
+		return remark;
+	}
+
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }

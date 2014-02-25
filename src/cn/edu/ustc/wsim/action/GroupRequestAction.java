@@ -2,6 +2,7 @@ package cn.edu.ustc.wsim.action;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.GroupRequest;
@@ -12,6 +13,7 @@ import cn.edu.ustc.wsim.enumerates.GroupRole;
 import cn.edu.ustc.wsim.service.GroupRequestService;
 import cn.edu.ustc.wsim.service.GroupService;
 import cn.edu.ustc.wsim.service.GroupUserService;
+import cn.edu.ustc.wsim.websocket.user.UserMessageInboundPool;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -32,7 +34,7 @@ public class GroupRequestAction extends ActionSupport {
 	private Integer groupNumber;
 	
 	private List<GroupRequest> groupRequests;
-	private HashMap<Group, List<GroupRequest>> allGroupRequests;
+	private Map<Group, List<GroupRequest>> allGroupRequests;
 
 	
 	private GroupRequestService groupRequestService;
@@ -61,8 +63,15 @@ public class GroupRequestAction extends ActionSupport {
 		groupRequest.setResult(GroupRequestResult.UNDEAL);
 		groupRequest.setRemark(remark);
 		
-		if(groupRequestService.add(groupRequest))
+		if(groupRequestService.add(groupRequest)) {
+			//查找该群中在线的管理员或者群主，并向他发送通知
+			//将id信息封装到newGroupRequest中
+			GroupRequest newGroupRequest = groupRequestService.get(loginUser, group);
+			User user = groupRequestService.getOnlineCreaterOrManager(group);
+			if(user != null)
+				UserMessageInboundPool.sendGroupRequestMessage(user, newGroupRequest);
 			return "addSuccess";
+		}
 		else {
 			errorMsg = "add GroupRequest error";
 			return "addError";
@@ -213,12 +222,12 @@ public class GroupRequestAction extends ActionSupport {
 	}
 
 
-	public HashMap<Group, List<GroupRequest>> getAllGroupRequests() {
+	public Map<Group, List<GroupRequest>> getAllGroupRequests() {
 		return allGroupRequests;
 	}
 
 
-	public void setAllGroupRequests(HashMap<Group, List<GroupRequest>> allGroupRequests) {
+	public void setAllGroupRequests(Map<Group, List<GroupRequest>> allGroupRequests) {
 		this.allGroupRequests = allGroupRequests;
 	}
 

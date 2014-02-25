@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.GroupRequest;
+import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.dao.GroupRequestDao;
 import cn.edu.ustc.wsim.enumerates.GroupRequestResult;
 
@@ -33,6 +34,13 @@ public class GroupRequestDaoImpl extends BaseDaoImpl implements GroupRequestDao 
 		
 		return super.getHibernateTemplate().find(hsql, GroupRequestResult.UNDEAL);
 		//find(hsql,enum);
+	}
+
+	@Override
+	public GroupRequest get(User user, Group group) {
+		String hsql = "from GroupRequest where userId = " + user.getId() + " and groupId = " + group.getId();
+		List<GroupRequest> grs = super.getHibernateTemplate().find(hsql);
+		return grs.get(grs.size() - 1);
 	}
 
 

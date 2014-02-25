@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.edu.ustc.wsim.bean.Message;
 import cn.edu.ustc.wsim.bean.User;
@@ -49,11 +50,11 @@ public class MessageServiceImpl extends BaseServiceImpl implements MessageServic
 	}
 
 	@Override
-	public HashMap<User, List<Message>> getUnreadMessagesOfUser(User user) {
+	public Map<User, List<Message>> getUnreadMessagesOfUser(User user) {
 		List<Message> messages = messageDao.getUnreadMessagesOfUser(user);
-		HashMap<User, List<Message>> map = new HashMap<User, List<Message>>();
+		Map<User, List<Message>> map = new HashMap<User, List<Message>>();
 		
-		//将List对象messages， 分局message中的sender进行分组，
+		//将List对象messages， 根据message中的sender进行分组，
 		for (Message message : messages) {
 			if(map.containsKey(message)) {
 				map.get(message).add(message);

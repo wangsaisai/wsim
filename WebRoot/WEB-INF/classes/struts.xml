@@ -33,7 +33,7 @@
 		</action>
 	
 		<action name="login" class="cn.edu.ustc.wsim.action.LoginAction">
-			<result name="success">module/user/loginSuccess.jsp</result>
+			<result name="success">test.jsp</result>
 			<result name="error">error.jsp</result>
 			<result name="input">module/user/login.jsp</result>
 		</action>

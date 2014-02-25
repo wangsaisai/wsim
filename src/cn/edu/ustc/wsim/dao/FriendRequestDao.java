@@ -9,5 +9,7 @@ import cn.edu.ustc.wsim.bean.User;
 public interface FriendRequestDao extends BaseDao {
 	
 	public List<FriendRequest> getUndealFriendRequests(User user);
+
+	public FriendRequest get(User requester, User responder);
 	
 }

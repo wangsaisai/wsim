@@ -31,5 +31,7 @@ public interface GroupUserService extends BaseService {
 	
 	//判断当前登录用户是否是群主
 	public boolean isCreater(User user, Group group);
+	
+	public List<User> getCreaterAndManagerOfGroup(Group group);
 
 }

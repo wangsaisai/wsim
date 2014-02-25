@@ -112,4 +112,14 @@ public class GroupUserServiceImpl extends BaseServiceImpl implements GroupUserSe
 			return true;
 	}
 
+	@Override
+	public List<User> getCreaterAndManagerOfGroup(Group group) {
+		List<GroupUser> gus = groupUserDao.getGroupUsersByGroup(group);
+		List<User> users = new ArrayList<User>();
+		for (GroupUser gu : gus) {
+			users.add(gu.getUser());
+		}
+		return users;
+	}
+
 }

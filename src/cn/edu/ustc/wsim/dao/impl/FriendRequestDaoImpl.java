@@ -34,5 +34,12 @@ public class FriendRequestDaoImpl extends BaseDaoImpl implements FriendRequestDa
 		return super.getHibernateTemplate().find(hsql, FriendRequestResult.UNDEAL);
 	}
 
+	@Override
+	public FriendRequest get(User requester, User responder) {
+		String hsql = "from FriendRequest where requester = " + requester.getId() + " and responder = " + responder.getId();
+		List<FriendRequest> frs = super.getHibernateTemplate().find(hsql);
+		return frs.get(frs.size() - 1);
+	}
+
 
 }

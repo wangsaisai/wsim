@@ -39,4 +39,9 @@ public class FriendRequestServiceImpl extends BaseServiceImpl implements FriendR
 		return friendRequestDao.getUndealFriendRequests(user);
 	}
 
+	@Override
+	public FriendRequest get(User requester, User responder) {
+		return friendRequestDao.get(requester, responder);
+	}
+
 }
