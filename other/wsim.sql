@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-02-16 14:19:47
+Date: 2014-02-26 10:48:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,13 +24,14 @@ CREATE TABLE `admin` (
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('1', '1@1.com', '1');
 INSERT INTO `admin` VALUES ('2', '2@2.com', '2');
+INSERT INTO `admin` VALUES ('3', '5@5.com', '5');
 
 -- ----------------------------
 -- Table structure for friend
@@ -46,16 +47,18 @@ CREATE TABLE `friend` (
   KEY `friend_fd` (`friendGroupId`),
   CONSTRAINT `friend_fd` FOREIGN KEY (`friendGroupId`) REFERENCES `friendgroup` (`id`) ON DELETE CASCADE,
   CONSTRAINT `friend_user` FOREIGN KEY (`friendId`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of friend
 -- ----------------------------
-INSERT INTO `friend` VALUES ('1', '1', '2', 'bbb');
+INSERT INTO `friend` VALUES ('1', '1', '2', 'bbbb');
 INSERT INTO `friend` VALUES ('2', '2', '1', 'aaa');
-INSERT INTO `friend` VALUES ('4', '1', '3', 'ccc');
 INSERT INTO `friend` VALUES ('5', '4', '1', null);
 INSERT INTO `friend` VALUES ('6', '5', '1', null);
+INSERT INTO `friend` VALUES ('7', '8', '4', 'ddd');
+INSERT INTO `friend` VALUES ('8', '1', '6', null);
+INSERT INTO `friend` VALUES ('9', '7', '1', 'aaa');
 
 -- ----------------------------
 -- Table structure for friendgroup
@@ -68,7 +71,7 @@ CREATE TABLE `friendgroup` (
   PRIMARY KEY (`id`),
   KEY `friendGroup_user` (`userId`),
   CONSTRAINT `friendGroup_user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of friendgroup
@@ -78,7 +81,10 @@ INSERT INTO `friendgroup` VALUES ('2', 'My Friends', '2');
 INSERT INTO `friendgroup` VALUES ('3', '大学同学', '1');
 INSERT INTO `friendgroup` VALUES ('4', 'My Friends', '3');
 INSERT INTO `friendgroup` VALUES ('5', 'My Friends', '4');
-INSERT INTO `friendgroup` VALUES ('6', 'test', '1');
+INSERT INTO `friendgroup` VALUES ('6', 'test1', '1');
+INSERT INTO `friendgroup` VALUES ('7', 'My Friends', '6');
+INSERT INTO `friendgroup` VALUES ('8', '同学', '1');
+INSERT INTO `friendgroup` VALUES ('9', 'My Friends', '5');
 
 -- ----------------------------
 -- Table structure for friendrequest
@@ -95,13 +101,18 @@ CREATE TABLE `friendrequest` (
   KEY `fr_res` (`responder`),
   CONSTRAINT `fr_req` FOREIGN KEY (`requester`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fr_res` FOREIGN KEY (`responder`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of friendrequest
 -- ----------------------------
 INSERT INTO `friendrequest` VALUES ('1', '1', '3', '3', null);
 INSERT INTO `friendrequest` VALUES ('2', '4', '1', '3', null);
+INSERT INTO `friendrequest` VALUES ('4', '5', '1', '0', null);
+INSERT INTO `friendrequest` VALUES ('5', '1', '6', '3', null);
+INSERT INTO `friendrequest` VALUES ('6', '6', '2', '0', null);
+INSERT INTO `friendrequest` VALUES ('8', '2', '5', '0', '我是2');
+INSERT INTO `friendrequest` VALUES ('12', '1', '5', '0', 'aaaaa');
 
 -- ----------------------------
 -- Table structure for group
@@ -112,7 +123,7 @@ CREATE TABLE `group` (
   `name` varchar(10) NOT NULL,
   `number` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of group
@@ -120,6 +131,9 @@ CREATE TABLE `group` (
 INSERT INTO `group` VALUES ('1', 'qun1', '5429313');
 INSERT INTO `group` VALUES ('2', 'qun2', '70263068');
 INSERT INTO `group` VALUES ('3', 'qun3', '2353093');
+INSERT INTO `group` VALUES ('4', '1班群', '84783109');
+INSERT INTO `group` VALUES ('5', '2班群', '24851645');
+INSERT INTO `group` VALUES ('6', '3班群', '25119792');
 
 -- ----------------------------
 -- Table structure for groupmessage
@@ -159,12 +173,13 @@ CREATE TABLE `grouprequest` (
   KEY `gr_group` (`groupId`),
   CONSTRAINT `gr_group` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE,
   CONSTRAINT `gr_user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of grouprequest
 -- ----------------------------
 INSERT INTO `grouprequest` VALUES ('3', '1', '3', '0', null);
+INSERT INTO `grouprequest` VALUES ('4', '3', '4', '1', null);
 
 -- ----------------------------
 -- Table structure for group_user
@@ -181,13 +196,17 @@ CREATE TABLE `group_user` (
   KEY `gu_group` (`groupId`),
   CONSTRAINT `gu_group` FOREIGN KEY (`groupId`) REFERENCES `group` (`id`) ON DELETE CASCADE,
   CONSTRAINT `gu_user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of group_user
 -- ----------------------------
-INSERT INTO `group_user` VALUES ('2', '1', '2', 'b', '0');
-INSERT INTO `group_user` VALUES ('3', '3', '1', 'a', '0');
+INSERT INTO `group_user` VALUES ('2', '2', '2', 'b', '0');
+INSERT INTO `group_user` VALUES ('3', '3', '3', 'c', '0');
+INSERT INTO `group_user` VALUES ('4', '4', '4', 'd', '0');
+INSERT INTO `group_user` VALUES ('5', '5', '5', 'e', '0');
+INSERT INTO `group_user` VALUES ('7', '6', '3', 'c', '0');
+INSERT INTO `group_user` VALUES ('9', '4', '3', null, '2');
 
 -- ----------------------------
 -- Table structure for message
@@ -221,10 +240,10 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `name` varchar(10) DEFAULT NULL,
+  `name` varchar(5) DEFAULT NULL,
   `status` int(1) unsigned zerofill DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
@@ -233,3 +252,5 @@ INSERT INTO `user` VALUES ('1', 'a@a.com', 'a', 'a', '1');
 INSERT INTO `user` VALUES ('2', 'b@b.com', 'b', 'b', '0');
 INSERT INTO `user` VALUES ('3', 'c@c.com', 'c', 'c', '1');
 INSERT INTO `user` VALUES ('4', 'd@d.com', 'd', 'd', '0');
+INSERT INTO `user` VALUES ('5', 'e@e.com', 'e', 'e', '0');
+INSERT INTO `user` VALUES ('6', 'f@f.com', 'f', 'f', '0');
