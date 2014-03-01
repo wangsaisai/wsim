@@ -27,6 +27,7 @@ public class DisplayFriends extends ActionSupport {
 	@Override
 	public String execute() {
 		User loginUser = friendService.getLoginUser();
+		userId = loginUser.getId();
 		friendGroups = friendGroupService.getAllFriendGroupOfUser(loginUser);
 		for (FriendGroup friendGroup : friendGroups) {
 			Set friends = new HashSet<Friend>();

@@ -49,6 +49,7 @@ public class GroupUserAction extends ActionSupport {
 
 	public String listGroupOfUser() {
 		User user = groupUserService.getLoginUser();
+		userId = user.getId();
 		this.setGroupUsers(groupUserService.getGroupUsersByUser(user));
 		return "listGroupOfUser";
 	}

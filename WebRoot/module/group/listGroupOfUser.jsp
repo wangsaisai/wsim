@@ -20,20 +20,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	
-	  <link rel="stylesheet" href="common/css/styles.css" type="text/css"></link>
-	  
-	  <script type="text/javascript" src="common/js/validation.js"></script>
   
   </head>
   
   <body>
+  
     <table>
     	<tr>
     		<th>name</th>
     		<th>number</th>
     		<th>群名片</th>
-    		<th>修改群名片</th>
     		<th>修改群信息</th>
+    		<th>修改群名片</th>
     		<th>退出群|删除群</th>
     	</tr>
    	<s:iterator value="groupUsers">
@@ -54,5 +52,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		</tr>
    	</s:iterator>
     </table>
+    
   </body>
 </html>

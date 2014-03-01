@@ -2,7 +2,6 @@ package cn.edu.ustc.wsim.websocket.user;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +12,8 @@ import cn.edu.ustc.wsim.bean.FriendRequest;
 import cn.edu.ustc.wsim.bean.GroupRequest;
 import cn.edu.ustc.wsim.bean.Message;
 import cn.edu.ustc.wsim.bean.User;
+import cn.edu.ustc.wsim.datastructure.CGroup;
 import cn.edu.ustc.wsim.datastructure.ChattingGroups;
-import cn.edu.ustc.wsim.datastructure.OnlineUsers;
 
 
 public class UserMessageInboundPool {
@@ -25,16 +24,16 @@ public class UserMessageInboundPool {
 	
 	//向连接池中添加连接
 	public static void addMessageInbound(UserMessageInbound inbound){
-		connections.put(inbound.getUserId(), inbound);
+		Integer key = inbound.getUserId();
+		if(connections.containsKey(key))
+			connections.remove(key);
+		connections.put(key, inbound);
 	}
 	
 	
 	////从连接池中删除连接
 	public static void removeMessageInbound(UserMessageInbound inbound){
 		connections.remove(inbound.getUserId());
-		
-		//用户下线，从OnlineUsers中删除该用户
-		OnlineUsers.removeUser(inbound.getUserId());
 	}
 	
 	
@@ -80,18 +79,18 @@ public class UserMessageInboundPool {
 	
 	
 	public static void sendUnreadMessages(User receiver, Map<User, List<Message>> messageMap) {
-		
-		for(Map.Entry mapEntry : messageMap.entrySet()) {
-			User sender = (User) mapEntry.getKey();
-			List<Message> messages = (List<Message>) mapEntry.getValue();
-			
-			Map<String, Object> map = new  HashMap<String,Object>();
-			map.put("type", "OfflineMessages");
-			map.put("messages", messages);		//concern QQQQQQQQQQQQQ
-			JSONObject json = JSONObject.fromObject(map);
-			
-			sendMessage(receiver.getId(), json.toString());
-		}
+		//////////////////////Error
+//		for(Map.Entry mapEntry : messageMap.entrySet()) {
+//			User sender = (User) mapEntry.getKey();
+//			List<Message> messages = (List<Message>) mapEntry.getValue();
+//			
+//			Map<String, Object> map = new  HashMap<String,Object>();
+//			map.put("type", "OfflineMessages");
+//			map.put("messages", messages);		//concern QQQQQQQQQQQQQ
+//			JSONObject json = JSONObject.fromObject(map);
+//			
+//			sendMessage(receiver.getId(), json.toString());
+//		}
 	}
 	
 	
@@ -104,7 +103,11 @@ public class UserMessageInboundPool {
 	//群通信
 	public static void sendGroupMessage(Integer groupId, String message) {
 		//获取当前在线群用户
-		Set<User> users = ChattingGroups.getCGroup(groupId).getUsers();
+		CGroup cgroup = ChattingGroups.getCGroup(groupId);
+		if(cgroup == null)
+			return;
+		
+		Set<User> users = cgroup.getUsers();
 		for (User user : users) {
 			sendMessage(user.getId(), message);
 		}
