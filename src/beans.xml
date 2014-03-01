@@ -478,6 +478,12 @@
 	
 	
 	
+	<bean id="_displayFriendsAndGroups" class="cn.edu.ustc.wsim.action.DisplayFriendsAndGroupsAction">
+		<property name="friendService" ref="friendServiceProxy"></property>
+		<property name="friendGroupService" ref="friendGroupServiceProxy"></property>
+		<property name="groupUserService" ref="groupUserService"></property>
+	</bean>
+	
 	<!-- <bean id="_uum" class="cn.edu.ustc.wsim.websocket.user.UndealUserMessages" init-method="init">
 		<property name="friendRequestService" ref="friendRequestServiceProxy"></property>
 	</bean> -->

@@ -20,9 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	
-	  <link rel="stylesheet" href="../common/css/styles.css" type="text/css"></link>
+	  <link rel="stylesheet" href="common/css/styles.css" type="text/css"></link>
 	  
-	  <script type="text/javascript" src="../common/js/validation.js"></script>
+	  <script type="text/javascript" src="common/js/validation.js"></script>
   
   </head>
   

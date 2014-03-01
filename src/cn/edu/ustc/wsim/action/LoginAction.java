@@ -51,9 +51,12 @@ public class LoginAction extends ActionSupport {
 			Map<String, Object> session = ActionContext.getContext().getSession();
 			session.put("user", user);
 			
-			//保存登录用户
+			/*
+			 * 用户登录后，将user存入相应数据结构OnlineUsers，  ChattingGroups
+			 */
+			//保存登录用户至数据结构OnlineUsers中，	记录当前用户在线信息
 			OnlineUsers.addUser(user);
-			
+			//将用户加入ChattingGroups数据结构中
 			List<Group> groups = groupUserService.getGroupsByUser(user);
 			for (Group group : groups) {
 				ChattingGroups.addUser(group.getId(), user);

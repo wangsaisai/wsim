@@ -20,13 +20,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	
-	  <link rel="stylesheet" href="../common/css/styles.css" type="text/css"></link>
-	  
-	  <script type="text/javascript" src="../common/js/validation.js"></script>
-  
   </head>
   
   <body>
+  
+  <input type="hidden" id="userId" name="userId" value="${userId }"/>
+  
     <table border="1">
     	<tr>
     		<th>friendGroupId</th>
@@ -44,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<tr>
    						<th>friendId</th>
    						<th>friendGroupId</th>
-   						<th>friendUserId</th>
+   						<th>friendUserName</th>
    						<th>remark</th>
    						<th>修改备注名</th>
    						<th>修改所在分组</th>
@@ -66,5 +65,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		</tr>
    	</s:iterator>
     </table>
+    
   </body>
 </html>
