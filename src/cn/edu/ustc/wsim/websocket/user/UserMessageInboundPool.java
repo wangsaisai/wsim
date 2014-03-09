@@ -112,6 +112,17 @@ public class UserMessageInboundPool {
 			sendMessage(user.getId(), message);
 		}
 	}
+
+
+	public static void sendVideoRequestMessage(Integer requester, Integer responder) {
+		//封装信息
+		Map<String, Object> map = new  HashMap<String,Object>();
+		map.put("type", "videoRequest");
+		map.put("requester", requester);
+		JSONObject json = JSONObject.fromObject(map);
+		//发送信息
+		sendMessage(responder, json.toString());
+	}
 	
 	
 	
