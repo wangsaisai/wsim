@@ -49,6 +49,22 @@ groupMessage												//
 
 
 
+[
+	{"type" : "friendMessage"},
+	{"sender" : "发送者的id"},
+	{"receiver" : "接收者的id"},
+	{"content" : "发送的消息内容"},
+	{"time" : new Date().getTime()}
+]
 
+
+
+[
+	{"type" : "groupMessage"},
+	{"sender" : "群id"},
+	{"group" : "接收者的id"},
+	{"content" : "发送的消息内容"},
+	{"time" : new Date().getTime()}
+]
 
 
