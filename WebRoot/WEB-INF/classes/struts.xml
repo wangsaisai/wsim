@@ -15,6 +15,27 @@
 	
 	<package name="wsim" extends="struts-default" namespace="/">
 	
+		<!--配置拦截器-->
+		<interceptors>
+			<interceptor name="userInterceptor" class="cn.edu.ustc.wsim.interceptor.UserInterceptor"></interceptor>
+			<interceptor name="adminInterceptor" class="cn.edu.ustc.wsim.interceptor.AdminInterceptor"></interceptor>
+		</interceptors>
+		
+		<!--配置默认action，找不到action时自动跳转至action：index-->
+		<default-action-ref  name="index"></default-action-ref>
+		
+		<!--配置全局，找不到action时默认跳转-->
+		<global-results>
+			<result name="login">module/user/login.jsp</result>
+			<result name="success">success.jsp</result>
+			<result name="error">error.jsp</result>
+		</global-results>
+		
+		
+		<action name="index">
+			<result>index.jsp</result>
+		</action>
+	
 		<action name="admin_*" class="cn.edu.ustc.wsim.action.AdminAction" method="{1}">
 			<result name="addAdminInputError">module/admin/addAdmin.jsp</result>
 			<result name="adminLoginInputError">module/admin/adminLogin.jsp</result>
@@ -30,6 +51,9 @@
 			<result name="changePasswordError">error.jsp</result>
 			<result name="changePasswordSuccess">success.jsp</result>
 			<result name="list">module/admin/listAdmins.jsp</result>
+			
+			<interceptor-ref name="adminInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 	
 		<action name="login" class="cn.edu.ustc.wsim.action.LoginAction">
@@ -43,6 +67,16 @@
 			<result name="error">error.jsp</result>
 		</action>
 		
+		<!-- 不需拦截器的用户操作 -->
+		<action name="user2_*" class="cn.edu.ustc.wsim.action.UserAction" method="{1}">
+			<result name="findPasswordError">error.jsp</result>
+			<result name="findPasswordSuccess">module/user/findPasswordSuccess.jsp</result>
+			<result name="resetPasswordError">error.jsp</result>
+			<result name="resetPasswordSuccess">module/user/resetPasswordSuccess.jsp</result>
+			<result name="checkBeforeResetPasswordError">error.jsp</result>
+		</action>
+		
+		<!-- 只有登录用户才能进行的操作，配置了拦截器 -->
 		<action name="user_*" class="cn.edu.ustc.wsim.action.UserAction" method="{1}">
 			<result name="cannotSearch">module/user/cannotSearch.jsp</result>
 			<result name="searchSuccess">module/user/searchUserResult.jsp</result>
@@ -57,6 +91,11 @@
 			<result name="changePasswordError">module/user/changePassword.jsp</result>
 			<result name="changePasswordSuccess">success.jsp</result>
 			<result name="getUserStatus">module/user/changeDefaultLoginStatus.jsp</result>
+			<result name="inviteUserError">error.jsp</result>
+			<result name="inviteUserSuccess">success.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="friend_*" class="cn.edu.ustc.wsim.action.FriendAction" method="{1}">
@@ -67,6 +106,8 @@
 			<result name="delSuccess">success.jsp</result>
 			<result name="delError">error.jsp</result>
 			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="friendRequest_*" class="cn.edu.ustc.wsim.action.FriendRequestAction" method="{1}">
@@ -75,6 +116,9 @@
 			<result name="listUndealFriendRequest">module/friend/listUndealFriendRequest.jsp</result>
 			<result name="dealFriendRequestSuccess">success.jsp</result>
 			<result name="dealFriendRequestError">error.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="friendGroup_*" class="cn.edu.ustc.wsim.action.FriendGroupAction" method="{1}">
@@ -82,15 +126,24 @@
 			<result name="addSuccess">success.jsp</result>
 			<result name="changeNameError">error.jsp</result>
 			<result name="changeNameSuccess">success.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="message_*" class="cn.edu.ustc.wsim.action.MessageAction" method="{1}">
 			<result name="showResult">module/message/messageRecords.jsp</result>
 			<result name="noResult">module/message/noResult.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="displayFriends" class="cn.edu.ustc.wsim.action.DisplayFriends">
 			<result name="success">module/friend/displayFriends.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="group_*" class="cn.edu.ustc.wsim.action.GroupAction" method="{1}">
@@ -103,6 +156,9 @@
 			<result name="listGroupOfUser">module/group/listGroupOfUser.jsp</result>
 			<result name="cannotSearch">module/group/cannotSearch.jsp</result>
 			<result name="searchSuccess">module/group/searchGroupResult.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="groupUser_*" class="cn.edu.ustc.wsim.action.GroupUserAction" method="{1}">
@@ -111,6 +167,9 @@
 			<result name="changeNameSuccess">success.jsp</result>
 			<result name="changeNameError">error.jsp</result>
 			<result name="listGroupOfUser">module/group/listGroupOfUser.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="groupRequest_*" class="cn.edu.ustc.wsim.action.GroupRequestAction" method="{1}">
@@ -119,15 +178,24 @@
 			<result name="listAllUndealGroupRequest">module/group/listUndealGroupRequest.jsp</result>
 			<result name="dealGroupRequestSuccess">success.jsp</result>
 			<result name="dealGroupRequestError">error.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="groupMessage_*" class="cn.edu.ustc.wsim.action.GroupMessageAction" method="{1}">
 			<result name="showResult">module/groupMessage/groupMessageRecords.jsp</result>
 			<result name="noResult">module/groupMessage/noResult.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 	
 		<action name="displayOnlineUsers" class="cn.edu.ustc.wsim.action.DisplayOnlineUsers">
 			<result name="success">displayOnlineUsers.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="room_*" class="cn.edu.ustc.wsim.action.RoomAction" method="{1}">
@@ -136,10 +204,16 @@
 			<result name="joinRoomError">module/room/joinRoom.jsp?roomId=${id}</result>
 			<result name="joinRoomSuccess">module/room/chatRoom.jsp</result>
 			<result name="quitRoomSuccess">success.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="displayFriendsAndGroups" class="cn.edu.ustc.wsim.action.DisplayFriendsAndGroupsAction">
 			<result name="success">displayFriendsAndGroups.jsp</result>
+			
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 	
 	</package>

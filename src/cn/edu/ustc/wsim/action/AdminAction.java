@@ -5,6 +5,7 @@ import java.util.Map;
 
 import cn.edu.ustc.wsim.bean.Admin;
 import cn.edu.ustc.wsim.service.AdminService;
+import cn.edu.ustc.wsim.util.MD6;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -129,7 +130,9 @@ public class AdminAction extends ActionSupport {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		MD6 md6 = new MD6();
+		//密码密文加密,将用户的密码加上后缀'dhruj'后在用md5加密算法加密
+		this.password = md6.getMD5ofStr(password + "dhruj");
 	}
 
 	public AdminService getAdminService() {

@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import net.sf.json.JSONObject;
-
 import cn.edu.ustc.wsim.bean.Friend;
 import cn.edu.ustc.wsim.bean.FriendGroup;
 import cn.edu.ustc.wsim.bean.User;
@@ -16,6 +14,9 @@ import cn.edu.ustc.wsim.enumerates.UserStatus;
 import cn.edu.ustc.wsim.service.FriendGroupService;
 import cn.edu.ustc.wsim.service.FriendService;
 import cn.edu.ustc.wsim.service.UserService;
+import cn.edu.ustc.wsim.util.CheckSQLInject;
+import cn.edu.ustc.wsim.util.MD6;
+import cn.edu.ustc.wsim.util.email.SendEmailUtil;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -34,6 +35,10 @@ public class UserAction extends ActionSupport {
 	private String name;
 	private UserStatus status;
 	
+	//找回密码时，邮箱中的一段密文
+	private String secretPwd;
+	
+
 	private String statusStr;
 	
 	private String searchinfo;
@@ -66,7 +71,7 @@ public class UserAction extends ActionSupport {
 	
 	
 	public String search() {
-		if(userService.searchUser(searchinfo) == null || userService.searchUser(searchinfo).size() == 0 )
+		if(CheckSQLInject.isSQLInject(searchinfo) || userService.searchUser(searchinfo) == null || userService.searchUser(searchinfo).size() == 0 )
 			return "cannotSearch";
 		else {
 			User loginUser = userService.getLoginUser();
@@ -185,6 +190,70 @@ public class UserAction extends ActionSupport {
 	}
 	
 	
+	public String findPassword() {
+		User user = userService.getUserByEmail(email);
+		if (user == null) {
+			errorMsg = "此email尚未注册称为magic用户，请重新输入";
+			return "findPasswordError";
+		}
+		try {
+			SendEmailUtil.sendResetPasswordEmail(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "findPasswordSuccess";
+	}
+	
+	
+//	//重置密码前的相关验证信息
+//	public String checkBeforeResetPassword() {
+//		User user = userService.getUserByEmail(email);
+//		if(!secretPwd.equals(user.getPassword())) {
+//			errorMsg = "重置密码失败，请重新申请重置密码邮件";
+//			return "checkBeforeResetPasswordError";
+//		} 
+//		
+//		return "checkBeforeResetPasswordSuccess";
+//	}
+	
+	
+	public String resetPassword() {
+		User user = userService.getUserByEmail(email);
+		if(secretPwd == null || !secretPwd.equals(user.getPassword())) {
+			errorMsg = "重置密码失败，请重新申请重置密码邮件";
+			return "checkBeforeResetPasswordError";
+		} 
+		
+		user.setPassword(password);
+		if(userService.update(user)) {
+			return "resetPasswordSuccess";
+		} else {
+			errorMsg = "重置密码失败，请稍后重试";
+			return "resetPasswordError";
+		}
+	}
+	
+	
+	// unuse
+	public String inviteUser() {
+		User user = userService.getUserByEmail(email);
+		if (user == null) {
+			errorMsg = "此email已注册";
+			return "inviteUserError";
+		}
+
+		try {
+			SendEmailUtil.sendInviteUserEmail(email, user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "inviteUserSuccess";
+	}
+
+	
+	
 
 
 	public Integer getId() {
@@ -208,7 +277,9 @@ public class UserAction extends ActionSupport {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		MD6 md6 = new MD6();
+		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
+		this.password = md6.getMD5ofStr(password + "zfjfy");
 	}
 
 	public String getName() {
@@ -272,7 +343,9 @@ public class UserAction extends ActionSupport {
 	}
 
 	public void setConfpassword(String confpassword) {
-		this.confpassword = confpassword;
+		MD6 md6 = new MD6();
+		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
+		this.confpassword = md6.getMD5ofStr(confpassword + "zfjfy");
 	}
 
 	public String getOldPassword() {
@@ -318,7 +391,15 @@ public class UserAction extends ActionSupport {
 	public void setFriendGroupService(FriendGroupService friendGroupService) {
 		this.friendGroupService = friendGroupService;
 	}
+	
+	public String getSecretPwd() {
+		return secretPwd;
+	}
 
+
+	public void setSecretPwd(String secretPwd) {
+		this.secretPwd = secretPwd;
+	}
 
 
 }

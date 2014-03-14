@@ -8,6 +8,7 @@ import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.service.FriendGroupService;
 import cn.edu.ustc.wsim.service.FriendService;
 import cn.edu.ustc.wsim.service.UserService;
+import cn.edu.ustc.wsim.util.CheckSQLInject;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -109,7 +110,7 @@ public class FriendAction extends ActionSupport {
 	
 	
 	public String search() {
-		if(friendService.searchFriend(searchinfo) == null || friendService.searchFriend(searchinfo).size() == 0) {
+		if(CheckSQLInject.isSQLInject(searchinfo) || friendService.searchFriend(searchinfo) == null || friendService.searchFriend(searchinfo).size() == 0) {
 			return "cannotSearch";
 		} else {
 			this.friends = friendService.searchFriend(searchinfo);

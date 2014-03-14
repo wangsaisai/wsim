@@ -177,10 +177,11 @@ Ext.define('Leetop.module.Login', {
 //                            	Ext.getCmp("login").destroy();
 //                               
 //                               new Leetop.module.Notepad;
+//                            	createWindow("Leetop.module.Notepad","记事本");
                             	
-                            	
-                            	Ext.getCmp("login").close();
-								new Leetop.module.Notepad.show;
+                            	Ext.getCmp("login_win").close();
+//								new Leetop.module.Notepad.show;
+//                            	Ext.getCmp("acc-win").createWindow();
 
                             }
                         });

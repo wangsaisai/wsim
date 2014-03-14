@@ -23,6 +23,8 @@ import cn.edu.ustc.wsim.service.FriendRequestService;
 import cn.edu.ustc.wsim.service.GroupMessageService;
 import cn.edu.ustc.wsim.service.GroupRequestService;
 import cn.edu.ustc.wsim.service.MessageService;
+import cn.edu.ustc.wsim.util.HtmlUtil;
+import cn.edu.ustc.wsim.util.SplitString;
 import cn.edu.ustc.wsim.util.SpringUtil;
 
 
@@ -45,33 +47,33 @@ public class UserMessageInbound extends MessageInbound {
 	protected void onOpen(WsOutbound outbound) {
 		//向连接池添加当前的连接对象
 		UserMessageInboundPool.addMessageInbound(this);
-		
-		User user = new User(userId);
-		
-		//websocket链接创建成功，将未处理的好友请求信息，离线消息，等信息发送给用户
-		
-		//将未处理的好友请求信息发送给该用户
-		FriendRequestService friendRequestService = (FriendRequestService) SpringUtil.getBean("friendRequestServiceProxy");
-		List<FriendRequest> friendRequests = friendRequestService.getUndealFriendRequests(user);
-		for (FriendRequest friendRequest : friendRequests) {
-			UserMessageInboundPool.sendFriendRequestMessage(friendRequest);
-		}
-		
-		//将未处理的群请求信息发送给该用户
-		GroupRequestService groupRequestService = (GroupRequestService) SpringUtil.getBean("groupRequestServiceProxy"); 
-		Map<Group, List<GroupRequest>> map = groupRequestService.getUndealGroupRequests(user);
-		for(Map.Entry mapEntry : map.entrySet()) {  
-		    Group group = (Group) mapEntry.getKey();  
-		    List<GroupRequest> groupRequests = (List<GroupRequest>) mapEntry.getValue();
-//		    if( !(groupRequests == null || groupRequests.size() == 0) )
-		    for (GroupRequest groupRequest : groupRequests) {
-				UserMessageInboundPool.sendGroupRequestMessage(user, groupRequest);
-			}
-		}
-			
-		//获取离线消息发送给该用户
-		MessageService messageService = (MessageService) SpringUtil.getBean("messageServiceProxy");
-		UserMessageInboundPool.sendUnreadMessages(user, messageService.getUnreadMessagesOfUser(user));
+//		
+//		User user = new User(userId);
+//		
+//		//websocket链接创建成功，将未处理的好友请求信息，离线消息，等信息发送给用户
+//		
+//		//将未处理的好友请求信息发送给该用户
+//		FriendRequestService friendRequestService = (FriendRequestService) SpringUtil.getBean("friendRequestServiceProxy");
+//		List<FriendRequest> friendRequests = friendRequestService.getUndealFriendRequests(user);
+//		for (FriendRequest friendRequest : friendRequests) {
+//			UserMessageInboundPool.sendFriendRequestMessage(friendRequest);
+//		}
+//		
+//		//将未处理的群请求信息发送给该用户
+//		GroupRequestService groupRequestService = (GroupRequestService) SpringUtil.getBean("groupRequestServiceProxy"); 
+//		Map<Group, List<GroupRequest>> map = groupRequestService.getUndealGroupRequests(user);
+//		for(Map.Entry mapEntry : map.entrySet()) {  
+//		    Group group = (Group) mapEntry.getKey();  
+//		    List<GroupRequest> groupRequests = (List<GroupRequest>) mapEntry.getValue();
+////		    if( !(groupRequests == null || groupRequests.size() == 0) )
+//		    for (GroupRequest groupRequest : groupRequests) {
+//				UserMessageInboundPool.sendGroupRequestMessage(user, groupRequest);
+//			}
+//		}
+//			
+//		//获取离线消息发送给该用户
+//		MessageService messageService = (MessageService) SpringUtil.getBean("messageServiceProxy");
+//		UserMessageInboundPool.sendUnreadMessages(user, messageService.getUnreadMessagesOfUser(user));
 		
 		
 	}
@@ -128,11 +130,19 @@ public class UserMessageInbound extends MessageInbound {
 		GroupMessage groupMessage = new GroupMessage();
 		groupMessage.setGroup(new Group(groupId));
 		groupMessage.setUser(new User(userId));
-		groupMessage.setContent((String) json.get("content"));
+//		groupMessage.setContent((String) json.get("content"));
 		groupMessage.setTime(new Date());
 		
 		GroupMessageService gms = (GroupMessageService) SpringUtil.getBean("groupMessageServiceProxy");
-		gms.add(groupMessage);
+		String content = (String) json.get("content");	//获取聊天内容
+		content = HtmlUtil.htmlRemoveTag(content);		//去除html标签
+		String [] contents = SplitString.split(content, 256);	//拆分。
+		for (String cont : contents) {
+			if(cont == null || "".equals(cont))
+				break;
+			groupMessage.setContent(cont);
+			gms.add(groupMessage);
+		}
 		
 		UserMessageInboundPool.sendGroupMessage(groupId, msg);
 	}
@@ -144,7 +154,7 @@ public class UserMessageInbound extends MessageInbound {
 		Message messageBean = new Message();
 		messageBean.setSender(new User(userId));
 		messageBean.setReceiver(new User(receiverId));
-		messageBean.setContent((String) json.get("content"));
+//		messageBean.setContent((String) json.get("content"));
 		messageBean.setTime(new Date());
 		
 		if(OnlineUsers.isLogin(receiverId)) {
@@ -156,8 +166,15 @@ public class UserMessageInbound extends MessageInbound {
 		
 		//存入数据库
 		MessageService messageService = (MessageService) SpringUtil.getBean("messageServiceProxy");
-		messageService.add(messageBean);
-		return;
+		String content = (String) json.get("content");	//获取聊天内容
+		content = HtmlUtil.htmlRemoveTag(content);		//去除html标签
+		String [] contents = SplitString.split(content, 256);	//拆分。
+		for (String cont : contents) {
+			if(cont == null || "".equals(cont))
+				break;
+			messageBean.setContent(cont);
+			messageService.add(messageBean);
+		}
 	}
 
 	

@@ -1,14 +1,17 @@
 package cn.edu.ustc.wsim.action;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
 import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.datastructure.ChattingGroups;
 import cn.edu.ustc.wsim.datastructure.OnlineUsers;
 import cn.edu.ustc.wsim.service.GroupUserService;
 import cn.edu.ustc.wsim.service.UserService;
+import cn.edu.ustc.wsim.util.MD6;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -62,11 +65,11 @@ public class LoginAction extends ActionSupport {
 				ChattingGroups.addUser(group.getId(), user);
 			}
 			
-//			Map<String,Object> map = new HashMap<String,Object>();
-//			map.put("success", true);
-//			map.put("msg","ok");
-//			JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
-//			result = json.toString();//给result赋值，传递给页面
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("success", true);
+			map.put("msg","ok");
+			JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
+			result = json.toString();//给result赋值，传递给页面
 			
 		}
 		
@@ -86,7 +89,9 @@ public class LoginAction extends ActionSupport {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		MD6 md6 = new MD6();
+		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
+		this.password = md6.getMD5ofStr(password + "zfjfy");
 	}
 
 	public UserService getUserService() {

@@ -4,6 +4,8 @@ import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.enumerates.UserStatus;
 import cn.edu.ustc.wsim.service.FriendGroupService;
 import cn.edu.ustc.wsim.service.UserService;
+import cn.edu.ustc.wsim.util.MD6;
+import cn.edu.ustc.wsim.util.email.SendEmailUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -37,8 +39,17 @@ public class RegisterAction extends ActionSupport {
 			user.setStatus(UserStatus.ONLINE);
 			
 			if(userService.add(user)) {
+				user = userService.getUserByEmail(email);
 				//注册成功后，添加默认分组
 				friendGroupService.addDefaultFriendGroup(user);
+				
+				//给用户发送欢迎邮件
+				try {
+					SendEmailUtil.sendWelcomeEmail(user);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				return SUCCESS;
 			}
 			else {
@@ -62,7 +73,9 @@ public class RegisterAction extends ActionSupport {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		MD6 md6 = new MD6();
+		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
+		this.password = md6.getMD5ofStr(password + "zfjfy");
 	}
 
 	public String getName() {
@@ -94,7 +107,9 @@ public class RegisterAction extends ActionSupport {
 	}
 
 	public void setConfpassword(String confpassword) {
-		this.confpassword = confpassword;
+		MD6 md6 = new MD6();
+		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
+		this.confpassword = md6.getMD5ofStr(confpassword + "zfjfy");
 	}
 
 	public FriendGroupService getFriendGroupService() {

@@ -10,6 +10,7 @@ import cn.edu.ustc.wsim.enumerates.GroupRole;
 import cn.edu.ustc.wsim.service.GroupService;
 import cn.edu.ustc.wsim.service.GroupUserService;
 import cn.edu.ustc.wsim.service.UserService;
+import cn.edu.ustc.wsim.util.CheckSQLInject;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -108,7 +109,7 @@ public class GroupAction extends ActionSupport {
 	
 	
 	public String search() {
-		if(groupService.searchGroup(searchinfo) == null || groupService.searchGroup(searchinfo).size() == 0)
+		if(CheckSQLInject.isSQLInject(searchinfo) || groupService.searchGroup(searchinfo) == null || groupService.searchGroup(searchinfo).size() == 0)
 			return "cannotSearch";
 		else {
 			this.groups = groupService.searchGroup(searchinfo);

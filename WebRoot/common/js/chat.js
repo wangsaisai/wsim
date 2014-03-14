@@ -76,7 +76,7 @@ Ext.onReady(function() {
 
 			//初始话WebSocket
 			if (window.WebSocket) {
-				websocket = new WebSocket(encodeURI("ws://127.0.0.1:8080/wsim/user.ws?userId=" + userId));
+				websocket = new WebSocket(encodeURI("wss://" + serverIP + ":8443/wsim/user.ws?userId=" + userId));
 				websocket.onopen = function() {
 					//连接成功
 					alert("open");
