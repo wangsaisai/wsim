@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 		var user = "${name }";
 		var roomId = "${room.id }";
+		var serverIP = "<%=serverIP %>";
 	</script>
 </head>
 

@@ -45,41 +45,49 @@ Ext.define('Leetop.module.AccordionWindow', {
                     }, 1000);
                 }
             }],
-            store: Ext.create('Ext.data.TreeStore', {
-                root: {
-                    text:'Online',
-                    expanded: true,
-                    children:[{
-                        text:'Friends',
-                        expanded:true,
-                        children:[
-                            { text:'Brian', iconCls:'user', leaf:true },
-                            { text:'Kevin', iconCls:'user', leaf:true },
-                            { text:'Mark', iconCls:'user', leaf:true },
-                            { text:'Matt', iconCls:'user', leaf:true },
-                            { text:'Michael', iconCls:'user', leaf:true },
-                            { text:'Mike Jr', iconCls:'user', leaf:true },
-                            { text:'Mike Sr', iconCls:'user', leaf:true },
-                            { text:'JR', iconCls:'user', leaf:true },
-                            { text:'Rich', iconCls:'user', leaf:true },
-                            { text:'Nige', iconCls:'user', leaf:true },
-                            { text:'Zac', iconCls:'user', leaf:true }
-                        ]
-                    },{
-                        text:'Family',
-                        expanded:true,
-                        children:[
-                            { text:'Kiana', iconCls:'user-girl', leaf:true },
-                            { text:'Aubrey', iconCls:'user-girl', leaf:true },
-                            { text:'Cale', iconCls:'user-kid', leaf:true }
-                        ]
-                    }]
-                }
-            })
+            
+            
+            store : createStore(),
+			
+			listeners:{'itemclick':tree_event}
+            
+//            store: Ext.create('Ext.data.TreeStore', {
+//                root: {
+//                    text:'Online',
+//                    expanded: true,
+//                    children:[{
+//                        text:'Friends',
+//                        expanded:true,
+//                        children:[
+//                            { text:'Brian', iconCls:'user', leaf:true },
+//                            { text:'Kevin', iconCls:'user', leaf:true },
+//                            { text:'Mark', iconCls:'user', leaf:true },
+//                            { text:'Matt', iconCls:'user', leaf:true },
+//                            { text:'Michael', iconCls:'user', leaf:true },
+//                            { text:'Mike Jr', iconCls:'user', leaf:true },
+//                            { text:'Mike Sr', iconCls:'user', leaf:true },
+//                            { text:'JR', iconCls:'user', leaf:true },
+//                            { text:'Rich', iconCls:'user', leaf:true },
+//                            { text:'Nige', iconCls:'user', leaf:true },
+//                            { text:'Zac', iconCls:'user', leaf:true }
+//                        ]
+//                    },{
+//                        text:'Family',
+//                        expanded:true,
+//                        children:[
+//                            { text:'Kiana', iconCls:'user-girl', leaf:true },
+//                            { text:'Aubrey', iconCls:'user-girl', leaf:true },
+//                            { text:'Cale', iconCls:'user-kid', leaf:true }
+//                        ]
+//                    }]
+//                }
+//            })
         });
 
         return tree;
     },
+    
+    
 
     createWindow : function(){
         var desktop = this.app.getDesktop();
@@ -140,3 +148,37 @@ Ext.define('Leetop.module.AccordionWindow', {
         return win;
     }
 });
+
+var model = Ext.define("TreeModel", { //定义树节点数据模型
+	extend : "Ext.data.Model",
+	fields : [ {name : "id",type : "string"},
+	           {name : "text",type : "string"}, 
+	           {name : "iconCls",type : "string"}, 
+	           {name : "leaf",type : "boolean"},
+	           {name : "children", type : "json"}
+	         ]
+});
+
+function createStore(){
+    return  Ext.create('Ext.data.TreeStore', {
+    	
+    	defaultRootId : "1", //默认的根节点id
+		   model : model,
+		   proxy : {
+			   type : "ajax", //获取方式
+//			   url : "/wsim/acc.servlet?action=node" //获取树节点的地址
+			   url : "/wsim/json/treeAction.action"
+		   },
+		   clearOnLoad : true
+//		   nodeParam : "id"//设置传递给后台的参数名,值是树节点的id属性
+    })
+}
+
+function tree_event(node,event)  
+{  
+    var id=event.data.id;  
+    Ext.Msg.show({  
+        title:'提示',  
+        msg:'你单击了'+id,  
+    });  
+};  

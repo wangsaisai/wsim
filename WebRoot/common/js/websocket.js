@@ -104,7 +104,7 @@ Ext.onReady(function() {
 			//初始话WebSocket
 			function initWebSocket() {
 				if (window.WebSocket) {
-					websocket = new WebSocket(encodeURI("ws://localhost:8080/wsim/room.ws?user=" + user + "&roomId=" + roomId));
+					websocket = new WebSocket(encodeURI("ws://" + serverIP + ":8443/wsim/room.ws?user=" + user + "&roomId=" + roomId));
 					websocket.onopen = function() {
 						//连接成功
 						win.setTitle(title + '&nbsp;&nbsp;(已连接)');

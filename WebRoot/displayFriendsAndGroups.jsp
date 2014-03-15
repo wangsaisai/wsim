@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    							<td>
    								<input type="button" onclick="createFriendChatWindow(${user.id })" value="文字通信"/>
    							</td>
-   							<td><a href="conn.servlet?type=req&self=${userId }&other=${user.id }">语音视频</a></td>
+   							<td><a href="conn.servlet?type=req&self=${userId }&other=${user.id }" target="_blank">语音视频</a></td>
    						</tr>
    					</s:iterator>
    				</table>

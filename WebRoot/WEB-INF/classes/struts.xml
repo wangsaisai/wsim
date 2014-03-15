@@ -204,9 +204,6 @@
 			<result name="joinRoomError">module/room/joinRoom.jsp?roomId=${id}</result>
 			<result name="joinRoomSuccess">module/room/chatRoom.jsp</result>
 			<result name="quitRoomSuccess">success.jsp</result>
-			
-			<interceptor-ref name="userInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
 		<action name="displayFriendsAndGroups" class="cn.edu.ustc.wsim.action.DisplayFriendsAndGroupsAction">
@@ -218,7 +215,7 @@
 	
 	</package>
 	
-	<package name="json" extends="json-default">
+	<package name="json" extends="json-default" namespace="/json">
 	<!-- 
 		我们只要输出person对象的name属性值
     	<param name="root">person.name</param>    
@@ -247,6 +244,12 @@
 			<result type="json" name="success">
 				<param name="root">result</param>
 			</result>
+		</action>
+		
+		<action name="treeAction" class="cn.edu.ustc.wsim.action.TreeAction">
+			<result type="json" name="success">
+				<param name="root">result</param>
+			</result>		
 		</action>
 	</package>
 	

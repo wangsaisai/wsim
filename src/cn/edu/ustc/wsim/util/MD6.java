@@ -5,14 +5,14 @@ import java.lang.reflect.Array;
 /** @Title: MD6.java
  * @Package com.md6
  * @Description: TODO(Class Descriptions)
- * @author �����  
- * @date 2012-7-20 ����05:47:27
+ * @author 吴振成  
+ * @date 2012-7-20 下午05:47:27
  * @version V1.0  
  **/
 public class MD6 {
-    /* ������ЩS11-S44ʵ������\uFFFD \uFFFD4*4�ľ�����ԭʼ��Cʵ������\uFFFD#define  �ֵģ�
-	   ���������ʵ�ֳ�Ϊstatic final�Ǳ�ʾ��ֻ����������ͬһ����̿ռ��ڵĶ�\uFFFD
-	   Instance ��\uFFFD*/
+    /* 下面这些S11-S44实际上是\uFFFD \uFFFD4*4的矩阵，在原始的C实现中是\uFFFD#define  现的，
+	   这里把它们实现成为static final是表示了只读，切能在同一个进程空间内的多\uFFFD
+	   Instance 共\uFFFD*/
 	    static final int S11 = 7;
 	    static final int S12 = 12;
 	    static final int S13 = 17;
@@ -37,26 +37,26 @@ public class MD6 {
 	            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-	    /*  ��������Ա��MD5���������õ���3��������ݣ���ԭʼ��Cʵ��\uFFFD
-	       ���嵽MD5_CTX�ṹ\uFFFD
+	    /*  面的三个成员是MD5计算过程中用到的3个核心数据，在原始的C实现\uFFFD
+	       定义到MD5_CTX结构\uFFFD
 
 	    */
 	    private long[] state = new long[4];  // state (ABCD)
 	    private long[] count = new long[2];  // number of bits, modulo 2^64 (lsb first)
 	    private byte[] buffer = new byte[64]; // input buffer
 
-	    /* digestHexStr MD5��Ψ\uFFFD \uFFFD��������Ա��������һ�μ������
-	    \uFFFD 16 ��ASCII��ʾ.
+	    /* digestHexStr MD5的唯\uFFFD \uFFFD个公共成员，是最新一次计算结果的
+	    \uFFFD 16 制ASCII表示.
 	    */
 	    public String digestHexStr;
 
-	    /* digest,������һ�μ������2�����ڲ���ʾ����\uFFFD128bit MD5\uFFFD.
+	    /* digest,是最新一次计算结果的2进制内部表示，表\uFFFD128bit MD5\uFFFD.
 	    */
 	    private byte[] digest = new byte[16];
 
 	    /*
-	      getMD5ofStr ��MD5\uFFFD Ҫ�Ĺ�����������ڲ���������Ҫ����MD5�任���ַ�
-	      ���ص��Ǳ任��Ľ���������Ǵӹ�����ԱdigestHexStrȡ�õģ�
+	      getMD5ofStr 类MD5\uFFFD 要的公共方法，入口参数是你想要进行MD5变换的字符串
+	      返回的是变换完的结果，这个结果是从公共成员digestHexStr取得的．
 	    */
 	    public String getMD5ofStr(String inbuf) {
 	        md5Init();
@@ -70,7 +70,7 @@ public class MD6 {
 
 	    }
 
-	    // ����MD5�����ı�׼��\uFFFD ��JavaBeanҪ����һ��public�Ĳ���û�в���Ĺ�\uFFFD \uFFFD
+	    // 这是MD5这个类的标准构\uFFFD 数，JavaBean要求有一个public的并且没有参数的构\uFFFD \uFFFD
 	    public MD6() {
 	        md5Init();
 
@@ -78,7 +78,7 @@ public class MD6 {
 	    }
 
 
-	    /* md5Init һ����ʼ�������ʼ�����ı�����װ���׼�Ļ��� */
+	    /* md5Init 一个初始化函数，初始化核心变量，装入标准的幻数 */
 	    private void md5Init() {
 	        count[0] = 0L;
 	        count[1] = 0L;
@@ -91,9 +91,9 @@ public class MD6 {
 
 	        return;
 	    }
-	    /* F, G, H ,I \uFFFD4 ���MD5������ԭʼ��MD5��Cʵ���У���������\uFFFD
-	     \uFFFD����λ���㣬���ܳ���Ч�ʵ�\uFFFD ������ʵ�ֳ��˺꣬��java�У����ǰ���\uFFFD
-	  \uFFFD\uFFFD �ֳ���private���������ֱ�����ԭ��C�е�\uFFFD */
+	    /* F, G, H ,I \uFFFD4 基本的MD5函数，在原始的MD5的C实现中，由于它们\uFFFD
+	     \uFFFD单的位运算，可能出于效率的\uFFFD 把它们实现成了宏，在java中，我们把它\uFFFD
+	  \uFFFD\uFFFD 现成了private方法，名字保持了原来C中的\uFFFD */
 
 	    private long F(long x, long y, long z) {
 	        return (x & y) | ((~x) & z);
@@ -114,7 +114,7 @@ public class MD6 {
 	    }
 
 	    /*
-	       FF,GG,HH II������F,G,H,I���н�һ����\uFFFD
+	       FF,GG,HH II将调用F,G,H,I进行近一步变\uFFFD
 	       FF, GG, HH, and II transformations for rounds 1, 2, 3, and 4.
 	       Rotation is separate from addition to prevent recomputation.
 	    */
@@ -152,8 +152,8 @@ public class MD6 {
 	    }
 
 	    /*
-	     md5Update MD5���������̣�inbuf��Ҫ�任���ֽڴ���inputlen�ǳ��ȣ����
-	     ������getMD5ofStr���ã�����֮ǰ��Ҫ����md5init����˰�����Ƴ�private\uFFFD
+	     md5Update MD5的主计算过程，inbuf是要变换的字节串，inputlen是长度，这个
+	     函数由getMD5ofStr调用，调用之前需要调用md5init，因此把它设计成private\uFFFD
 	    */
 	    private void md5Update(byte[] inbuf, int inputLen) {
 
@@ -189,7 +189,7 @@ public class MD6 {
 	    }
 
 	    /*
-	      md5Final �����д�����\uFFFD
+	      md5Final 理和填写输出结\uFFFD
 	    */
 	    private void md5Final() {
 	        byte[] bits = new byte[8];
@@ -211,8 +211,8 @@ public class MD6 {
 
 	    }
 
-	    /* md5Memcpy һ���ڲ�ʹ�õ�byte����Ŀ鿽�������input��inpos\uFFFD ��len����\uFFFD
-	\uFFFD\uFFFD \uFFFD\uFFFD \uFFFD �ֽڿ�����output��outposλ��\uFFFD \uFFFD
+	    /* md5Memcpy 一个内部使用的byte数组的块拷贝函数，从input的inpos\uFFFD 把len长度\uFFFD
+	\uFFFD\uFFFD \uFFFD\uFFFD \uFFFD 字节拷贝到output的outpos位置\uFFFD \uFFFD
 	    */
 
 	    private void md5Memcpy(byte[] output, byte[] input,
@@ -224,7 +224,7 @@ public class MD6 {
 	    }
 
 	    /*
-	       md5Transform��MD5���ı任������md5Update���ã�block�Ƿֿ��ԭʼ�ֽ�
+	       md5Transform是MD5核心变换程序，有md5Update调用，block是分块的原始字节
 	    */
 	    private void md5Transform(byte block[]) {
 	        long a = state[0], b = state[1], c = state[2], d = state[3];
@@ -311,8 +311,8 @@ public class MD6 {
 
 	    }
 
-	    /*Encode��long���鰴˳����byte���飬��Ϊjava��long����\uFFFD64bit ��
-	      ֻ��\uFFFD32bit ����ӦԭʼCʵ�ֵ���\uFFFD
+	    /*Encode把long数组按顺序拆成byte数组，因为java的long类型\uFFFD64bit ，
+	      只拆\uFFFD32bit 以适应原始C实现的用\uFFFD
 	    */
 	    private void Encode(byte[] output, long[] input, int len) {
 	        int i, j;
@@ -325,8 +325,8 @@ public class MD6 {
 	        }
 	    }
 
-	    /*Decode byte���鰴˳��ϳɳ�long���飬��Ϊjava��long����\uFFFD64bit ��
-	      ֻ�ϳɵ�32bit����32bit���㣬����ӦԭʼCʵ�ֵ���\uFFFD
+	    /*Decode byte数组按顺序合成成long数组，因为java的long类型\uFFFD64bit ，
+	      只合成低32bit，高32bit清零，以适应原始C实现的用\uFFFD
 	    */
 	    private void Decode(long[] output, byte[] input, int len) {
 	        int i, j;
@@ -342,14 +342,14 @@ public class MD6 {
 	    }
 
 	    /*
-	      b2iu ��д��\uFFFD ��byte���ղ�\uFFFD ��ŵ�ԭ��ģ���λ��������Ϊjavaû��unsigned����
+	      b2iu 我写的\uFFFD 把byte按照不\uFFFD 正负号的原则的＂升位＂程序，因为java没有unsigned运算
 	    */
 	    public static long b2iu(byte b) {
 	        return b < 0 ? b & 0x7F + 128 : b;
 	    }
 
-	    /*byteHEX()��������\uFFFD byte���͵���ת����ʮ����Ƶ�ASCII��ʾ\uFFFD
-	     \uFFFD��Ϊjava�е�byte��toString�޷�ʵ����һ�㣬������û��C�����е�
+	    /*byteHEX()，用来把\uFFFD byte类型的数转换成十六进制的ASCII表示\uFFFD
+	     \uFFFD因为java中的byte的toString无法实现这一点，我们又没有C语言中的
 	      sprintf(outbuf,"%02X",ib)
 	    */
 	    public static String byteHEX(byte ib) {
@@ -365,10 +365,10 @@ public class MD6 {
 	    public static void main(String args[]) {
 
 	        MD6 m = new MD6();
-	        if (Array.getLength(args) == 0) {   //���û�в���ִ�б�׼��Test Suite
+	        if (Array.getLength(args) == 0) {   //如果没有参数，执行标准的Test Suite
 
 	            System.out.println("MD5 Test suite:");
-	            System.out.println("MD5(\"\"):" + m.getMD5ofStr("") + "     " + m.getMD5ofStr("").length());
+	            System.out.println("MD5(\"\"):" + m.getMD5ofStr("123456dhruj") + "     " + m.getMD5ofStr("123456dhruj").length());
 	            System.out.println("MD5(\"a\"):" + m.getMD5ofStr("a") + m.getMD5ofStr("a").length());
 	            System.out.println("MD5(\"abc\"):" + m.getMD5ofStr("abc"));
 	            System.out.println("MD5(\"message digest\"):" + m.getMD5ofStr("message digest"));
