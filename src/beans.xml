@@ -484,6 +484,23 @@
 		<property name="groupUserService" ref="groupUserService"></property>
 	</bean>
 	
+	
+	<bean id="_tree" class="cn.edu.ustc.wsim.action.TreeAction">
+		<property name="friendService" ref="friendServiceProxy"></property>
+		<property name="friendGroupService" ref="friendGroupServiceProxy"></property>
+		<property name="groupUserService" ref="groupUserService"></property>
+	</bean>
+	
+	
+	<bean id="_manager" class="cn.edu.ustc.wsim.action.ManagerAction">
+		<property name="userService" ref="userServiceProxy"></property>
+		<property name="groupService" ref="groupServiceProxy"></property>
+		<property name="adminService" ref="adminServiceProxy"></property>
+		<property name="messageService" ref="messageServiceProxy"></property>
+		<property name="groupMessageService" ref="groupMessageServiceProxy"></property>
+	</bean>
+	
+	
 	<!-- <bean id="_uum" class="cn.edu.ustc.wsim.websocket.user.UndealUserMessages" init-method="init">
 		<property name="friendRequestService" ref="friendRequestServiceProxy"></property>
 	</bean> -->

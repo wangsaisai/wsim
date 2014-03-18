@@ -19,7 +19,7 @@ public class AdminInterceptor extends AbstractInterceptor {
 		//判断管理员是否
 		if(amdin == null) {
 			//返回用户登陆页面
-			return "adminLogin";
+			return "notFind";
 		} else {
 			//进行下一步操作，没有拦截
 			return invocation.invoke();

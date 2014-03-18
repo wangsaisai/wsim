@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="message_searchMessageByTime" name="searchMessage" id="searchMessage" method="post">
+    <form action="message_searchMessageByTime" name="searchMessage" id="searchMessage" method="post"  target="resultFrame">
     	<input type="text" name="otherId" id="otherId" placeholder="otherId" required="true"/>
     	<sd:datetimepicker name="beginTime" id="beginTime" displayFormat="yyyy-MM-dd" language="UTF-8"></sd:datetimepicker>
     	<sd:datetimepicker name="endTime" id="endTime" displayFormat="yyyy-MM-dd" language="UTF-8"></sd:datetimepicker>

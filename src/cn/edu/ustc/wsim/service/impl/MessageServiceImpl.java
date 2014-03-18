@@ -10,6 +10,9 @@ import cn.edu.ustc.wsim.bean.Message;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.dao.MessageDao;
 import cn.edu.ustc.wsim.service.MessageService;
+import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.PageUtil;
+import cn.edu.ustc.wsim.util.page.Result;
 
 public class MessageServiceImpl extends BaseServiceImpl implements MessageService {
 
@@ -44,9 +47,14 @@ public class MessageServiceImpl extends BaseServiceImpl implements MessageServic
 	}
 
 	@Override
-	public List<Message> getMessagesByTime(User user1, User user2,
-			Date beginTime, Date endTime) {
-		return messageDao.getMessagesByTime(user1, user2, beginTime, endTime);
+	public Result getMessagesByTime(User user1, User user2,
+			Date beginTime, Date endTime, Page page) {
+		page = PageUtil.createPage(page, messageDao.countMessagesByTime(user1, user2, beginTime, endTime).intValue());
+		List<Message> messages = messageDao.getMessagesByTime(user1, user2, beginTime, endTime, page);
+		Result result = new Result();
+		result.setPage(page);
+		result.setList(messages);
+		return result;
 	}
 
 	@Override

@@ -155,7 +155,7 @@ var model = Ext.define("TreeModel", { //定义树节点数据模型
 	           {name : "text",type : "string"}, 
 	           {name : "iconCls",type : "string"}, 
 	           {name : "leaf",type : "boolean"},
-	           {name : "children", type : "json"}
+	           {name : "children", type : "jsonarray"}
 	         ]
 });
 
@@ -164,13 +164,20 @@ function createStore(){
     	
     	defaultRootId : "1", //默认的根节点id
 		   model : model,
-		   proxy : {
-			   type : "ajax", //获取方式
+		   
+		   
+//		   proxy : {
+//			   type : "ajax", //获取方式
 //			   url : "/wsim/acc.servlet?action=node" //获取树节点的地址
-			   url : "/wsim/json/treeAction.action"
-		   },
-		   clearOnLoad : true
+//		   },
+//		   clearOnLoad : true,
 //		   nodeParam : "id"//设置传递给后台的参数名,值是树节点的id属性
+			   
+			   proxy : {
+				   type : "ajax", //获取方式
+				   url : "/wsim/treeAction.action"
+			   },
+			   clearOnLoad : true
     })
 }
 

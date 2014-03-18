@@ -30,7 +30,7 @@ Ext.define('Leetop.desktop.Desktop', {
     
     shortcutsData : [
                     {
-						name : '腾迅QQ',
+						name : '登录',
 						iconCls : 'qq-shortcut',
 						module : 'Leetop.module.Login',
 						index : 1
@@ -85,8 +85,8 @@ Ext.define('Leetop.desktop.Desktop', {
 						module : 'Leetop.module.Notepad',
 						index : 11
 					}, {
-						name : '好友管理',
-						iconCls : 'friend-shortcut',
+						name : 'chajian管理',
+						iconCls : 'plugin-shortcut',
 						module : 'Leetop.module.Notepad',
 						index : 12
 					}, {
@@ -143,12 +143,32 @@ Ext.define('Leetop.desktop.Desktop', {
 						name : '谷歌翻译',
 						iconCls : 'plugin-shortcut',
 						module : 'Leetop.module.GoogleTranslater',
-						index : 22
+						index : 23
 					},{
-						name : '欢乐斗地主',
+						name : '个人信息管理',
 						iconCls : 'plugin-shortcut',
-						module : 'Leetop.module.DouDiZhu',
-						index : 22
+						module : 'Leetop.module.UserModule',
+						index : 24
+					},{
+						name : '好友管理',
+						iconCls : 'friend-shortcut',
+						module : 'Leetop.module.FriendModule',
+						index : 25
+					},{
+						name : '群组管理',
+						iconCls : 'plugin-shortcut',
+						module : 'Leetop.module.GroupModule',
+						index : 26
+					},{
+						name : '消息管理',
+						iconCls : 'plugin-shortcut',
+						module : 'Leetop.module.MessageModule',
+						index : 27
+					},{
+						name : '五子棋',
+						iconCls : 'plugin-shortcut',
+						module : 'Leetop.module.FiveModule',
+						index : 28
 					}
                 ],
 

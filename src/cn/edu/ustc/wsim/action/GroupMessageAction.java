@@ -7,6 +7,8 @@ import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.GroupMessage;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.service.GroupMessageService;
+import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.Result;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -31,8 +33,10 @@ public class GroupMessageAction extends ActionSupport {
 	private List<GroupMessage> groupMessages;
 	
 	
+	private int currentPage;
+	private Page page;
 
-
+	
 	public String addGroupMessage() {
 		
 		GroupMessage groupMessage = new GroupMessage();
@@ -73,13 +77,45 @@ public class GroupMessageAction extends ActionSupport {
 	
 	public String searchGroupMessageByTime() {
 		Group group = new Group(groupId);
-		this.groupMessages = groupMessageService.getGroupMessagesByTime(group, beginTime, endTime);
+		page = this.pageInfo();
+		Result result = groupMessageService.getGroupMessagesByTime(group, beginTime, endTime, page);
+		page = result.getPage();
+		groupMessages = result.getList();
 		if(groupMessages == null || groupMessages.size() == 0)
 			return "noResult";
 		else
 			return "showResult";
 	}
 	
+	
+	public Page pageInfo(){
+		Page page = new Page();
+		page.setEveryPage(10);
+		page.setCurrentPage(currentPage);
+		return page;
+	}
+	
+	
+	
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		if (currentPage <= 0)
+			this.currentPage = 1;
+		else
+			this.currentPage = currentPage;
+	}
+	
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
+
 
 	public Integer getId() {
 		return id;

@@ -164,7 +164,7 @@ Ext.define('Leetop.module.Login', {
 //                            clientValidation: true,
                         	waitTitle : '请稍后...',
      						waitMsg : '正在保存用户信息,请稍后...',
-     						url: 'loginAjax.action',
+     						url: 'json/loginAjax.action',
     						method : 'post',
                             
                             success: function(form, action) {

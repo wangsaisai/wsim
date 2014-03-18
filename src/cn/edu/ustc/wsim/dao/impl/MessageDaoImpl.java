@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import cn.edu.ustc.wsim.bean.Message;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.dao.MessageDao;
+import cn.edu.ustc.wsim.util.page.Page;
 
 public class MessageDaoImpl extends BaseDaoImpl implements MessageDao {
 
@@ -39,10 +40,25 @@ public class MessageDaoImpl extends BaseDaoImpl implements MessageDao {
 		query.setInteger(3, user1.getId());
 		return query.list();
 	}
+	
+	
+	public Long countMessagesByTime(User user1, User user2,
+			Date beginTime, Date endTime) {
+		Query query = super.getSession().createQuery("select count(*) from Message where ( (sender = ? and receiver = ?) or (sender = ? and receiver = ?) ) and (time > ? and time < ?) order by time");
+		query.setInteger(0, user1.getId());
+		query.setInteger(1, user2.getId());
+		query.setInteger(2, user2.getId());
+		query.setInteger(3, user1.getId());
+		query.setDate(4, beginTime);
+		query.setDate(5, endTime);
+		List count = query.list();
+		return (Long) count.get(0);
+	}
+	
 
 	@Override
 	public List<Message> getMessagesByTime(User user1, User user2,
-			Date beginTime, Date endTime) {
+			Date beginTime, Date endTime, Page page) {
 		Query query = super.getSession().createQuery("from Message where ( (sender = ? and receiver = ?) or (sender = ? and receiver = ?) ) and (time > ? and time < ?) order by time");
 		query.setInteger(0, user1.getId());
 		query.setInteger(1, user2.getId());
@@ -50,6 +66,11 @@ public class MessageDaoImpl extends BaseDaoImpl implements MessageDao {
 		query.setInteger(3, user1.getId());
 		query.setDate(4, beginTime);
 		query.setDate(5, endTime);
+		
+		// 设置每页显示多少个，设置多大结果。
+		query.setMaxResults(page.getEveryPage());
+		// 设置起点
+		query.setFirstResult(page.getBeginIndex());
 		return query.list();
 	}
 

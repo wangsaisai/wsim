@@ -2,9 +2,10 @@ package cn.edu.ustc.wsim.service;
 
 import java.util.List;
 
-import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.enumerates.UserRelation;
+import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.Result;
 
 public interface UserService extends BaseService {
 	
@@ -27,6 +28,8 @@ public interface UserService extends BaseService {
 	
 	public User getUserInfo(User user);
 	
+	
+//	public Result listUserByPage(Page page);
 	
 //	//通知当前在线用户，有好友请求信息。
 //	public void sendFriendRequestMessage(User user);

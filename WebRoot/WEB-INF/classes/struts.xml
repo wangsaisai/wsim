@@ -18,13 +18,12 @@
 		<!--配置拦截器-->
 		<interceptors>
 			<interceptor name="userInterceptor" class="cn.edu.ustc.wsim.interceptor.UserInterceptor"></interceptor>
-			<interceptor name="adminInterceptor" class="cn.edu.ustc.wsim.interceptor.AdminInterceptor"></interceptor>
 		</interceptors>
 		
 		<!--配置默认action，找不到action时自动跳转至action：index-->
 		<default-action-ref  name="index"></default-action-ref>
 		
-		<!--配置全局，找不到action时默认跳转-->
+		<!--配置全局action result-->
 		<global-results>
 			<result name="login">module/user/login.jsp</result>
 			<result name="success">success.jsp</result>
@@ -36,25 +35,7 @@
 			<result>index.jsp</result>
 		</action>
 	
-		<action name="admin_*" class="cn.edu.ustc.wsim.action.AdminAction" method="{1}">
-			<result name="addAdminInputError">module/admin/addAdmin.jsp</result>
-			<result name="adminLoginInputError">module/admin/adminLogin.jsp</result>
-			<result name="changePasswordInputError">module/admin/changePassword.jsp</result>
-			
-			<result name="adminLoginError">error.jsp</result>
-			<result name="adminLoginSuccess">success.jsp</result>
-			<result name="adminLogout">success.jsp</result>
-			<result name="addError">error.jsp</result>
-			<result name="addSuccess">success.jsp</result>
-			<result name="delError">error.jsp</result>
-			<result name="delSuccess">success.jsp</result>
-			<result name="changePasswordError">error.jsp</result>
-			<result name="changePasswordSuccess">success.jsp</result>
-			<result name="list">module/admin/listAdmins.jsp</result>
-			
-			<interceptor-ref name="adminInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-		</action>
+		
 	
 		<action name="login" class="cn.edu.ustc.wsim.action.LoginAction">
 			<result name="success" type="chain">displayFriendsAndGroups</result>
@@ -212,6 +193,10 @@
 			<interceptor-ref name="userInterceptor"></interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
+		
+		<action name="treeAction" class="cn.edu.ustc.wsim.action.TreeAction">
+			<result name="success">result.jsp</result>
+		</action>
 	
 	</package>
 	
@@ -252,5 +237,65 @@
 			</result>		
 		</action>
 	</package>
+	
+	<package name="admin" extends="struts-default" namespace="/admin">
+		<!--配置拦截器-->
+		<interceptors>
+			<interceptor name="adminInterceptor" class="cn.edu.ustc.wsim.interceptor.AdminInterceptor"></interceptor>
+		</interceptors>
+		
+		<!--配置默认action，找不到action时自动跳转至action：index-->
+		<default-action-ref  name="notFind"></default-action-ref>
+		
+		<!--配置全局action result-->
+		<global-results>
+			<result name="notFind">404.jsp</result>
+			<result name="success">success.jsp</result>
+			<result name="error">error.jsp</result>
+		</global-results>
+		
+		
+		<action name="notFind">
+			<result>404.jsp</result>
+		</action>
+		
+		
+		<action name="adminLogin" class="cn.edu.ustc.wsim.action.AdminAction" method="adminLogin">
+			<result name="adminLoginError">/module/admin/adminLogin.jsp</result>
+			<result name="adminLoginSuccess">/module/admin/main.jsp</result>
+		</action>
+		
+		
+		<action name="admin_*" class="cn.edu.ustc.wsim.action.AdminAction" method="{1}">
+			<result name="addAdminInputError">/module/admin/addAdmin.jsp</result>
+			<result name="adminLoginInputError">/module/admin/adminLogin.jsp</result>
+			<result name="changePasswordInputError">/module/admin/changePassword.jsp</result>
+			<result name="adminLogout">success.jsp</result>
+			<result name="addError">error.jsp</result>
+			<result name="addSuccess">success.jsp</result>
+			<result name="delError">error.jsp</result>
+			<result name="delSuccess">success.jsp</result>
+			<result name="changePasswordError">error.jsp</result>
+			<result name="changePasswordSuccess">success.jsp</result>
+			<result name="list">/module/admin/listAdmins.jsp</result>
+			
+			<interceptor-ref name="adminInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
+		
+		<action name="manager_*" class="cn.edu.ustc.wsim.action.ManagerAction" method="{1}">
+			<result name="error">/module/admin/error.jsp</result>
+			<result name="delUser">/module/admin/success.jsp</result>
+			<result name="delGroup">/module/admin/success.jsp</result>
+			<result name="listUser">/module/admin/listUser.jsp</result>
+			<result name="listGroup">/module/admin/listGroup.jsp</result>
+			<result name="count">/module/admin/count.jsp</result>
+			
+			<interceptor-ref name="adminInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
+		</action>
+	</package>
+	
 	
 </struts>

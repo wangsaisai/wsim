@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<form action="admin_adminLogin" method="post" id="adminLogin" name="adminLogin">
+  	<form action="admin/adminLogin" method="post" id="adminLogin" name="adminLogin">
   		<table>
   			<tr>
   				<th colspan="2">管理员登录</th>

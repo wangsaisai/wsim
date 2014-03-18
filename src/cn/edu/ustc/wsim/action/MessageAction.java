@@ -6,6 +6,9 @@ import java.util.List;
 import cn.edu.ustc.wsim.bean.Message;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.service.MessageService;
+import cn.edu.ustc.wsim.util.DateUtil;
+import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.Result;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -34,6 +37,11 @@ public class MessageAction extends ActionSupport {
 	private MessageService messageService;
 	
 	private String errorMsg;
+	
+	private int currentPage;
+	private Page page;
+	
+	private String msg;
 	
 	
 	public String addMessage() {
@@ -91,12 +99,47 @@ public class MessageAction extends ActionSupport {
 	}
 	
 	public String searchMessageByTime() {
+		
 		User other = new User(otherId);
-		this.messages = messageService.getMessagesByTime(messageService.getLoginUser(), other, beginTime, endTime);
+		this.page = this.pageInfo();
+		Result result = messageService.getMessagesByTime(messageService.getLoginUser(), other, beginTime, endTime, page);
+		page = result.getPage();
+		messages = result.getList();
+		String style = "yy-MM-dd";
+		msg = "&otherId=" + otherId + "&beginTime=" + DateUtil.parseToString(beginTime, style) + "&endTime=" + DateUtil.parseToString(endTime, style);
 		if(messages == null || messages.size() == 0)
 			return "noResult";
 		else
 			return "showResult";
+	}
+	
+	
+	public Page pageInfo(){
+		Page page = new Page();
+		page.setEveryPage(10);
+		page.setCurrentPage(currentPage);
+		return page;
+	}
+	
+	
+	
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		if (currentPage <= 0)
+			this.currentPage = 1;
+		else
+			this.currentPage = currentPage;
+	}
+	
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
 	}
 	
 
@@ -194,6 +237,14 @@ public class MessageAction extends ActionSupport {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 }
