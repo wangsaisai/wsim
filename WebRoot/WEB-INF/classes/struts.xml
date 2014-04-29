@@ -36,9 +36,13 @@
 		</action>
 	
 		
+		<action name="loginAjax" class="cn.edu.ustc.wsim.action.LoginAjaxAction">
+			<result name="success">result.jsp</result>
+		</action>
 	
 		<action name="login" class="cn.edu.ustc.wsim.action.LoginAction">
-			<result name="success" type="chain">displayFriendsAndGroups</result>
+			<!-- <result name="success" type="chain">displayFriendsAndGroups</result> -->
+			<result name="success">main.jsp</result>
 			<result name="error">error.jsp</result>
 			<result name="input">module/user/login.jsp</result>
 		</action>
@@ -197,6 +201,10 @@
 		<action name="treeAction" class="cn.edu.ustc.wsim.action.TreeAction">
 			<result name="success">result.jsp</result>
 		</action>
+		
+		<action name="groupTreeAction" class="cn.edu.ustc.wsim.action.GroupTreeAction">
+			<result name="success">result.jsp</result>
+		</action>
 	
 	</package>
 	
@@ -225,7 +233,7 @@
 		<action name="changeStatus" class="cn.edu.ustc.wsim.action.UserAction" method="changeStatus">
 			<result type="json"></result>
 		</action>
-		<action name="loginAjax" class="cn.edu.ustc.wsim.action.LoginAction">
+		<action name="loginAjax" class="cn.edu.ustc.wsim.action.LoginAjaxAction">
 			<result type="json" name="success">
 				<param name="root">result</param>
 			</result>
@@ -236,6 +244,13 @@
 				<param name="root">result</param>
 			</result>		
 		</action>
+		
+		<action name="groupTreeAction" class="cn.edu.ustc.wsim.action.GroupTreeAction">
+			<result type="json" name="success">
+				<param name="root">result</param>
+			</result>		
+		</action>		
+		
 	</package>
 	
 	<package name="admin" extends="struts-default" namespace="/admin">

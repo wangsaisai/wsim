@@ -22,10 +22,8 @@ public class TreeAction extends ActionSupport {
 	
 	private FriendGroupService friendGroupService;
 	private FriendService friendService;
-	private GroupUserService groupUserService;
 	
 	private List<FriendGroup> friendGroups;
-	private List groupUsers;
 	
 	@Override
 	public String execute() {
@@ -40,10 +38,7 @@ public class TreeAction extends ActionSupport {
 			friendGroup.setFriends(friends);
 		}
 		
-		this.setGroupUsers(groupUserService.getGroupUsersByUser(loginUser));
-		
-		
-		
+
 		JSONArray array = new JSONArray();
 		for (FriendGroup friendGroup : friendGroups) {
 			JSONObject json = new JSONObject();
@@ -55,7 +50,11 @@ public class TreeAction extends ActionSupport {
 			for (Friend friend : (Set<Friend>)friendGroup.getFriends()) {
 				JSONObject friendJson = new JSONObject();
 				friendJson.element("id", "f_" + friend.getUser().getId());
-				friendJson.element("text", friend.getUser().getName());
+				//显示好友备注名，若没有备注，则显示好友的网名
+				String text = friend.getRemark();
+				if(text == null || "".equals(text))
+					text = friend.getUser().getName();
+				friendJson.element("text", text);
 				friendJson.element("leaf", true);
 				friendArray.add(friendJson);
 			}
@@ -64,31 +63,6 @@ public class TreeAction extends ActionSupport {
 			
 			array.add(json);
 		}
-		
-		
-		
-		
-//		JSONArray array = new JSONArray();
-//		for (int j = 0; j < 5; j++) {
-//			JSONObject jsonc = new JSONObject();
-//			jsonc.element("id", "aaaa" + j);
-//			jsonc.element("text", "fenzu:11");
-//			jsonc.element("leaf", true);
-//			
-//			
-//			JSONObject json = new JSONObject();
-//			json.element("id", "" + j);
-//			json.element("text", "fenzu:"+ j);
-//			json.element("leaf", false);
-//			json.element("children", jsonc);
-//			array.add(json);
-//		}
-		
-		
-		
-		
-		
-		
 		
 		System.out.println("nodelist:  "+array.toString());
 		setResult(array.toString());
@@ -145,25 +119,5 @@ public class TreeAction extends ActionSupport {
 		this.friendService = friendService;
 	}
 
-	
-	public GroupUserService getGroupUserService() {
-		return groupUserService;
-	}
-
-
-	public void setGroupUserService(GroupUserService groupUserService) {
-		this.groupUserService = groupUserService;
-	}
-
-
-	public List getGroupUsers() {
-		return groupUsers;
-	}
-
-
-	public void setGroupUsers(List groupUsers) {
-		this.groupUsers = groupUsers;
-	}
-	
 	
 }  

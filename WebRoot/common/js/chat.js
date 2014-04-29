@@ -110,7 +110,7 @@ Ext.onReady(function() {
 });
 
 
-function createFriendChatWindow(receiver) {
+function createFriendChatWindow(receiver,name) {
 			var winId = receiver + "_friend";
 			
 			if(Ext.getCmp(winId) != null) {
@@ -159,7 +159,7 @@ function createFriendChatWindow(receiver) {
 			//展示窗口
 			var win = Ext.create('Ext.window.Window', {
 						id : winId,
-						title : '与&nbsp;' + receiver + '&nbsp;聊天中',
+						title : '与&nbsp;' + name + '&nbsp;聊天中',
 						layout : 'border',
 						iconCls : 'user-win',
 						minWidth : 450,
@@ -205,7 +205,7 @@ function createFriendChatWindow(receiver) {
 }
 
 
-function createGroupChatWindow(groupId) {
+function createGroupChatWindow(groupId, name) {
 	
 			var winId = groupId + "_group";
 			
@@ -256,7 +256,7 @@ function createGroupChatWindow(groupId) {
 			//展示窗口
 			var win = Ext.create('Ext.window.Window', {
 						id : winId,
-						title : '群&nbsp;' + groupId + '&nbsp;聊天中',
+						title : '群&nbsp;' + name + '&nbsp;聊天中',
 						layout : 'border',
 						iconCls : 'user-win',
 						minWidth : 450,
@@ -342,4 +342,47 @@ function dealGroupMessage(message) {
 	var output = dialog.first();
 	output.receive(message);
 	
+}
+
+
+
+
+
+
+
+function openWSConn() {
+
+	//初始话WebSocket
+	if (window.WebSocket) {
+		websocket = new WebSocket(encodeURI("wss://" + serverIP + ":8443/wsim/user.ws?userId=" + userId));
+		websocket.onopen = function() {
+			//连接成功
+			alert("open");
+		}
+		websocket.onerror = function() {
+			//连接失败
+			alert("error");
+		}
+		websocket.onclose = function() {
+			//连接断开
+//				alert("close");
+		}
+		//消息接收
+		websocket.onmessage = function(message) {
+			var message = JSON.parse(message.data);
+			//接收用户发送的消息
+			if (message.type == 'friendMessage') {
+				dealFriendMessage(message);
+			} else if(message.type == "groupMessage") {
+				dealGroupMessage(message);
+			} else if(message.type == 'notify') {
+				notify();
+			} else if(message.type == 'friendRequest') {
+				dealFriendRequest(message);
+			} else if(message.type == 'videoRequest') {
+				dealVideoRequest(message);
+			}
+		}
+	};
+
 }

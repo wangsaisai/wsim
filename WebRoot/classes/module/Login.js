@@ -9,7 +9,7 @@ Ext.define('Leetop.module.Login', {
     ],
     
     id:'login',
-    windowId: 'login_win',
+    windowId: 'login_win', 
 
     tipWidth: 160,
     tipHeight: 96,
@@ -163,37 +163,28 @@ Ext.define('Leetop.module.Login', {
                         form.submit({
 //                            clientValidation: true,
                         	waitTitle : '请稍后...',
-     						waitMsg : '正在保存用户信息,请稍后...',
-     						url: 'json/loginAjax.action',
+     						waitMsg : '正在验证用户信息,请稍后...',
+     						url: 'loginAjax.action',
     						method : 'post',
                             
-                            success: function(form, action) {
-                               Ext.Msg.alert('信息1',action.result.result); 
-                            },
                             failure: function(form, action) {
-//                                Ext.Msg.alert('信息2',action.result); 
-                               
-//                                openerWin.close();
-//                            	Ext.getCmp("login").destroy();
-//                               
-//                               new Leetop.module.Notepad;
-//                            	createWindow("Leetop.module.Notepad","记事本");
-                            	
+                           
+//                            	createWindow();
+//                            	alert("error");
+                            	Ext.Msg.alert('登录出错',action.result.msg);
+                            },
+                            success: function(form, action) {	
                             	Ext.getCmp("login_win").close();
-//								new Leetop.module.Notepad.show;
-//                            	Ext.getCmp("acc-win").createWindow();
-
+                      
+                          	Ext.getCmp("acc-win").onload();
+//                            	alert("success");
+//                            	Ext.Msg.alert('登录结果',action.result); 
+//                            	if(action.result.get("result")) {}
+                            	openWSConn();
+                            	
+                            
                             }
                         });
-                        //
-
-//                        if (form.isValid()) {
-//                            var out = [];
-//                            Ext.Object.each(form.getValues(), function(key, value){
-//                                out.push(key + '=' + value);
-//                            });
-//                            Ext.Msg.alert('Submitted Values', out.join('<br />'));
-//                        }
                     }
                 }]
             }]

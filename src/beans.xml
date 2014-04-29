@@ -10,7 +10,7 @@
 		<property name="url"
 			value="jdbc:mysql://127.0.0.1:3306/wsim?characterEncoding=utf8"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="123456"></property>
+		<property name="password" value="010634"></property>
 	</bean>
 
 
@@ -488,7 +488,10 @@
 	<bean id="_tree" class="cn.edu.ustc.wsim.action.TreeAction">
 		<property name="friendService" ref="friendServiceProxy"></property>
 		<property name="friendGroupService" ref="friendGroupServiceProxy"></property>
-		<property name="groupUserService" ref="groupUserService"></property>
+	</bean>
+	
+	<bean id="_groupTree" class="cn.edu.ustc.wsim.action.GroupTreeAction">
+		<property name="groupUserService" ref="groupUserServiceProxy"></property>
 	</bean>
 	
 	

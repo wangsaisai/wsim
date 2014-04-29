@@ -1,10 +1,8 @@
 package cn.edu.ustc.wsim.action;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
 import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.datastructure.ChattingGroups;
@@ -33,20 +31,14 @@ public class LoginAction extends ActionSupport {
 	
 	private User user;
 	
-	private String result;
-	
 	@Override
 	public String execute() {
 		
-		//若用户已登录，…………
-		
 		user = userService.getUserByEmail(email);
 		if(user == null) {
-//			result = "{\"result\":\"success\",\"errorMsg\":\"email地址不存在\"}";
 			errorMsg = "email地址不存在";
 			return ERROR;
 		} else if(!user.getPassword().equals(password)) {
-//			result = "{\"result\":\"error\",\"errorMsg\":\"email或密码错误\"}";
 			errorMsg = "email或密码错误";
 			return ERROR;
 		}
@@ -64,12 +56,6 @@ public class LoginAction extends ActionSupport {
 			for (Group group : groups) {
 				ChattingGroups.addUser(group.getId(), user);
 			}
-			
-			Map<String,Object> map = new HashMap<String,Object>();
-			map.put("success", true);
-			map.put("msg","ok");
-			JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
-			result = json.toString();//给result赋值，传递给页面
 			
 		}
 		
@@ -116,14 +102,6 @@ public class LoginAction extends ActionSupport {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
 	}
 
 	public GroupUserService getGroupUserService() {

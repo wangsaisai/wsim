@@ -84,17 +84,7 @@ Ext.define('Leetop.desktop.Desktop', {
 						iconCls : 'nethard-shortcut',
 						module : 'Leetop.module.Notepad',
 						index : 11
-					}, {
-						name : 'chajian管理',
-						iconCls : 'plugin-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 12
-					}, {
-						name : '插件管理',
-						iconCls : 'plugin-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 13
-					}, {
+					},{
 						name : '应用中心',
 						iconCls : 'app-shortcut',
 						module : 'Leetop.module.NotepadA',
@@ -129,12 +119,7 @@ Ext.define('Leetop.desktop.Desktop', {
 						iconCls : 'accordion-shortcut',
 						module : 'Leetop.module.AccordionWindow',
 						index : 20
-					}, {
-						name : '记事本',
-						iconCls : 'notepad-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 21
-					}, {
+					},  {
 						name : '系统状态',
 						iconCls : 'cpu-shortcut',
 						module : 'Leetop.module.SystemStatus',
@@ -144,31 +129,6 @@ Ext.define('Leetop.desktop.Desktop', {
 						iconCls : 'plugin-shortcut',
 						module : 'Leetop.module.GoogleTranslater',
 						index : 23
-					},{
-						name : '个人信息管理',
-						iconCls : 'plugin-shortcut',
-						module : 'Leetop.module.UserModule',
-						index : 24
-					},{
-						name : '好友管理',
-						iconCls : 'friend-shortcut',
-						module : 'Leetop.module.FriendModule',
-						index : 25
-					},{
-						name : '群组管理',
-						iconCls : 'plugin-shortcut',
-						module : 'Leetop.module.GroupModule',
-						index : 26
-					},{
-						name : '消息管理',
-						iconCls : 'plugin-shortcut',
-						module : 'Leetop.module.MessageModule',
-						index : 27
-					},{
-						name : '五子棋',
-						iconCls : 'plugin-shortcut',
-						module : 'Leetop.module.FiveModule',
-						index : 28
 					}
                 ],
 
@@ -189,7 +149,7 @@ Ext.define('Leetop.desktop.Desktop', {
                 data: me.shortcutsData
             }),
 
-            wallpaper: 'classes/desktop/wallpapers/cloud.jpg',
+            wallpaper: 'classes/desktop/wallpapers/Wood-Sencha.jpg',
             wallpaperStretch: true
         });
     },

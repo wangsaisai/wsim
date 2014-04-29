@@ -52,6 +52,9 @@ public class BaseServiceImpl implements BaseService {
 	}
 	
 	public User getLoginUser() {
+//		if(ActionContext.getContext()==null){
+//			System.out.println("aaaaaa");
+//		}
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User user = (User)session.get("user");
 		return user;

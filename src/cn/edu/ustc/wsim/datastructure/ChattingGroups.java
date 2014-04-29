@@ -1,8 +1,10 @@
 package cn.edu.ustc.wsim.datastructure;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.User;
 
 public class ChattingGroups {
@@ -40,6 +42,13 @@ public class ChattingGroups {
 			cgroup.rmUser(user);
 			if(cgroup.getUsers().size() == 0)
 				rmCGroup(id);
+		}
+	}
+	
+	//用户退出后，删除所有群众该用户在线信息
+	public static void rmUser(List<Group> groups, User user) {
+		for (Group group : groups) {
+			rmUser(group.getId(), user);
 		}
 	}
 	

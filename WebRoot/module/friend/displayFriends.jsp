@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <input type="hidden" id="userId" name="userId" value="${userId }"/>
   
-    <table border="1">
+    <table border="1" cellspacing="0" >
     	<tr>
     		<th>friendGroupId</th>
     		<th>name</th>
@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			<td>${name }</td>
    			<td><a href="module/friend/changeFriendGroupName.jsp?id=${id }">修改名称</a></td>
    			<td>
-   				<table border="1">
+   				<table border="1" cellspacing="0">
    					<tr>
    						<th>friendId</th>
    						<th>friendGroupId</th>

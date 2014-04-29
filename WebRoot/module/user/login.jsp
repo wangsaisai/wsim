@@ -45,5 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			</tr>
   		</table>
   	</form>	
+  	<br>
+  	<br>
+  	<a href="module/room/createRoom.jsp">创建聊天室</a>
   </body>
 </html>

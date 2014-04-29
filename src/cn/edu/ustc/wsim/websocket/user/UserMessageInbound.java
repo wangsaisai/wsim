@@ -18,10 +18,12 @@ import cn.edu.ustc.wsim.bean.GroupMessage;
 import cn.edu.ustc.wsim.bean.GroupRequest;
 import cn.edu.ustc.wsim.bean.Message;
 import cn.edu.ustc.wsim.bean.User;
+import cn.edu.ustc.wsim.datastructure.ChattingGroups;
 import cn.edu.ustc.wsim.datastructure.OnlineUsers;
 import cn.edu.ustc.wsim.service.FriendRequestService;
 import cn.edu.ustc.wsim.service.GroupMessageService;
 import cn.edu.ustc.wsim.service.GroupRequestService;
+import cn.edu.ustc.wsim.service.GroupUserService;
 import cn.edu.ustc.wsim.service.MessageService;
 import cn.edu.ustc.wsim.util.HtmlUtil;
 import cn.edu.ustc.wsim.util.SplitString;
@@ -47,33 +49,33 @@ public class UserMessageInbound extends MessageInbound {
 	protected void onOpen(WsOutbound outbound) {
 		//向连接池添加当前的连接对象
 		UserMessageInboundPool.addMessageInbound(this);
-//		
-//		User user = new User(userId);
-//		
-//		//websocket链接创建成功，将未处理的好友请求信息，离线消息，等信息发送给用户
-//		
-//		//将未处理的好友请求信息发送给该用户
-//		FriendRequestService friendRequestService = (FriendRequestService) SpringUtil.getBean("friendRequestServiceProxy");
-//		List<FriendRequest> friendRequests = friendRequestService.getUndealFriendRequests(user);
-//		for (FriendRequest friendRequest : friendRequests) {
-//			UserMessageInboundPool.sendFriendRequestMessage(friendRequest);
-//		}
-//		
-//		//将未处理的群请求信息发送给该用户
-//		GroupRequestService groupRequestService = (GroupRequestService) SpringUtil.getBean("groupRequestServiceProxy"); 
-//		Map<Group, List<GroupRequest>> map = groupRequestService.getUndealGroupRequests(user);
-//		for(Map.Entry mapEntry : map.entrySet()) {  
-//		    Group group = (Group) mapEntry.getKey();  
-//		    List<GroupRequest> groupRequests = (List<GroupRequest>) mapEntry.getValue();
-////		    if( !(groupRequests == null || groupRequests.size() == 0) )
-//		    for (GroupRequest groupRequest : groupRequests) {
-//				UserMessageInboundPool.sendGroupRequestMessage(user, groupRequest);
-//			}
-//		}
-//			
-//		//获取离线消息发送给该用户
-//		MessageService messageService = (MessageService) SpringUtil.getBean("messageServiceProxy");
-//		UserMessageInboundPool.sendUnreadMessages(user, messageService.getUnreadMessagesOfUser(user));
+		
+		User user = new User(userId);
+		
+		//websocket链接创建成功，将未处理的好友请求信息，离线消息，等信息发送给用户
+		
+		//将未处理的好友请求信息发送给该用户
+		FriendRequestService friendRequestService = (FriendRequestService) SpringUtil.getBean("friendRequestServiceProxy");
+		List<FriendRequest> friendRequests = friendRequestService.getUndealFriendRequests(user);
+		for (FriendRequest friendRequest : friendRequests) {
+			UserMessageInboundPool.sendFriendRequestMessage(friendRequest);
+		}
+		
+		//将未处理的群请求信息发送给该用户
+		GroupRequestService groupRequestService = (GroupRequestService) SpringUtil.getBean("groupRequestServiceProxy"); 
+		Map<Group, List<GroupRequest>> map = groupRequestService.getUndealGroupRequests(user);
+		for(Map.Entry mapEntry : map.entrySet()) {  
+		    Group group = (Group) mapEntry.getKey();  
+		    List<GroupRequest> groupRequests = (List<GroupRequest>) mapEntry.getValue();
+//		    if( !(groupRequests == null || groupRequests.size() == 0) )
+		    for (GroupRequest groupRequest : groupRequests) {
+				UserMessageInboundPool.sendGroupRequestMessage(user, groupRequest);
+			}
+		}
+			
+		//获取离线消息发送给该用户
+		MessageService messageService = (MessageService) SpringUtil.getBean("messageServiceProxy");
+		UserMessageInboundPool.sendUnreadMessages(user, messageService.getUnreadMessagesOfUser(user));
 		
 		
 	}
@@ -85,6 +87,12 @@ public class UserMessageInbound extends MessageInbound {
 		
 		//用户下线，从OnlineUsers中删除该用户
 		OnlineUsers.removeUser(this.getUserId());
+		
+		//从群在线用户中删除该用户
+		GroupUserService groupUserService = (GroupUserService) SpringUtil.getBean("groupUserServiceProxy"); 
+		User user = new User(userId);
+		List<Group> groups = groupUserService.getGroupsByUser(user);
+		ChattingGroups.rmUser(groups, user);
 	}
 
 	@Override

@@ -22,7 +22,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<body>
 		<table align="right">
-			
 			<tr>
 				<td>
 					<a href="module/friend/addFriendGroup.jsp" target="friendMainFrame">添加好友分组</a>
