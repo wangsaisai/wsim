@@ -15,9 +15,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <body>
- <div class="content" style="width:95%";>
+ <div class="content">
 
+  <div id="header">
   
+   <span id="main_title">
+		消息管理
+   </span>
+   <div id="personal"></div>
+  </div>
+
   <div id="nav">
    <ul>
     <li>菜单</li>
@@ -27,12 +34,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div>
 
   <div id="main">
-    <table   border="0" cellspacing="0" cellpadding="0">
-      <tr >
-        <td align="left" id="left" >
-          <iframe name="messageLeftFrame" width="100%" height="100%"src="/wsim/module/message/messageMainLeft.jsp" frameborder="0" scrolling="no"></iframe>
+    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr height="100%">
+        <td align="left" id="left" height="520px">
+          <iframe name="messageLeftFrame" width="100%" height="100%" src="/wsim/module/message/messageMainLeft.jsp" frameborder="0" scrolling="no"></iframe>
         </td>
-       
+        <td align="left" id="right" height="520px">
+          <iframe name="messageMainFrame" width="100%" height="100%" src="/wsim/" frameborder="0" scrolling="auto"></iframe>
+        </td>
       </tr>
     </table>
   </div>

@@ -25,7 +25,7 @@ html, body, div, span, object, iframe, pre, a, code, font, ul, li, img, samp, sm
 /* 可抽取出 global.css  END*/
 
 .content {
-	padding: 5px;
+	padding-left: 10px;
 }
 
 /* 可抽取出 layouts.css  START*/
@@ -87,7 +87,6 @@ html, body, div, span, object, iframe, pre, a, code, font, ul, li, img, samp, sm
 }
 #left {
 	width:190px;
-	height:300px;
 	text-align:left;
 	
 	vertical-align:top;

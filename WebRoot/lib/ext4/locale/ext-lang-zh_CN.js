@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Simplified Chinese translation
  * By DavidHu
  * 09 April 2007
@@ -49,8 +49,8 @@ Ext.onReady(function(){
            "八月",
            "九月",
            "十月",
-           "十一",
-           "十二"
+           "十一月",
+           "十二月"
         ];
 
         Ext.Date.dayNames = [

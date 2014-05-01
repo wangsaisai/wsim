@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="lib/ext4/shared/example.css" />
 	<link rel="stylesheet" type="text/css" href="common/css/websocket.css" />
 	<script type="text/javascript" src="common/js/chat.js"></script>
-	<script type="text/javascript" src="classes/module/AccordionWindow.js"></script>
+	
 	
 	
 	<!-- 映入Ext的JS开发包，及自己实现的webscoket. -->
@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            });
 	        	Ext.MessageBox.updateProgress(0.2);
 	        	Leetop.Desktop = Ext.create("Leetop.desktop.Desktop",{
-	            	user : "wsim"
+	            	user : "李球"
 	            });
 	        	Leetop.getLogger = function(){
 	        		return Leetop.system.logger.LoggerFactory.getLogger(arguments[0]);

@@ -80,21 +80,16 @@ Ext.define('Leetop.desktop.Desktop', {
 						module : 'Leetop.module.QQMap',
 						index : 10
 					}, {
-						name : '网络硬盘',
-						iconCls : 'nethard-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 11
-					},{
-						name : '应用中心',
-						iconCls : 'app-shortcut',
-						module : 'Leetop.module.NotepadA',
-						index : 14
-					}, {
 						name : '豆瓣FM',
 						iconCls : 'douban-shortcut',
 						module : 'Leetop.module.Douban',
 						index : 15
-					}, {
+					},{
+						name : 'WSIM',
+						iconCls : 'accordion-shortcut',
+						module : 'Leetop.module.AccordionWindow',
+						index : 20
+					},  {
 						name : '便     签',
 						iconCls : 'bianqian-shortcut',
 						module : 'Leetop.module.Notepad',
@@ -114,21 +109,11 @@ Ext.define('Leetop.desktop.Desktop', {
 						iconCls : 'grid-shortcut',
 						module : 'Leetop.module.GridWindow',
 						index : 19
-					}, {
-						name : '即时通讯',
-						iconCls : 'accordion-shortcut',
-						module : 'Leetop.module.AccordionWindow',
-						index : 20
 					},  {
 						name : '系统状态',
 						iconCls : 'cpu-shortcut',
 						module : 'Leetop.module.SystemStatus',
 						index : 22
-					},{
-						name : '谷歌翻译',
-						iconCls : 'plugin-shortcut',
-						module : 'Leetop.module.GoogleTranslater',
-						index : 23
 					}
                 ],
 
