@@ -30,16 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-	<h1>WebSocket聊天室</h1>
-	<p>通过HTML5标准提供的API与Ext富客户端框架相结合起来，实现聊天室，有以下特点：</p>
-	<ul class="feature-list" style="padding-left: 10px;">
-		<li>实时获取数据，由服务器推送，实现即时通讯</li>
-		<li>利用WebSocket完成数据通讯，区别于轮询，长连接等技术，节省服务器资源</li>
-		<li>结合Ext进行页面展示</li>
-		<li>用户上线下线通知</li>
-	</ul>
-	
-	<br>
+	<h1>聊天室</h1>
 	
 	<div>
 	              欢迎你，${name }<a href="room_quitRoom?id=${room.id }&name=${name }">退出</a>

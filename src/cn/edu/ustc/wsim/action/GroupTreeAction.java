@@ -43,7 +43,7 @@ public class GroupTreeAction extends ActionSupport {
 			array.add(json);
 		}
 		
-		System.out.println("grouplist:  "+array.toString());
+//		System.out.println("grouplist:  "+array.toString());
 		setResult(array.toString());
 		
 		return SUCCESS;

@@ -5,6 +5,8 @@ var group = new Ext.WindowGroup();
 
 var websocket;
 
+var userId;
+
 //var userId = document.getElementById("userId").value();
 
 //用于展示用户的聊天信息
@@ -72,42 +74,42 @@ Ext.define('MessageContainer', {
 });
 
 
-Ext.onReady(function() {
-
-			//初始话WebSocket
-			if (window.WebSocket) {
-				websocket = new WebSocket(encodeURI("wss://" + serverIP + ":8443/wsim/user.ws?userId=" + userId));
-				websocket.onopen = function() {
-					//连接成功
-					alert("open");
-				}
-				websocket.onerror = function() {
-					//连接失败
-					alert("error");
-				}
-				websocket.onclose = function() {
-					//连接断开
-//						alert("close");
-				}
-				//消息接收
-				websocket.onmessage = function(message) {
-					var message = JSON.parse(message.data);
-					//接收用户发送的消息
-					if (message.type == 'friendMessage') {
-						dealFriendMessage(message);
-					} else if(message.type == "groupMessage") {
-						dealGroupMessage(message);
-					} else if(message.type == 'notify') {
-						notify();
-					} else if(message.type == 'friendRequest') {
-						dealFriendRequest(message);
-					} else if(message.type == 'videoRequest') {
-						dealVideoRequest(message);
-					}
-				}
-			};
-
-});
+//Ext.onReady(function() {
+//
+//			//初始话WebSocket
+//			if (window.WebSocket) {
+//				websocket = new WebSocket(encodeURI("wss://" + serverIP + ":8443/wsim/user.ws?userId=" + userId));
+//				websocket.onopen = function() {
+//					//连接成功
+//					alert("open");
+//				}
+//				websocket.onerror = function() {
+//					//连接失败
+//					alert("error");
+//				}
+//				websocket.onclose = function() {
+//					//连接断开
+////						alert("close");
+//				}
+//				//消息接收
+//				websocket.onmessage = function(message) {
+//					var message = JSON.parse(message.data);
+//					//接收用户发送的消息
+//					if (message.type == 'friendMessage') {
+//						dealFriendMessage(message);
+//					} else if(message.type == "groupMessage") {
+//						dealGroupMessage(message);
+//					} else if(message.type == 'notify') {
+//						notify();
+//					} else if(message.type == 'friendRequest') {
+//						dealFriendRequest(message);
+//					} else if(message.type == 'videoRequest') {
+//						dealVideoRequest(message);
+//					}
+//				}
+//			};
+//
+//});
 
 
 function createFriendChatWindow(receiver,name) {
@@ -304,7 +306,7 @@ function dealFriendRequest(message) {
 
 function dealVideoRequest(message) {
 	alert("视频请求： 请求者：" + message.requester);
-	window.open("http://127.0.0.1:8080/wsim/conn.servlet?type=res&self=" + userId + "&other=" + message.requester
+	window.open("https://" + serverIP + ":8443/wsim/conn.servlet?type=res&self=" + userId + "&other=" + message.requester
 			, "_blank");
 }
 
@@ -361,7 +363,7 @@ function openWSConn() {
 		}
 		websocket.onerror = function() {
 			//连接失败
-			alert("error");
+			alert("连接出错，请重新登录");
 		}
 		websocket.onclose = function() {
 			//连接断开

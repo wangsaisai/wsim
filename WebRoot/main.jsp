@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%-- <script type="text/javascript" src="lib/ext4/ext-all-debug.js"></script> --%>
 	
 	<script type="text/javascript">
-		var userId = "${user.id }";
+		//var userId = "${user.id }";
 		var serverIP = "<%=serverIP %>";
 	</script>
 	

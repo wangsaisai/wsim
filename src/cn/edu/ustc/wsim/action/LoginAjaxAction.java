@@ -62,6 +62,7 @@ public class LoginAjaxAction extends ActionSupport {
 			}
 			
 			map.put("success", true);
+			map.put("userId", user.getId());
 			map.put("msg","ok");
 		}
 		

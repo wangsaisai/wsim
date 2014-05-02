@@ -114,6 +114,16 @@ Ext.define('Leetop.desktop.Desktop', {
 						iconCls : 'cpu-shortcut',
 						module : 'Leetop.module.SystemStatus',
 						index : 22
+					}, {
+						name : '注册',
+						iconCls : 'reg-shortcut',
+						module : 'Leetop.module.RegisterModule',
+						index : 23
+					}, {
+						name : '聊天室',
+						iconCls : 'room-shortcut',
+						module : 'Leetop.module.RoomModule',
+						index : 24
 					}
                 ],
 

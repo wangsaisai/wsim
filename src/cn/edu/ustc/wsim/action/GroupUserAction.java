@@ -41,7 +41,7 @@ public class GroupUserAction extends ActionSupport {
 		if (groupUserService.add(groupUser))
 			return "addSuccess";
 		else {
-			errorMsg = "add GroupUser error";
+			errorMsg = "添加失败，请稍后重试";
 			return "addError";
 		}
 
@@ -59,7 +59,7 @@ public class GroupUserAction extends ActionSupport {
 		if (groupUserService.del(intId))
 			return "delSuccess";
 		else {
-			errorMsg = "del error";
+			errorMsg = "删除失败，请稍后重试";
 			return "delError";
 		}
 	}
@@ -84,7 +84,7 @@ public class GroupUserAction extends ActionSupport {
 		if (groupUserService.update(groupUser)) {
 			return "changeNameSuccess";
 		} else {
-			errorMsg = "change name Error";
+			errorMsg = "修改失败，请稍后重试";
 			return "changeNameError";
 		}
 	}

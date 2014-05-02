@@ -175,8 +175,9 @@ Ext.define('Leetop.module.Login', {
                             },
                             success: function(form, action) {	
                             	Ext.getCmp("login_win").close();
+                            	userId = action.result.userId;
                       
-                          	Ext.getCmp("acc-win").onload();
+                        //  	Ext.getCmp("acc-win").onload();
 //                            	alert("success");
 //                            	Ext.Msg.alert('登录结果',action.result); 
 //                            	if(action.result.get("result")) {}

@@ -66,7 +66,7 @@ public class FriendRequestAction extends ActionSupport {
 			return "addSuccess";
 		}
 		else {
-			errorMsg = "add FriendRequest error";
+			errorMsg = "好友请求发送失败，请重试";
 			return "addError";
 		}
 				
@@ -95,7 +95,7 @@ public class FriendRequestAction extends ActionSupport {
 		switch(resultStr) {
 		case "agree" : result = FriendRequestResult.AGREE; break;
 		case "deny" : result = FriendRequestResult.DENY; break;
-		case "agreeAndRequest" : result = FriendRequestResult.AGREEANDADD; break;
+		case "agreeAndAdd" : result = FriendRequestResult.AGREEANDADD; break;
 		default : break;
 		}
 		

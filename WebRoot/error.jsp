@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   	
   <body>
-  	error<br/><br/>
-    ${errorMsg }
+  	<br/><br/>
+    操作故障: ${errorMsg }
   </body>
 </html>

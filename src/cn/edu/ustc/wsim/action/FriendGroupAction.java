@@ -23,12 +23,12 @@ public class FriendGroupAction extends ActionSupport {
 	
 	public String addFriendGroup() {
 		if(name.equals(GlobalFinal.getDefaultFriendGroupName())) {
-			errorMsg = "'My friends' cannot be used!";
+			errorMsg = "'My friends' 名字不能被使用";
 			return "addError";
 		}
 		if(friendGroupService.isNameExist(friendGroupService.getLoginUser(), name))
 		{
-			errorMsg = "name exist";
+			errorMsg = "分组名已存在";
 			return "addError";
 		} else {
 			FriendGroup friendGroup = new FriendGroup();

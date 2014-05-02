@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    				<form action="friendRequest_dealFriendRequest" method="post">
    					<input type="hidden" name="id" value="${id }"/>
 				   	<select id="resultStr" name="resultStr">
-				  		<option value="agreeAndRequest">同意并添加对方为好友</option>
+				  		<option value="agreeAndAdd">同意并添加对方为好友</option>
 				  		<option value="agree">同意</option>
 				  		<option value="deny">拒绝</option>
 				  	</select>
