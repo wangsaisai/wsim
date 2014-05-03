@@ -73,7 +73,27 @@ Ext.define('MessageContainer', {
 	}
 });
 
-
+function onmenuclick(other)
+{
+	Ext.create('Ext.window.Window', {
+	    title: '视频聊天',
+		
+	    height: 700,
+	    width: 800,
+		shadow:true,
+		x:100,
+	    layout: 'card',
+		items: [
+	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
+        		'frameborder="no" hidefocus="" allowtransparency="true" ' + 
+          		'src="https://'+serverIP+':8443/wsim/conn.servlet?type=req&self='+userId+'&other='+other+'"' +  
+          		'style="width: 100%; height: 100%;">' }
+	       
+	    ]
+	    
+	}).show();
+	
+	}
 //Ext.onReady(function() {
 //
 //			//初始话WebSocket
@@ -127,6 +147,7 @@ function createFriendChatWindow(receiver,name) {
 						enableFont : false,
 						enableSourceEdit : false,
 						enableAlignments : false,
+
 						listeners : {
 							initialize : function() {
 								Ext.EventManager.on(me.input.getDoc(), {
@@ -142,22 +163,40 @@ function createFriendChatWindow(receiver,name) {
 							}
 						}
 					});
-
+			
 			//创建消息展示容器
 			var output = Ext.create('MessageContainer', {
 						region : 'center'
 					});
-
+			
 			var dialog = Ext.create('Ext.panel.Panel', {
 						region : 'center',
 						layout : 'border',
+					/*	  tools: [{
+						        type: 'help',
+						        callback: function() {
+						            // show help here
+						        }
+						        
+						    
+						    },{
+						    	text:'视频聊天',
+						    	url:'https://127.0.0.1:8443/wsim/video.jsp'
+		                     //   iconCls:'connect'
+						    }],*/
+						tbar: [{
+			                iconCls: 'video',
+			                tooltip:'视频聊天',
+			                handler:onmenuclick(receiver)
+			            },'-',
+			        ],
 						items : [output, input],
 						buttons : [{
 									text : '发送',
 									handler : send
 								}]
 					});
-
+			
 			//展示窗口
 			var win = Ext.create('Ext.window.Window', {
 						id : winId,

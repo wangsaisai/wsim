@@ -34,87 +34,12 @@ Ext.define('Leetop.desktop.Desktop', {
 						iconCls : 'qq-shortcut',
 						module : 'Leetop.module.Login',
 						index : 1
-					}, {
-						name : '腾讯微博',
-						iconCls : 't-shortcut',
-						module : 'Leetop.module.QQWeiBo',
-						index : 2
-					}, {
-						name : '浏览器',
-						iconCls : 'tt-shortcut',
-						module : 'Leetop.browser.Browser',
-						index : 3
-					}, {
-						name : 'QQ空间',
-						iconCls : 'qzone-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 4
-					}, {
-						name : 'QQ邮箱',
-						iconCls : 'mail-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 5
-					}, {
-						name : 'QQ音乐',
-						iconCls : 'qmusic-shortcut',
-						module : 'Leetop.module.QQMusic',
-						index : 6
-					}, {
-						name : '腾讯视频',
-						iconCls : 'shipin-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 7
-					}, {
-						name : '腾讯朋友',
-						iconCls : 'pengyou-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 8
-					}, {
-						name : 'QQ词典',
-						iconCls : 'dic-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 9
-					}, {
-						name : 'QQ地图',
-						iconCls : 'map-shortcut',
-						module : 'Leetop.module.QQMap',
-						index : 10
-					}, {
-						name : '豆瓣FM',
-						iconCls : 'douban-shortcut',
-						module : 'Leetop.module.Douban',
-						index : 15
 					},{
 						name : 'WSIM',
 						iconCls : 'accordion-shortcut',
 						module : 'Leetop.module.AccordionWindow',
 						index : 20
 					},  {
-						name : '便     签',
-						iconCls : 'bianqian-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 16
-					}, {
-						name : '时钟',
-						iconCls : 'clock-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 17
-					}, {
-						name : '天气',
-						iconCls : 'wether-shortcut',
-						module : 'Leetop.module.Notepad',
-						index : 18
-					}, {
-						name : '表格',
-						iconCls : 'grid-shortcut',
-						module : 'Leetop.module.GridWindow',
-						index : 19
-					},  {
-						name : '系统状态',
-						iconCls : 'cpu-shortcut',
-						module : 'Leetop.module.SystemStatus',
-						index : 22
-					}, {
 						name : '注册',
 						iconCls : 'reg-shortcut',
 						module : 'Leetop.module.RegisterModule',

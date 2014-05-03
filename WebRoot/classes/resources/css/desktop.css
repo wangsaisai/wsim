@@ -603,7 +603,9 @@
 .x-browser-load-icon {
 	background-image: url(../images/browser/load.gif);
 }
-
+.video{
+	background-image: url(../images/video.png);
+}
 .ux-console-body {
 	border: none;
 	color: #fff;

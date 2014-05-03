@@ -58,7 +58,15 @@
 	background-image: url(../images/douban.png);
 	background-repeat: no-repeat;
 }
+.reg-shortcut{
+	background-image: url(../images/reg.png);
+	background-repeat: no-repeat;
+}
 
+.room-shortcut{
+	background-image: url(../images/room.png);
+	background-repeat: no-repeat;
+}
 .qmusic-shortcut {
 	background-image: url(../images/qmusic.png);
 	background-repeat: no-repeat;
