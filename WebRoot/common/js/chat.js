@@ -7,6 +7,8 @@ var websocket;
 
 var userId;
 
+var videoOther;
+
 //var userId = document.getElementById("userId").value();
 
 //用于展示用户的聊天信息
@@ -73,8 +75,10 @@ Ext.define('MessageContainer', {
 	}
 });
 
-function onmenuclick(other)
+function onmenuclick()
 {
+	var other = videoOther;
+	alert(userId);
 	Ext.create('Ext.window.Window', {
 	    title: '视频聊天',
 		
@@ -139,6 +143,8 @@ function createFriendChatWindow(receiver,name) {
 				Ext.getCmp(winId).show();
 				return;
 			} 
+			
+			videoOther = receiver;
 	
 			//创建用户输入框
 			var input = Ext.create('Ext.form.field.HtmlEditor', {
@@ -187,7 +193,7 @@ function createFriendChatWindow(receiver,name) {
 						tbar: [{
 			                iconCls: 'video',
 			                tooltip:'视频聊天',
-			                handler:onmenuclick(receiver)
+			                handler:onmenuclick
 			            },'-',
 			        ],
 						items : [output, input],
@@ -392,7 +398,7 @@ function dealGroupMessage(message) {
 
 
 function openWSConn() {
-
+//	alert(userId);
 	//初始话WebSocket
 	if (window.WebSocket) {
 		websocket = new WebSocket(encodeURI("wss://" + serverIP + ":8443/wsim/user.ws?userId=" + userId));

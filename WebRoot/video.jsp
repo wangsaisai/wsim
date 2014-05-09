@@ -247,7 +247,7 @@ body {
 		function openChannel() {
 			console.log("Opening channel.");
 			socket = new WebSocket(
-					"ws://"+window.location.host+"${ctx}websocket.ws?self=${self}&other=${other}");
+					"wss://"+window.location.host+"${ctx}websocket.ws?self=${self}&other=${other}");
 			socket.onopen = onChannelOpened;
 			socket.onmessage = onChannelMessage;
 			socket.onclose = onChannelClosed;
