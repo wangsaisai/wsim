@@ -86,8 +86,8 @@ public class LoginAjaxAction extends ActionSupport {
 
 	public void setPassword(String password) {
 		MD6 md6 = new MD6();
-		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
-		this.password = md6.getMD5ofStr(password + "zfjfy");
+		//密码密文加密,将用户的密码加上后缀
+		this.password = md6.getMD5ofStr(password + UserAction.tail);
 	}
 
 	public UserService getUserService() {

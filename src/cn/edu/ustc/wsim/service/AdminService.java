@@ -1,7 +1,8 @@
 package cn.edu.ustc.wsim.service;
 
 import cn.edu.ustc.wsim.bean.Admin;
-import cn.edu.ustc.wsim.bean.User;
+import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.Result;
 
 public interface AdminService extends BaseService {
 	
@@ -13,5 +14,7 @@ public interface AdminService extends BaseService {
 	
 	
 	public Admin getLoginAdmin();
+	
+	public Result listAdmin(Page page);
 	
 }

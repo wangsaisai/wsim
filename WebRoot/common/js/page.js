@@ -1,5 +1,4 @@
 var  highlightcolor='#d5f4fe';
-//此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
 var  clickcolor='#51b2f6';
 function  changeto(){
 source=event.srcElement;
@@ -9,7 +8,7 @@ while(source.tagName!="TD")
 source=source.parentElement;
 source=source.parentElement;
 cs  =  source.children;
-//alert(cs.length);
+// alert(cs.length);
 if  (cs[1].style.backgroundColor!=highlightcolor&&source.id!="nc"&&cs[1].style.backgroundColor!=clickcolor)
 for(i=0;i<cs.length;i++){
 	cs[i].style.backgroundColor=highlightcolor;
@@ -20,7 +19,7 @@ function  changeback(){
 if  (event.fromElement.contains(event.toElement)||source.contains(event.toElement)||source.id=="nc")
 return
 if  (event.toElement!=source&&cs[1].style.backgroundColor!=clickcolor)
-//source.style.backgroundColor=originalcolor
+// source.style.backgroundColor=originalcolor
 for(i=0;i<cs.length;i++){
 	cs[i].style.backgroundColor="";
 }
@@ -34,7 +33,7 @@ while(source.tagName!="TD")
 source=source.parentElement;
 source=source.parentElement;
 cs  =  source.children;
-//alert(cs.length);
+// alert(cs.length);
 if  (cs[1].style.backgroundColor!=clickcolor&&source.id!="nc")
 for(i=0;i<cs.length;i++){
 	cs[i].style.backgroundColor=clickcolor;

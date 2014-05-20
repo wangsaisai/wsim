@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
 		
-<link rel="stylesheet" href="/wsim/common/css/mainLeft.css" type="text/css"></link>
+<link rel="stylesheet" href="common/css/mainLeft.css" type="text/css"></link>
 	
 	</head>
 
@@ -25,12 +25,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<tr>
 				<td>
-					<a href="admin/manager_listUser" target="mainFrame">用户管理</a>
+					<a href="module/admin/userFrame.jsp" target="mainFrame">用户管理</a>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<a href="admin/manager_listGroup" target="mainFrame">群组管理</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="module/admin/groupFrame.jsp" target="mainFrame">群组管理</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>
 			<tr>
@@ -41,6 +41,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<a href="module/admin/addAdmin.jsp" target="mainFrame">添加管理员</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="module/admin/changePassword.jsp"  target="mainFrame">修改密码</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<hr/>
 				</td>
 			</tr>
 			<tr>

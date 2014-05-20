@@ -2,8 +2,11 @@ package cn.edu.ustc.wsim.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
+
 import cn.edu.ustc.wsim.bean.Admin;
 import cn.edu.ustc.wsim.dao.AdminDao;
+import cn.edu.ustc.wsim.util.page.Page;
 
 public class AdminDaoImpl extends BaseDaoImpl implements AdminDao {
 
@@ -42,6 +45,16 @@ public class AdminDaoImpl extends BaseDaoImpl implements AdminDao {
 			return null;
 		else
 			return (Admin) list.get(0);
+	}
+
+	@Override
+	public List<Admin> listAdmin(Page page) {
+		Query query = super.getSession().createQuery("from Admin order by id desc");
+		// 设置每页显示多少个，设置多大结果。
+		query.setMaxResults(page.getEveryPage());
+		// 设置起点
+		query.setFirstResult(page.getBeginIndex());
+		return query.list();
 	}
 
 }

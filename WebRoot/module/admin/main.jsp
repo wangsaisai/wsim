@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <span id="main_title">
 		wsim后台管理系统
    </span>
-   <div id="personal"> 角色：管理员 | <a href="user!logout">退出</a></div>
+   <div id="personal"> 角色：管理员 | <a href="admin/admin_adminLogout">退出</a></div>
   </div>
 
   <div id="nav">
@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <iframe name="leftFrame" width="100%" height="100%" src="/wsim/module/admin/mainLeft.jsp" frameborder="0" scrolling="no"></iframe>
         </td>
         <td align="left" id="right" height="520px">
-          <iframe name="mainFrame" width="100%" height="100%" src="/wsim/admin/admin_listUser" frameborder="0" scrolling="auto"></iframe>
+          <iframe name="mainFrame" width="100%" height="100%" src="/wsim/module/admin/welcome.jsp" frameborder="0" scrolling="auto"></iframe>
         </td>
       </tr>
     </table>

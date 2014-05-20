@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	  <link rel="stylesheet" href="common/css/styles.css" type="text/css"></link>
 	  
-	  <link rel="stylesheet" href="common/css/message.css" type="text/css"></link>
+	  <link rel="stylesheet" href="common/css/page.css" type="text/css"></link>
 	  
 	  <script type="text/javascript" src="common/js/validation.js"></script>
 
@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 </script>
 
-<script type="text/javascript" src="common/js/message.js"></script>
+<script type="text/javascript" src="common/js/page.js"></script>
   
   </head>
   

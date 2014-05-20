@@ -28,6 +28,8 @@ public interface UserService extends BaseService {
 	
 	public User getUserInfo(User user);
 	
+	public Result listUser(Page page);
+	
 	
 //	public Result listUserByPage(Page page);
 	

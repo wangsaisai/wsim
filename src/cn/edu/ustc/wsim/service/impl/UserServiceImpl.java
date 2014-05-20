@@ -3,6 +3,7 @@ package cn.edu.ustc.wsim.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.ustc.wsim.bean.Message;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.dao.UserDao;
 import cn.edu.ustc.wsim.datastructure.OnlineUsers;
@@ -10,6 +11,9 @@ import cn.edu.ustc.wsim.enumerates.UserRelation;
 import cn.edu.ustc.wsim.service.FriendGroupService;
 import cn.edu.ustc.wsim.service.UserService;
 import cn.edu.ustc.wsim.util.CheckEmail;
+import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.PageUtil;
+import cn.edu.ustc.wsim.util.page.Result;
 
 public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
@@ -125,6 +129,16 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	@Override
 	public User getUserInfo(User user) {	//not used
 		return this.get(user.getId());
+	}
+
+	@Override
+	public Result listUser(Page page) {
+		page = PageUtil.createPage(page, (int)userDao.count());
+		List<User> users = userDao.listUser(page);
+		Result result = new Result();
+		result.setPage(page);
+		result.setList(users);
+		return result;
 	}
 
 

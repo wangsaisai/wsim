@@ -31,7 +31,6 @@ public class MessageDaoImpl extends BaseDaoImpl implements MessageDao {
 
 	@Override
 	public List<Message> getMessages(User user1, User user2) {
-		//QQQQQQQQQQQQQQQQQ
 //		String hsql = "from Message where (sender = )";
 		Query query = super.getSession().createQuery("from Message where (sender = ? and receiver = ?) or (sender = ? and receiver = ?) order by time");
 		query.setInteger(0, user1.getId());

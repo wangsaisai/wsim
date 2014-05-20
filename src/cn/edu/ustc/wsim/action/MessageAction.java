@@ -114,7 +114,7 @@ public class MessageAction extends ActionSupport {
 	}
 	
 	
-	public Page pageInfo(){
+	private Page pageInfo(){
 		Page page = new Page();
 		page.setEveryPage(10);
 		page.setCurrentPage(currentPage);

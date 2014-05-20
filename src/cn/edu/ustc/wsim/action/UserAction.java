@@ -17,6 +17,8 @@ import cn.edu.ustc.wsim.service.UserService;
 import cn.edu.ustc.wsim.util.CheckSQLInject;
 import cn.edu.ustc.wsim.util.MD6;
 import cn.edu.ustc.wsim.util.email.SendEmailUtil;
+import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.Result;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -52,6 +54,14 @@ public class UserAction extends ActionSupport {
 	private String errorMsg;
 	
 	private String result;
+	
+	private int currentPage;
+	private Page page;
+
+	
+	
+	//用于密码加密，在用户输入的密码后添加统一后缀
+	protected static final String tail = "user_tail";
 	
 	
 	public String getFriendsJson() {
@@ -254,6 +264,44 @@ public class UserAction extends ActionSupport {
 
 	
 	
+	public String listUser() {
+		page = this.pageInfo();
+		Result result = userService.listUser(page);
+		page = result.getPage();
+		users = result.getList();
+		return "list";
+	}
+	
+	
+	
+	private Page pageInfo(){
+		Page page = new Page();
+		page.setEveryPage(10);
+		page.setCurrentPage(currentPage);
+		return page;
+	}
+	
+	
+	
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		if (currentPage <= 0)
+			this.currentPage = 1;
+		else
+			this.currentPage = currentPage;
+	}
+	
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	
 
 
 	public Integer getId() {
@@ -278,8 +326,8 @@ public class UserAction extends ActionSupport {
 
 	public void setPassword(String password) {
 		MD6 md6 = new MD6();
-		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
-		this.password = md6.getMD5ofStr(password + "zfjfy");
+		//密码密文加密,将用户的密码加上后缀,然后用md5加密算法加密
+		this.password = md6.getMD5ofStr(password + tail);
 	}
 
 	public String getName() {
@@ -344,8 +392,8 @@ public class UserAction extends ActionSupport {
 
 	public void setConfpassword(String confpassword) {
 		MD6 md6 = new MD6();
-		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
-		this.confpassword = md6.getMD5ofStr(confpassword + "zfjfy");
+		//密码密文加密,将用户的密码加上后缀
+		this.confpassword = md6.getMD5ofStr(confpassword + tail);
 	}
 
 	public String getOldPassword() {
@@ -353,7 +401,8 @@ public class UserAction extends ActionSupport {
 	}
 
 	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
+		MD6 md6 = new MD6();
+		this.oldPassword = md6.getMD5ofStr(oldPassword + tail);
 	}
 
 	public String getStatusStr() {

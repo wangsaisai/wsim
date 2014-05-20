@@ -11,6 +11,8 @@ import cn.edu.ustc.wsim.service.GroupService;
 import cn.edu.ustc.wsim.service.GroupUserService;
 import cn.edu.ustc.wsim.service.UserService;
 import cn.edu.ustc.wsim.util.CheckSQLInject;
+import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.Result;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -37,6 +39,9 @@ public class GroupAction extends ActionSupport {
 	
 	private String searchinfo;
 	private List<Boolean> relations;
+	
+	private int currentPage;
+	private Page page;
 	
 	
 	public String createGroup() {
@@ -124,6 +129,45 @@ public class GroupAction extends ActionSupport {
 			}
 			return "searchSuccess";
 		}
+	}
+	
+	
+	public String listGroup() {
+		page = this.pageInfo();
+		Result result = groupService.listGroup(page);
+		page = result.getPage();
+		groups = result.getList();
+		return "list";
+	}
+	
+	
+	
+	private Page pageInfo(){
+		Page page = new Page();
+		page.setEveryPage(10);
+		page.setCurrentPage(currentPage);
+		return page;
+	}
+	
+	
+	
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		if (currentPage <= 0)
+			this.currentPage = 1;
+		else
+			this.currentPage = currentPage;
+	}
+	
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
 	}
 	
 

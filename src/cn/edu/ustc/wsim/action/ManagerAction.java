@@ -2,6 +2,7 @@ package cn.edu.ustc.wsim.action;
 
 import java.util.List;
 
+import cn.edu.ustc.wsim.bean.Admin;
 import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.datastructure.OnlineUsers;
@@ -11,6 +12,7 @@ import cn.edu.ustc.wsim.service.GroupService;
 import cn.edu.ustc.wsim.service.MessageService;
 import cn.edu.ustc.wsim.service.UserService;
 import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.Result;
 import cn.edu.ustc.wsim.websocket.room.RoomManager;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -25,9 +27,11 @@ public class ManagerAction extends ActionSupport {
 	
 	private User user;
 	private Group group;
+	private Admin admin;
 	
 	private List<User> users;
 	private List<Group> groups;
+	private List<Admin> admins;
 	
 	private UserService userService;
 	private GroupService groupService;
@@ -46,6 +50,9 @@ public class ManagerAction extends ActionSupport {
 	private long countOnlineUser;
 	private long countRooms;
 	
+	
+	private String email;
+	private Integer number;
 	
 
 	public String delUser() {
@@ -67,21 +74,52 @@ public class ManagerAction extends ActionSupport {
 	
 	
 	public String searchUser() {
-//		this.page = this.pageInfo();
-//		Result result = this.userService.searchUserByPage(page);
-//		page = result.getPage();
-//		this.page = page;
-//		this.users = result.getList();
-		return "listUser";
+		this.user = userService.getUserByEmail(email);
+		if(user==null)
+			return "cannotSearchUser";
+		return "searchUserResult";
 	}
 	
 	
 	public String searchGroup() {
-//		this.page = this.pageInfo();
-//		Result result = this.groupService.searchUserByPage(page);
-//		page = result.getPage();
-//		this.page = page;
-//		this.groups = result.getList();
+		this.group = groupService.getGroupByNumber(number);
+		if(group == null)
+			return "cannotSearchGroup";
+		return "searchGroupResult";
+	}
+	
+	
+	public String searchAdmin() {
+		this.admin = adminService.getAdminByEmail(email);
+		return "searchAdmin";
+	}
+	
+	
+	
+	
+	public String listUser() {
+		page = this.pageInfo();
+		Result result = userService.listUser(page);
+		page = result.getPage();
+		users = result.getList();
+		return "listUser";
+	}
+	
+	
+	public String listAdmin() {
+		page = this.pageInfo();
+		Result result = adminService.listAdmin(page);
+		page = result.getPage();
+		setAdmins(result.getList());
+		return "listAdmin";
+	}
+	
+	
+	public String listGroup() {
+		page = this.pageInfo();
+		Result result = groupService.listGroup(page);
+		page = result.getPage();
+		setGroups(result.getList());
 		return "listGroup";
 	}
 	
@@ -102,7 +140,7 @@ public class ManagerAction extends ActionSupport {
 	}
 	
 	
-	public Page pageInfo(){
+	private Page pageInfo(){
 		Page page = new Page();
 		page.setEveryPage(10);
 		page.setCurrentPage(this.getCurrentPage());
@@ -271,6 +309,38 @@ public class ManagerAction extends ActionSupport {
 
 	public void setCountAllMessage(long countAllMessage) {
 		this.countAllMessage = countAllMessage;
+	}
+
+	public List<Admin> getAdmins() {
+		return admins;
+	}
+
+	public void setAdmins(List<Admin> admins) {
+		this.admins = admins;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public Admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
 
 	

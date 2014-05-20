@@ -368,7 +368,8 @@ public class MD6 {
 	        if (Array.getLength(args) == 0) {   //如果没有参数，执行标准的Test Suite
 
 	            System.out.println("MD5 Test suite:");
-	            System.out.println("MD5(\"\"):" + m.getMD5ofStr("123456dhruj") + "     " + m.getMD5ofStr("123456dhruj").length());
+	            System.out.println("MD5(\"\"):" + m.getMD5ofStr("123456user_tail") + "     " + m.getMD5ofStr("123456dhruj").length());
+	            System.out.println("MD5(\"\"):" + m.getMD5ofStr("123456admin_tail") + "     " + m.getMD5ofStr("123456dhruj").length());
 	            System.out.println("MD5(\"a\"):" + m.getMD5ofStr("a") + m.getMD5ofStr("a").length());
 	            System.out.println("MD5(\"abc\"):" + m.getMD5ofStr("abc"));
 	            System.out.println("MD5(\"message digest\"):" + m.getMD5ofStr("message digest"));

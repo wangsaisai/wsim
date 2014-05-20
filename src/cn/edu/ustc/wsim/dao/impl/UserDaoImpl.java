@@ -2,9 +2,11 @@ package cn.edu.ustc.wsim.dao.impl;
 
 import java.util.List;
 
-import cn.edu.ustc.wsim.bean.Admin;
+import org.hibernate.Query;
+
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.dao.UserDao;
+import cn.edu.ustc.wsim.util.page.Page;
 
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
@@ -55,6 +57,16 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	public List<User> searchUserByName(String name) {
 		String hsql = " from User where name like '%" + name + "%'" ;
 		return super.getHibernateTemplate().find(hsql);
+	}
+
+	@Override
+	public List<User> listUser(Page page) {
+		Query query = super.getSession().createQuery("from User order by id desc");
+		// 设置每页显示多少个，设置多大结果。
+		query.setMaxResults(page.getEveryPage());
+		// 设置起点
+		query.setFirstResult(page.getBeginIndex());
+		return query.list();
 	}
 
 

@@ -73,7 +73,7 @@
 			<result name="changeStatusTempSuccess">success.jsp</result>
 			<result name="changeNameSuccess">success.jsp</result>
 			<result name="changeNameError">module/user/changeName.jsp</result>
-			<result name="changePasswordError">module/user/changePassword.jsp</result>
+			<result name="changePasswordError">error.jsp</result>
 			<result name="changePasswordSuccess">success.jsp</result>
 			<result name="getUserStatus">module/user/changeDefaultLoginStatus.jsp</result>
 			<result name="inviteUserError">error.jsp</result>
@@ -124,12 +124,6 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref> 
 		</action>
 		
-		<action name="displayFriends" class="cn.edu.ustc.wsim.action.DisplayFriends">
-			<result name="success">module/friend/displayFriends.jsp</result>
-			
-			<interceptor-ref name="userInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref> 
-		</action>
 		
 		<action name="group_*" class="cn.edu.ustc.wsim.action.GroupAction" method="{1}">
 			<result name="createrSuccess">module/group/createGroupSuccess.jsp</result>
@@ -191,12 +185,6 @@
 			<result name="quitRoomSuccess">success.jsp</result>
 		</action>
 		
-		<action name="displayFriendsAndGroups" class="cn.edu.ustc.wsim.action.DisplayFriendsAndGroupsAction">
-			<result name="success">displayFriendsAndGroups.jsp</result>
-			
-			<interceptor-ref name="userInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref> 
-		</action>
 		
 		<action name="treeAction" class="cn.edu.ustc.wsim.action.TreeAction">
 			<result name="success">result.jsp</result>
@@ -285,13 +273,13 @@
 			<result name="addAdminInputError">/module/admin/addAdmin.jsp</result>
 			<result name="adminLoginInputError">/module/admin/adminLogin.jsp</result>
 			<result name="changePasswordInputError">/module/admin/changePassword.jsp</result>
-			<result name="adminLogout">success.jsp</result>
-			<result name="addError">error.jsp</result>
-			<result name="addSuccess">success.jsp</result>
-			<result name="delError">error.jsp</result>
-			<result name="delSuccess">success.jsp</result>
-			<result name="changePasswordError">error.jsp</result>
-			<result name="changePasswordSuccess">success.jsp</result>
+			<result name="adminLogout">/module/admin/success.jsp</result>
+			<result name="addError">/module/admin/error.jsp</result>
+			<result name="addSuccess">/module/admin/success.jsp</result>
+			<result name="delError">/module/admin/error.jsp</result>
+			<result name="delSuccess">/module/admin/success.jsp</result>
+			<result name="changePasswordError">/module/admin/error.jsp</result>
+			<result name="changePasswordSuccess">/module/admin/success.jsp</result>
 			<result name="list">/module/admin/listAdmins.jsp</result>
 			
 			<interceptor-ref name="adminInterceptor"></interceptor-ref>
@@ -306,6 +294,10 @@
 			<result name="listUser">/module/admin/listUser.jsp</result>
 			<result name="listGroup">/module/admin/listGroup.jsp</result>
 			<result name="count">/module/admin/count.jsp</result>
+			<result name="searchUserResult">/module/admin/searchUserResult.jsp</result>
+			<result name="searchGroupResult">/module/admin/searchGroupResult.jsp</result>
+			<result name="cannotSearchUser">/module/admin/cannotSearchUser.jsp</result>
+			<result name="cannotSearchGroup">/module/admin/cannotSearchGroup.jsp</result>
 			
 			<interceptor-ref name="adminInterceptor"></interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref> 

@@ -1,102 +1,132 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
-
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title></title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	
+	  <link rel="stylesheet" href="common/css/styles.css" type="text/css"></link>
+	  
+	  <link rel="stylesheet" href="common/css/page.css" type="text/css"></link>
+	  
+	  <script type="text/javascript" src="common/js/validation.js"></script>
 
-<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
-<title></title>
-<link rel="stylesheet" href="css/adminStyle.css" type="text/css"></link>
 <script>
 	function getHref(){
 		var pageNum = document.getElementById("pageNum").value;
 		if(pageNum > ${page.totalPage} || pageNum < 1){
-			alert("≤ª¥Ê‘⁄µ⁄"+pageNum+"“≥");
+			alert("‰∏çÂ≠òÂú®Á¨¨"+pageNum+"È°µ");
 			document.getElementById("pageNum").focus();
 			return false;
 		}
-		document.getElementById("tiaozhuan").href = 'admin_listUser.action?currentPage='+pageNum;
+		document.getElementById("tiaozhuan").href = 'admin/manager_listUser.action?currentPage='+pageNum + '${msg}';
 	}
 </script>
 
-<script type="text/javascript" src="js/admin.js"></script>
-
-</head>
-
-<body>
+<script type="text/javascript" src="common/js/page.js"></script>
+  
+  </head>
+  
+  <body>
+  
+    
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td height="24" bgcolor="#353c44"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                
-                <td width="100%" valign="bottom"><span class="STYLE1">π‹¿Ì»À‘±ª˘±æ–≈œ¢¡–±Ì</span></td>
-              </tr>
-            </table></td>
-            <td></td>
-          </tr>
-        </table></td>
-      </tr>
-    </table></td>
+    <td height="30">
+	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+	        <td height="24" bgcolor="#353c44">
+		        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		          <tr>
+		            <td>
+			            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+			              <tr>
+			                <td width="100%" valign="bottom"><span class="STYLE1">Áî®Êà∑ÁÆ°ÁêÜ</span></td>
+			              </tr>
+			            </table>
+		            </td>
+		            <td></td>
+		          </tr>
+		        </table>
+	        </td>
+	      </tr>
+	    </table>
+    </td>
   </tr>
   <tr>
-    <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce" onmouseover="changeto()"  onmouseout="changeback()">
-      <tr>
-        <td width="15%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">ID</span></div></td>
-        <td width="20%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">”√ªß√˚</span></div></td>
-        <td width="20%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">email</span></div></td>
-        <td width="30%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10"> «∑Òπ‹¿Ì‘±</span></div></td>
-      	<td width="15%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">…æ≥˝</span></div></td>
-      </tr>
-      <s:iterator value="users">
-      <tr>
-        <td height="25" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><span class="STYLE19">${id }</span></div></td>
-        <td height="25" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${username }</div></td>
-        <td height="25" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${email }</div></td>
-        <td height="25" bgcolor="#FFFFFF" class="STYLE19"><div align="center" class="STYLE21"><s:if test="isAdmin==true"> «</s:if><s:else>∑Ò</s:else></div></td>
-        <td height="25" bgcolor="#FFFFFF" class="STYLE19"><div align="center" class="STYLE21"><s:if test="isAdmin==false"><s:a href="admin_delUser?userId=%{id}&currentPage=%{page.currentPage}" onclick="return confirm('»∑∂®…æ≥˝¬£ø')">…æ≥˝</s:a></s:if></div></td>
-      </tr>
-      </s:iterator>
-    </table></td>
+    <td>
+	    <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce" onmouseover="changeto()"  onmouseout="changeback()">
+	      <tr>
+	        <td width="20%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">id</span></div></td>
+	        <td width="30%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">emai</span></div></td>
+	        <td width="20%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">name</span></div></td>
+	        <td width="30%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">Êìç‰Ωú</span></div></td>
+	      </tr>
+	      <s:iterator value="users">
+	      <tr>
+	        <td height="25" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${id }</div></td>
+	        <td height="25" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${email }</div></td>
+	        <td height="25" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${name }</div></td>
+	        <td height="25" bgcolor="#FFFFFF" class="STYLE19">
+	        	<div align="center">
+	        		<s:a href="admin/manager_delUser?userId=%{id}" onclick="return confirm('Á°ÆÂÆöÂà†Èô§ÂêóÔºü')">Âà†Èô§</s:a>
+	        	</div>
+	        </td>
+	      </tr>
+	      </s:iterator>
+	    </table>
+    </td>
   </tr>
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="33%"><div align="left"><span class="STYLE22">&nbsp;&nbsp;&nbsp;&nbsp;µ±«∞µ⁄<strong>${page.currentPage}</strong> “≥£¨π≤ <strong>${page.totalPage}</strong> “≥£¨√ø“≥œ‘ æ<strong>${page.everyPage}</strong>Ãıº«¬º</span></div></td>
+        <td width="33%"><div align="left"><span class="STYLE22">&nbsp;&nbsp;&nbsp;&nbsp;ÂΩìÂâçÁ¨¨<strong>${page.currentPage}</strong> È°µÔºåÂÖ± <strong>${page.totalPage}</strong> È°µÔºåÊØèÈ°µÊòæÁ§∫<strong>${page.everyPage}</strong>Êù°ËÆ∞ÂΩï</span></div></td>
         <td width="67%"><table width="312" border="0" align="right" cellpadding="0" cellspacing="0">
           <tr>
-          
-            <td width="49"><div align="center"><a href="admin_listUser.action?currentPage=1"><img src="images/main_54.gif" width="40" height="15"/></a></div></td>
+            <td width="49"><div align="center"><a href="admin/manager_listUser.action?currentPage=1${msg}"><img src="common/img/main_54.gif" width="40" height="15"/></a></div></td>
             <s:if test="page.hasPrePage">
-            	<td width="49"><div align="center"><a href="admin_listUser.action?currentPage=${page.currentPage - 1 }"><img src="images/main_56.gif" width="45" height="15" /></a></div></td>
+            	<td width="49"><div align="center"><a href="admin/manager_listUser.action?currentPage=${page.currentPage - 1 }${msg}"><img src="common/img/main_56.gif" width="45" height="15" /></a></div></td>
             </s:if>
             <s:else>
-            	<td width="49"><div align="center"><img src="images/main_56.gif" width="45" height="15" /></div></td>
+            	<td width="49"><div align="center"><img src="common/img/main_56.gif" width="45" height="15" /></div></td>
             </s:else>
             <s:if test="page.hasNextPage">
-            	<td width="49"><div align="center"><a href="admin_listUser.action?currentPage=${page.currentPage + 1 }"><img src="images/main_58.gif" width="45" height="15"/></a></div></td>
+            	<td width="49"><div align="center"><a href="admin/manager_listUser.action?currentPage=${page.currentPage + 1 }${msg}"><img src="common/img/main_58.gif" width="45" height="15"/></a></div></td>
             </s:if>
             <s:else>
-            	<td width="49"><div align="center"><img src="images/main_58.gif" width="45" height="15" /></div></td>
+            	<td width="49"><div align="center"><img src="common/img/main_58.gif" width="45" height="15" /></div></td>
             </s:else>
-            <td width="49"><div align="center"><a href="admin_listUser.action?currentPage=${page.totalPage }"><img src="images/main_60.gif" width="40" height="15" /></a></div></td>
-            <td width="37" class="STYLE22"><div align="center">◊™µΩ</div></td>
+            <td width="49"><div align="center"><a href="admin/manager_listUser.action?currentPage=${page.totalPage }${msg}"><img src="common/img/main_60.gif" width="40" height="15" /></a></div></td>
+            <td width="37" class="STYLE22"><div align="center">ËΩ¨Âà∞</div></td>
             <td width="22"><div align="center">
-              <input type="text" name="pageNum" id="pageNum"  style="width:20px; height:12px; font-size:12px; border:solid 1px #7aaebd;" onkeyup="value=value.replace(/[^0-9]/g,'');"/>
+              <input type="text" name="pageNum" id="pageNum"  style="width:25px; height:16px; font-size:12px; border:solid 1px #7aaebd;" onkeyup="value=value.replace(/[^0-9]/g,'');"/>
             </div></td>
-            <td width="22" class="STYLE22"><div align="center">“≥</div></td>
-            <td width="35"><a  onclick="getHref()" id="tiaozhuan"><img src="images/main_62.gif" width="26" height="15" /></a></td>
+            <td width="22" class="STYLE22"><div align="center">È°µ</div></td>
+            <td width="35"><a  onclick="getHref()" id="tiaozhuan"><img src="common/img/main_62.gif" width="26" height="15" /></a></td>
           </tr>
         </table></td>
       </tr>
     </table></td>
   </tr>
-</table>
-</body>
+</table>    
+    
+    
+    
+    
+  </body>
 </html>
-  

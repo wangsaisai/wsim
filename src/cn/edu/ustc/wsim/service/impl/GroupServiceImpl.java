@@ -10,6 +10,9 @@ import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.dao.GroupDao;
 import cn.edu.ustc.wsim.service.GroupService;
 import cn.edu.ustc.wsim.service.GroupUserService;
+import cn.edu.ustc.wsim.util.page.Page;
+import cn.edu.ustc.wsim.util.page.PageUtil;
+import cn.edu.ustc.wsim.util.page.Result;
 
 public class GroupServiceImpl extends BaseServiceImpl implements GroupService {
 
@@ -102,6 +105,16 @@ public class GroupServiceImpl extends BaseServiceImpl implements GroupService {
 		groups.addAll(groupDao.searchGroupByName(searchinfo));
 		
 		return groups;
+	}
+
+	@Override
+	public Result listGroup(Page page) {
+		page = PageUtil.createPage(page, (int)groupDao.count());
+		List<Group> groups = groupDao.listGroup(page);
+		Result result = new Result();
+		result.setPage(page);
+		result.setList(groups);
+		return result;
 	}
 
 

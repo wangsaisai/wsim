@@ -3,6 +3,7 @@ package cn.edu.ustc.wsim.dao;
 import java.util.List;
 
 import cn.edu.ustc.wsim.bean.User;
+import cn.edu.ustc.wsim.util.page.Page;
 
 public interface UserDao extends BaseDao {
 	
@@ -13,5 +14,7 @@ public interface UserDao extends BaseDao {
 	public User getUserByEmailAndPassoord(String email, String password);
 	
 	public List<User> searchUserByName(String name);
+	
+	public List<User> listUser(Page page);
 
 }

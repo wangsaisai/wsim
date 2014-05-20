@@ -74,8 +74,8 @@ public class RegisterAction extends ActionSupport {
 
 	public void setPassword(String password) {
 		MD6 md6 = new MD6();
-		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
-		this.password = md6.getMD5ofStr(password + "zfjfy");
+		//密码密文加密,将用户的密码加上后缀
+		this.password = md6.getMD5ofStr(password + UserAction.tail);
 	}
 
 	public String getName() {
@@ -108,8 +108,8 @@ public class RegisterAction extends ActionSupport {
 
 	public void setConfpassword(String confpassword) {
 		MD6 md6 = new MD6();
-		//密码密文加密,将用户的密码加上后缀'zfjfy'后在用md5加密算法加密
-		this.confpassword = md6.getMD5ofStr(confpassword + "zfjfy");
+		//密码密文加密,将用户的密码加上后缀
+		this.confpassword = md6.getMD5ofStr(confpassword + UserAction.tail);
 	}
 
 	public FriendGroupService getFriendGroupService() {

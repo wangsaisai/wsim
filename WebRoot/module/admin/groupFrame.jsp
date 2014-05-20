@@ -13,12 +13,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 		<title>searchFrame</title>
 	</head>
-	<frameset rows="150,*" cols="*" frameborder="no" border="0"
+	<frameset rows="50,*" cols="*" frameborder="no" border="0"
 		framespacing="0">
-		<frame src="module/message/searchMessage.jsp" name="searchFrame" scrolling="no"
-			noresize="noresize" id="searchFrame" title="searchFrame" />
-		<frame src="empty.jsp" name="resultFrame" id="resultFrame"
-			title="resultFrame" />
+		<frame src="module/admin/searchGroup.jsp" name="groupSearchFrame" scrolling="no"
+			noresize="noresize" id="groupSearchFrame" title="groupSearchFrame" />
+		<frame src="admin/manager_listGroup" name="groupResultFrame" id="groupResultFrame"
+			title="groupResultFrame" />
 	</frameset>
 	<noframes>
 		<body>

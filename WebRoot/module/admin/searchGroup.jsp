@@ -1,4 +1,4 @@
-_empty.jsp<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
@@ -27,6 +27,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    
+    <form action="admin/manager_searchGroup" name="searchGroup" id="searchGroup" method="post"  target="groupResultFrame">
+    	<table>
+    		<tr>
+    			<td><span>搜索群</span></td>
+    			<td><input type="text" name="number" id="number" placeholder="群号" required="true"/></td>
+    			<td><input type="submit" value="查找" /></td>
+    		</tr>
+    	</table>
+    </form>
   </body>
 </html>

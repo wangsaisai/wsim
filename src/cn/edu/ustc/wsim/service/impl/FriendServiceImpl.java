@@ -132,7 +132,13 @@ public class FriendServiceImpl extends BaseServiceImpl implements FriendService 
 				List<Friend> friendss = this.getFriendsOfFriendGroup(friendGroup);
 				for (Friend friend : friendss) {
 					//如果好友的name 字符串中包含searchinfo这个子串          或者        好友备注名中包含输入信息
-					if(friend.getUser().getName().contains(searchinfo) || friend.getRemark().contains(searchinfo))
+					/*
+					 * bug
+					 * friend.getRemark()可能引起空指针异常
+					 * 已修复
+					 * 
+					 */
+					if(friend.getUser().getName().contains(searchinfo) || (friend.getRemark() != null && friend.getRemark().contains(searchinfo)) )
 						friends.add(friend);
 				}
 			}

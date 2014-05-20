@@ -27,14 +27,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="admin/manager_searchUser" name="searchUser" id="searchUser" method="post"  target="userResultFrame">
-    	<table>
-    		<tr>
-    			<td><span>搜索用户</span></td>
-    			<td><input type="text" name="email" id="email" placeholder="email" required="true"/></td>
-    			<td><input type="submit" value="查找" /></td>
-    		</tr>
-    	</table>
-    </form>
+    欢迎光临wsim后台管理系统
   </body>
 </html>
