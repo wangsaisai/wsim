@@ -176,6 +176,7 @@ Ext.define('Leetop.module.Login', {
                             success: function(form, action) {	
                             	Ext.getCmp("login_win").close();
                             	userId = action.result.userId;
+                            	myName = action.result.name;
                       
                         //  	Ext.getCmp("acc-win").onload();
 //                            	alert("success");

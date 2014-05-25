@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   
-    <table>
+    <table style="BORDER-COLLAPSE: collapse; BORDER-RIGHT-WIDTH: 0px" borderColor=#000000 bgColor=#bbbbff cellSpacing=0 cellPadding=0 width=500 align=center border=1>
     	<tr>
     		<th>name</th>
     		<th>number</th>

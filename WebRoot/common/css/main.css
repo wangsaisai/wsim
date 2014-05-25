@@ -2,6 +2,10 @@
 
 body {
     font-size:12px;
+    background-image: url(../img/bg-2.jpg);
+    background-size:cover;
+    background-repeat:no-repeat;
+    
 }
 
 /* 可抽取出 global.css  START*/
@@ -93,10 +97,33 @@ html, body, div, span, object, iframe, pre, a, code, font, ul, li, img, samp, sm
 	padding-top:15px;
 }
 #right {
-    background:#fff;
+   
 	vertical-align:top;
 }
 /* main end */
 
 /* 可抽取出 layouts.css  END*/
-
+#changepwd{
+	 position:absolute; 
+	
+	height:230px;
+	width:200px;
+	top:20%;
+	left:40%;
+	background-color:#fff;
+	border:solid 1px #0023ff;
+	z-index:600001; 
+	
+}
+#addadmin{
+	 position:absolute; 
+	
+	height:230px;
+	width:200px;
+	top:20%;
+	left:40%;
+	background-color:#fff;
+	border:solid 1px #0023ff;
+	z-index:600001; 
+	
+}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,24 +60,40 @@ public class UserMessageInbound extends MessageInbound {
 		List<FriendRequest> friendRequests = friendRequestService.getUndealFriendRequests(user);
 		for (FriendRequest friendRequest : friendRequests) {
 			UserMessageInboundPool.sendFriendRequestMessage(friendRequest);
+			break;
 		}
 		
 		//将未处理的群请求信息发送给该用户
 		GroupRequestService groupRequestService = (GroupRequestService) SpringUtil.getBean("groupRequestServiceProxy"); 
 		Map<Group, List<GroupRequest>> map = groupRequestService.getUndealGroupRequests(user);
-		for(Map.Entry mapEntry : map.entrySet()) {  
+loop:	for(Map.Entry mapEntry : map.entrySet()) {  
 		    Group group = (Group) mapEntry.getKey();  
 		    List<GroupRequest> groupRequests = (List<GroupRequest>) mapEntry.getValue();
 //		    if( !(groupRequests == null || groupRequests.size() == 0) )
 		    for (GroupRequest groupRequest : groupRequests) {
 				UserMessageInboundPool.sendGroupRequestMessage(user, groupRequest);
+				break loop;
 			}
 		}
 			
 		//获取离线消息发送给该用户
 		MessageService messageService = (MessageService) SpringUtil.getBean("messageServiceProxy");
-		UserMessageInboundPool.sendUnreadMessages(user, messageService.getUnreadMessagesOfUser(user));
-		
+		List<Message> messages = messageService.getUnreadMessage(user);
+		for (Message message : messages) {
+			Map<String, Object> mapp = new HashMap<String, Object>();
+			mapp.put("type", "friendMessage");
+			mapp.put("sender", message.getSender().getId() + "");
+			mapp.put("receiver", userId + "");
+			mapp.put("content", message.getContent());
+			mapp.put("time", message.getTime().getTime());
+			JSONObject json = JSONObject.fromObject(mapp);
+			UserMessageInboundPool.sendFriendMessage(userId, json.toString());
+			
+			//更新数据库中信息，使其标记成已读
+			message.setReaded(true);
+			messageService.update(message);
+		}
+//		UserMessageInboundPool.sendUnreadMessages(user, messageService.getUnreadMessagesOfUser(user));
 		
 	}
 
@@ -109,7 +126,7 @@ public class UserMessageInbound extends MessageInbound {
 		String type = (String) json.get("type");
 		
 		switch(type) {
-//		case "dealFriendRequest" :		//可以使用ajax实现
+//		case "dealFriendRequest" :		//好友请求，在action中处理，在action类中调用UserMessageInboundPool的sendFriendRequestMessage()方法
 			
 //		case "dealGroupRequest" :
 			

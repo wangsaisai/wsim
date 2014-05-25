@@ -65,6 +65,9 @@ public class FriendServiceImpl extends BaseServiceImpl implements FriendService 
 	@Override
 	public boolean addFriend(User requester, User receiver, String friendGroupName, String remark) {
 		
+		if(friendGroupService.isFriend(requester, receiver))
+			return true;
+		
 		FriendGroup fg = null;
 		if(friendGroupName == null || "".equals(friendGroupName)) {
 			fg = friendGroupService.getFriendGroupByName(requester, GlobalFinal.getDefaultFriendGroupName()); 

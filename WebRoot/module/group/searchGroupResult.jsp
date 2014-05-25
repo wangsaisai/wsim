@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <table>
+    <table style="BORDER-COLLAPSE: collapse; BORDER-RIGHT-WIDTH: 0px" borderColor=#000000 bgColor=#ddddff cellSpacing=0 cellPadding=0 width=250 align=center border=1>
     	<tr>
     		<th>id</th>
     		<th>name</th>
@@ -36,9 +36,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</tr>
    	<s:iterator value="groups"  status="sta">
    		<tr>
-   			<td>${sta.index+1 }</td>
-   			<td>${name }</td>
-   			<td>${number }</td>
+   			<td height=40>${sta.index+1 }</td>
+   			<td height=40>${name }</td>
+   			<td height=40>${number }</td>
    			<td>
    				<s:if test="relations[#sta.index]==true">你已加入该群</s:if>
    				<s:else><s:a href="groupRequest_addGroupRequest.action?groupId=%{id}">申请加入</s:a></s:else>

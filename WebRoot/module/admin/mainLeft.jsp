@@ -38,21 +38,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<hr/>
 				</td>
 			</tr>
-			<tr>
+		<!-- 	<tr>
 				<td>
 					<a href="module/admin/addAdmin.jsp" target="mainFrame">添加管理员</a>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<a href="module/admin/changePassword.jsp"  target="mainFrame">修改密码</a>
+					<a href="javascript:;" onclick="showdiv();">修改密码</a>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<hr/>
 				</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>
 					<a href="admin/manager_count" target="mainFrame">数据统计</a>
@@ -60,7 +60,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 		</table>
-
 
 
 	</body>

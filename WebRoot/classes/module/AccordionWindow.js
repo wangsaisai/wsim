@@ -113,11 +113,6 @@ Ext.define('Leetop.module.AccordionWindow', {
                         
                     },
                     {
-                        text:'修改默认登录状态',
-                        leaf:true
-                        
-                    },
-                    {
                         text:'修改密码',
                         leaf:true
                         
@@ -152,10 +147,6 @@ Ext.define('Leetop.module.AccordionWindow', {
                         
                         leaf:true
                         
-                    },{
-                        text:'搜索好友',
-                        leaf:true
-                        
                     },
                     {
                         text:'显示所有好友',
@@ -167,6 +158,7 @@ Ext.define('Leetop.module.AccordionWindow', {
                         leaf:true
                         
                     },
+                    
                     {
                         text:'添加好友',
                         leaf:true
@@ -202,16 +194,13 @@ Ext.define('Leetop.module.AccordionWindow', {
                         
                         leaf:true
                         
-                    },{
-                        text:'搜索好友',
-                        leaf:true
-                        
                     },
                     {
                         text:'显示所有好友',
                         leaf:true
                         
                     },
+                  
                     {
                         text:'未处理的好友请求',
                         leaf:true
@@ -315,7 +304,7 @@ Ext.define('Leetop.module.AccordionWindow', {
         if (!win) {
             win = desktop.createWindow({
                 id: 'acc-win',
-                title: 'wsim',
+                title: myName,
                 width: 250,
                 height: 600,
                 x:850,
@@ -333,12 +322,51 @@ Ext.define('Leetop.module.AccordionWindow', {
                     '-',
                     {
                         tooltip:'Add a new user',
-                        iconCls:'user-add'
+                        iconCls:'user-add',
+                        handler:function(){
+                        	Ext.create('Ext.window.Window', {
+                        	    title: '添加好友',
+                        		
+                        	    height: 250,
+                        	    width: 300,
+                        		shadow:true,
+                        		
+                        	    layout: 'card',
+                        		items: [
+                        	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
+                                		'frameborder="no" hidefocus="" allowtransparency="true" ' + 
+                                  		'src="https://'+serverIP+':8443/wsim/module/user/searchUser.jsp"' +  
+                                  		'style="width: 100%; height: 100%;">' }
+                        	       
+                        	    ]
+                        	    
+                        	}).show();
+                        	}
+                        
                     },
                     ' ',
                     {
                         tooltip:'Remove the selected user',
-                        iconCls:'user-delete'
+                        iconCls:'user-delete',
+                        handler:function(){
+                        	Ext.create('Ext.window.Window', {
+                        	    title: '删除好友',
+                        		
+                        	    height: 335,
+                        	    width: 500,
+                        		shadow:true,
+                        		maximizable:true,
+                        	    layout: 'card',
+                        		items: [
+                        	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
+                                		'frameborder="no" hidefocus="" allowtransparency="true" ' + 
+                                  		'src="https://'+serverIP+':8443/wsim/displayFriends"' +  
+                                  		'style="width: 100%; height: 100%;">' }
+                        	       
+                        	    ]
+                        	    
+                        	}).show();
+                        }
                     }]
                 },
 
@@ -489,10 +517,10 @@ function perinfo_event(node,event)
 	Ext.create('Ext.window.Window', {
 	    title: textName,
 		
-	    height: 150,
-	    width: 200,
+	    height: 250,
+	    width: 300,
 		shadow:true,
-		x:60,
+		
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -512,7 +540,7 @@ function perinfo_event(node,event)
 		    height: 150,
 		    width: 200,
 			shadow:true,
-			x:60,
+			
 		    layout: 'card',
 			items: [
 		        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -531,7 +559,7 @@ function perinfo_event(node,event)
 	    height: 220,
 	    width: 230,
 		shadow:true,
-		x:60,
+		
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -549,7 +577,7 @@ function perinfo_event(node,event)
 	    height: 150,
 	    width: 200,
 		shadow:true,
-		x:60,
+		
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -573,7 +601,7 @@ function friendman_event(node,event)
 	    height: 150,
 	    width: 200,
 		shadow:true,
-		x:60,
+		
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -593,7 +621,7 @@ function friendman_event(node,event)
 		    height: 150,
 		    width: 200,
 			shadow:true,
-			x:60,
+			
 		    layout: 'card',
 			items: [
 		        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -605,14 +633,32 @@ function friendman_event(node,event)
 		    
 		}).show();
 		}
+	else if(textName=="未处理的好友请求")
+	{Ext.create('Ext.window.Window', {
+	    title: textName,
+		
+	    height: 335,
+	    width: 500,
+		shadow:true,
+		
+	    layout: 'card',
+		items: [
+	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
+        		'frameborder="no" hidefocus="" allowtransparency="true" ' + 
+          		'src="https://'+serverIP+':8443/wsim/friendRequest_displayUndealFriendRequest"' +  
+          		'style="width: 100%; height: 100%;">' }
+	       
+	    ]
+	    
+	}).show();}
 	else if(textName=="显示所有好友")
 	{Ext.create('Ext.window.Window', {
 	    title: textName,
 		
-	    height: '100%',
-	    width: '90%',
+	    height: 335,
+	    width: 500,
 		shadow:true,
-		x:60,
+		maximizable:true,
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -623,32 +669,15 @@ function friendman_event(node,event)
 	    ]
 	    
 	}).show();
-	}else if(textName=="未处理的好友请求")
-	{Ext.create('Ext.window.Window', {
-	    title: textName,
-		
-	    height: 335,
-	    width: 400,
-		shadow:true,
-		x:60,
-	    layout: 'card',
-		items: [
-	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
-        		'frameborder="no" hidefocus="" allowtransparency="true" ' + 
-          		'src="https://'+serverIP+':8443/wsim/friendRequest_displayUndealFriendRequest"' +  
-          		'style="width: 100%; height: 100%;">' }
-	       
-	    ]
-	    
-	}).show();
+	
 	}else if(textName=="添加好友")
 	{Ext.create('Ext.window.Window', {
 	    title: textName,
 		
-	    height: 150,
-	    width: 200,
+	    height: 250,
+	    width: 300,
 		shadow:true,
-		x:60,
+		
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -670,10 +699,10 @@ function groupman_event(node,event)
 	Ext.create('Ext.window.Window', {
 	    title: textName,
 		
-	    height: 150,
-	    width: 200,
+	    height: 300,
+	    width: 400,
 		shadow:true,
-		x:60,
+		
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -690,10 +719,10 @@ function groupman_event(node,event)
 		{Ext.create('Ext.window.Window', {
 		    title: textName,
 			
-		    height: 150,
-		    width: 200,
+		    height: 250,
+		    width: 300,
 			shadow:true,
-			x:60,
+			
 		    layout: 'card',
 			items: [
 		        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -710,9 +739,9 @@ function groupman_event(node,event)
 	    title: textName,
 		
 	    height: 400,
-	    width: 500,
+	    width: 530,
 		shadow:true,
-		x:60,
+		
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -728,9 +757,9 @@ function groupman_event(node,event)
 	    title: textName,
 		
 	    height: 350,
-	    width: 300,
+	    width: 500,
 		shadow:true,
-		x:60,
+		
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -755,7 +784,7 @@ function messageman_event(node,event)
 	    height: 500,
 	    width: 650,
 		shadow:true,
-		x:60,
+		
 	    layout: 'card',
 		items: [
 	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
@@ -775,12 +804,12 @@ function messageman_event(node,event)
 		    height: 500,
 		    width: 650,
 			shadow:true,
-			x:60,
+			
 		    layout: 'card',
 			items: [
 		        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
 	        		'frameborder="no" hidefocus="" allowtransparency="true" ' + 
-	          		'src="https://'+serverIP+':8443/wsim/module/groupMessage/searchFrame.jsp"' +  
+	          		'src="https://'+serverIP+':8443/wsim/module/groupMessage/searchGroupMessage.jsp"' +  
 	          		'style="width: 100%; height: 100%;">' }
 		       
 		    ]

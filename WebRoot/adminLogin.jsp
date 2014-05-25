@@ -1,5 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,7 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title></title>
+    <title>My JSP 'index.jsp' starting page</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -19,14 +19,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	
-	  <link rel="stylesheet" href="common/css/styles.css" type="text/css"></link>
-	  
-	  <script type="text/javascript" src="common/js/validation.js"></script>
-  
+
   </head>
   
-  <body bgColor="transparent">
-  <!--  <h1 style="color=blue">WSIM后台管理系统</h1>  -->
+  <body>
+    <jsp:forward page="module/admin/adminLogin.jsp"></jsp:forward>
   </body>
 </html>

@@ -45,6 +45,8 @@ public class FriendAction extends ActionSupport {
 		friend.setUser(new User(userId));
 		friend.setRemark(remark);
 		
+		
+		
 		if(friendService.add(friend))
 			return "addSuccess";
 		else {

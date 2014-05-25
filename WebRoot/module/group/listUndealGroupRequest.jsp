@@ -28,28 +28,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	
-    <table border="1" bordercolor="block">
+    <table  style="BORDER-COLLAPSE: collapse; BORDER-RIGHT-WIDTH: 0px" borderColor=#000000 bgColor=#ddddff cellSpacing=0 cellPadding=0  align=center border=1>
     	<tr>
-    		<th>groupName</th>
-    		<th>groupNumber</th>
-    		<th>请求</th>
+    		<th height=40>群名</th>
+    		<th height=40>群号</th>
+    		<th height=40>请求者</th>
     	</tr>
    	<s:iterator var="groups" value="allGroupRequests">
    		<tr>
 	   		<td><s:property value="key.name"/></td>
 	   		<td><s:property value="key.number"/></td>
 	   		<td>
-	   			<table border="1" bordercolor="red">
+	   			<table border="0">
 	   				<tr>
-	   					<th>username</th>
-	   					<th>useremail</th>
+	   					<th>用户名</th>
+	   					<th>邮箱</th>
 	   					<th>操作</th>
 	   				</tr>
 	   			<s:iterator var="request" value="value">
 	   				<tr><s:hidden value="#request.id"></s:hidden>
-	   					<td><s:property value="#request.user.name"/></td>
-	   					<td><s:property value="#request.user.email"/></td>
-	   					<td>
+	   					<td align=center><s:property value="#request.user.name"/></td>
+	   					<td align=center><s:property value="#request.user.email"/></td>
+	   					<td align=center>
 	   						<s:a href="groupRequest_dealGroupRequest.action?id=%{#request.id}&resultStr=agree">agree</s:a>
 	   						&nbsp;&nbsp;
 	   						<s:a href="groupRequest_dealGroupRequest.action?id=%{#request.id}&resultStr=deny">deny</s:a>

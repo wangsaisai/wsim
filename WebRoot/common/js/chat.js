@@ -78,12 +78,12 @@ Ext.define('MessageContainer', {
 function onmenuclick()
 {
 	var other = videoOther;
-	alert(userId);
+//	alert(userId);
 	Ext.create('Ext.window.Window', {
 	    title: '视频聊天',
-		
-	    height: 700,
-	    width: 800,
+		maximizable:true,
+	    height: 600,
+	   width: 800,
 		shadow:true,
 		x:100,
 	    layout: 'card',
@@ -345,14 +345,72 @@ function createGroupChatWindow(groupId, name) {
 
 
 
-function dealFriendRequest(message) {
-	alert("friendRequest: " + message.type + message.requester + message.remark);
+function dealFriendRequest() {
+	Ext.create('Ext.window.Window', {
+	    title: '好友请求',
+		
+	    height: 335,
+	    width: 500,
+		shadow:true,
+		
+	    layout: 'card',
+		items: [
+	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
+        		'frameborder="no" hidefocus="" allowtransparency="true" ' + 
+          		'src="https://'+serverIP+':8443/wsim/friendRequest_displayUndealFriendRequest"' +  
+          		'style="width: 100%; height: 100%;">' }
+	       
+	    ]
+	    
+	}).show();
+	//alert("friendRequest: " + message.type + message.requester + message.remark);
+}
+
+function dealGroupRequest() {
+	Ext.create('Ext.window.Window', {
+	    title: '加群请求',
+		
+	    height: 335,
+	    width: 400,
+		shadow:true,
+		
+	    layout: 'card',
+		items: [
+	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
+        		'frameborder="no" hidefocus="" allowtransparency="true" ' + 
+          		'src="https://'+serverIP+':8443/wsim/groupRequest_displayUndealGroupRequest"' +  
+          		'style="width: 100%; height: 100%;">' }
+	       
+	    ]
+	    
+	}).show();
 }
 
 function dealVideoRequest(message) {
 	alert("视频请求： 请求者：" + message.requester);
-	window.open("https://" + serverIP + ":8443/wsim/conn.servlet?type=res&self=" + userId + "&other=" + message.requester
-			, "_blank");
+//	window.open("https://" + serverIP + ":8443/wsim/conn.servlet?type=res&self=" + userId + "&other=" + message.requester
+//			, "_blank");
+
+//	https://127.0.0.1:8443/wsim/conn.servlet?type=res&self=2&other=1
+		
+	Ext.create('Ext.window.Window', {
+	    title: '视频聊天',
+		maximizable:true,
+	    height: 600,
+	   width: 800,
+		shadow:true,
+		x:100,
+	    layout: 'card',
+		items: [
+	        { html: '<iframe id="message_module_iframe" scrolling="auto" ' + 
+        		'frameborder="no" hidefocus="" allowtransparency="true" ' + 
+          		'src="https://'+serverIP+':8443/wsim/conn.servlet?type=res&self='+userId+'&other='+message.requester+'"' +  
+          		'style="width: 100%; height: 100%;">' }
+	       
+	    ]
+	    
+	}).show();		
+	
 }
 
 
@@ -361,7 +419,7 @@ function dealFriendMessage(message) {
 	var winId = sender + "_friend";
 
 	if(Ext.getCmp(winId) == null) {
-		createFriendChatWindow(sender);
+		createFriendChatWindow(sender,sender);
 	} else {
 		Ext.getCmp(winId).show();
 	}
@@ -379,7 +437,7 @@ function dealGroupMessage(message) {
 	var winId = groupId + "_group";
 
 	if(Ext.getCmp(winId) == null) {
-		createGroupChatWindow(groupId);
+		createGroupChatWindow(groupId,groupId);
 	} else {
 		Ext.getCmp(winId).show();
 	}
@@ -404,7 +462,7 @@ function openWSConn() {
 		websocket = new WebSocket(encodeURI("wss://" + serverIP + ":8443/wsim/user.ws?userId=" + userId));
 		websocket.onopen = function() {
 			//连接成功
-			alert("open");
+//			alert("open");
 		}
 		websocket.onerror = function() {
 			//连接失败
@@ -426,6 +484,8 @@ function openWSConn() {
 				notify();
 			} else if(message.type == 'friendRequest') {
 				dealFriendRequest(message);
+			}else if(message.type == 'groupRequest') {
+				dealGroupRequest(message);
 			} else if(message.type == 'videoRequest') {
 				dealVideoRequest(message);
 			}

@@ -27,17 +27,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	您有${friendRequests.size() }条好友请求信息
-    <table>
+  	<p align=center>您有${friendRequests.size() }条好友请求信息</p>
+    <table style="BORDER-COLLAPSE: collapse; BORDER-RIGHT-WIDTH: 0px" borderColor=#000000 width=450 bgColor=#bbbbff cellSpacing=0 cellPadding=0  align=center border=1>
     	<tr>
-    		<th>id</th>
-    		<th>requester</th>
+    		<th>序号</th>
+    		<th>请求者</th>
+    		<th>验证信息</th>
     		<th>操作</th>
     	</tr>
    	<s:iterator value="friendRequests"  status="sta">
    		<tr>
    			<td>${sta.index+1 }</td>
    			<td>${requester.name }</td>
+   			<td>${remark }</td>
    			<td>
    				<form action="friendRequest_dealFriendRequest" method="post">
    					<input type="hidden" name="id" value="${id }"/>

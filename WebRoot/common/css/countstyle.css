@@ -1,0 +1,7 @@
+table {WIDTH:100%;float:center;text-align: LEFT;border-collapse: collapse;}
+td,th {border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #fff;
+height:38px;}
+#head {background-color: #41E1AA;color: white;}
+#lightcolor {background-color: #eeeff2;}
+#heavycolor {background-color: #dfe1e7;}
+*{font-size: 20px;font-family: Tahoma;}

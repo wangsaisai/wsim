@@ -8,8 +8,9 @@ public class RoomManager {
 	private static final Map<Integer, Room> rooms = new HashMap<Integer, Room>();
 	
 	
-	//创建聊天室
-	public static Room createRoom() {
+	//创建聊天室	
+	//加锁，防止多线程环境下创建的聊天至号码一致
+	public synchronized static Room createRoom() {
 		//随机生成roomId
 		Integer roomId = (int) (Math.random() * 100000000);
 		while(rooms.containsKey(roomId))

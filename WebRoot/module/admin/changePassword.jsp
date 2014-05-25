@@ -27,11 +27,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="admin/admin_changePassword" name="changeAdminPassword" id="changeAdminPassword" method="post">
+    <form action="admin/admin_changePassword" name="changeAdminPassword" id="changeAdminPassword" method="post" align="center">
     	<table>
-  			<tr>
-  				<th colspan="2">修改 密码</th>
-  			</tr>
+  			
   			<tr>
   				<td><input type="text" id="oldPassword" name="oldPassword" placeholder="oldPassword"/></td>
   				<td><s:fielderror><s:param name="oldPassword">oldPassword</s:param></s:fielderror></td>

@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<title>searchFrame</title>
 	</head>
 	<frameset rows="50,*" cols="*" frameborder="no" border="0"
-		framespacing="0">
+		framespacing="0"  STYLE= "background-color:#ff0000;">
 		<frame src="module/admin/searchGroup.jsp" name="groupSearchFrame" scrolling="no"
 			noresize="noresize" id="groupSearchFrame" title="groupSearchFrame" />
 		<frame src="admin/manager_listGroup" name="groupResultFrame" id="groupResultFrame"

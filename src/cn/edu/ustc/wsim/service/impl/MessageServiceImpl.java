@@ -76,4 +76,9 @@ public class MessageServiceImpl extends BaseServiceImpl implements MessageServic
 		return map;
 	}
 
+	@Override
+	public List<Message> getUnreadMessage(User user) {
+		return messageDao.getUnreadMessagesOfUser(user);
+	}
+
 }

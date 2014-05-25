@@ -125,6 +125,13 @@
 		</action>
 		
 		
+		<action name="displayFriends" class="cn.edu.ustc.wsim.action.DisplayFriends">
+			<result name="success">module/friend/displayFriends.jsp</result>
+
+			<interceptor-ref name="userInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
+		</action>
+		
 		<action name="group_*" class="cn.edu.ustc.wsim.action.GroupAction" method="{1}">
 			<result name="createrSuccess">module/group/createGroupSuccess.jsp</result>
 			<result name="createError">error.jsp</result>

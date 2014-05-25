@@ -9,23 +9,21 @@ import cn.edu.ustc.wsim.bean.FriendGroup;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.service.FriendGroupService;
 import cn.edu.ustc.wsim.service.FriendService;
-import cn.edu.ustc.wsim.service.GroupUserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-public class DisplayFriendsAndGroupsAction extends ActionSupport {
+public class DisplayFriends extends ActionSupport {
 
-	private static final long serialVersionUID = -5995127811966376147L;
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6930597197749051946L;
 	private Integer userId;
-	
+	private List<FriendGroup> friendGroups;
 	private FriendGroupService friendGroupService;
 	private FriendService friendService;
-	private GroupUserService groupUserService;
-	
-	private List<FriendGroup> friendGroups;
-	private List groupUsers;
-	
+
+
 	@Override
 	public String execute() {
 		User loginUser = friendService.getLoginUser();
@@ -35,13 +33,11 @@ public class DisplayFriendsAndGroupsAction extends ActionSupport {
 			Set friends = new HashSet<Friend>();
 			friends.addAll(friendService.getFriendsOfFriendGroup(friendGroup));
 			friendGroup.setFriends(friends);
+
 		}
-		
-		this.setGroupUsers(groupUserService.getGroupUsersByUser(loginUser));
 		return SUCCESS;
 	}
-	
-	
+
 
 	public Integer getUserId() {
 		return userId;
@@ -81,26 +77,5 @@ public class DisplayFriendsAndGroupsAction extends ActionSupport {
 	public void setFriendService(FriendService friendService) {
 		this.friendService = friendService;
 	}
-
-	
-	public GroupUserService getGroupUserService() {
-		return groupUserService;
-	}
-
-
-	public void setGroupUserService(GroupUserService groupUserService) {
-		this.groupUserService = groupUserService;
-	}
-
-
-	public List getGroupUsers() {
-		return groupUsers;
-	}
-
-
-	public void setGroupUsers(List groupUsers) {
-		this.groupUsers = groupUsers;
-	}
-
 
 }

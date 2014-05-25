@@ -79,7 +79,7 @@ Ext.define('Leetop.desktop.Desktop', {
         var me = this, ret = me.callParent();
 
         return Ext.apply(ret, {
-            user: this.user,
+            user: 'wsim',
         	frame : true,
             autoHeight : true,
             toolConfig: {

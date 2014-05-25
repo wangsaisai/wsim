@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="admin/admin_addAdmin" method="post" id="addAdmin" name="addAdmin">
+    <form action="admin/admin_addAdmin" method="post" id="addAdmin" name="addAdmin" align="center">
     	<table>
   			<tr>
   				<th colspan="2">添加管理员</th>

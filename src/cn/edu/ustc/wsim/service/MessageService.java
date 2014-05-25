@@ -19,5 +19,7 @@ public interface MessageService extends BaseService {
 	
 	//获取离线消息
 	public Map<User, List<Message>> getUnreadMessagesOfUser(User user);
+	
+	public List<Message> getUnreadMessage(User user);
 
 }

@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
 	<form name="friendRequest" method="post" action="friendRequest_addFriendRequest">
-		<h3>备注</h3>
+		<h3>请输入验证信息</h3>
 		<input type="hidden" name="responderId" id="responderId" value="<%=responderId %>"/>
 		<input type="text" name="remark" id="remark"/>
 		<input type="submit" value="确定"/>

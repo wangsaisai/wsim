@@ -19,26 +19,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-		<link rel="stylesheet" href="common/css/style.css" type="text/css"
+		<link rel="stylesheet" href="common/css/countstyle.css" type="text/css"
 			media="all"></link>
 	</head>
 
 	<body>
-		<h3>wsim数据统计：</h3>
-		<br/>
-		<h4>总用户数：${countUser }</h4>
 		
-		<h4>总群数：${countGroup }</h4>
 		
-		<h4>总消息数：${countMessage }&nbsp;&nbsp;&nbsp;&nbsp;
-			总群消息数：${countGroupMessage }&nbsp;&nbsp;&nbsp;&nbsp;
-			共计：${countAllMessage }
-		</h4>
+		<table align=center border=0>
+		<tr id='head'><TH></TH><th>WSIM数据统计</th><TH></TH></tr>
+		<tr id='lightcolor'><td>总用户数：${countUser }</td><td></td><td></td></tr>
+		<tr id='heavycolor'><td>总群数：${countGroup }</td><td></td><td></td></tr>
+		<tr id='lightcolor'><td>总消息数：${countMessage }</td><td>总群消息数：${countGroupMessage }</td><td>共计：${countAllMessage }</td></tr>
+		<tr id='heavycolor'><td>在线用户数：${countOnlineUser }</td><td></td><td></td></tr>
+		<tr id='lightcolor'><td>当前聊天室数：${countRooms }</td><td></td><td></td></tr>
 		
-		<h4>在线用户数：${countOnlineUser }</h4>
-		
-		<h4>当前聊天室数：${countRooms }</h4>
-		
-		<br/>
+		</table>
 	</body>
 </html>
