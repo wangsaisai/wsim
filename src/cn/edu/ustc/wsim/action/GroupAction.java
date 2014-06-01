@@ -6,6 +6,7 @@ import java.util.List;
 import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.GroupUser;
 import cn.edu.ustc.wsim.bean.User;
+import cn.edu.ustc.wsim.datastructure.ChattingGroups;
 import cn.edu.ustc.wsim.enumerates.GroupRole;
 import cn.edu.ustc.wsim.service.GroupService;
 import cn.edu.ustc.wsim.service.GroupUserService;
@@ -63,6 +64,9 @@ public class GroupAction extends ActionSupport {
 			groupUser.setRole(GroupRole.CREATER);
 			groupUser.setUser(groupService.getLoginUser());
 			groupUserService.add(groupUser);
+			
+			//将该群和用户加入ChattingGroups的数据结构中
+			ChattingGroups.addUser(id, groupService.getLoginUser());
 			
 			return "createrSuccess";
 		} else {

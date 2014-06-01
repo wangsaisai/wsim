@@ -8,6 +8,8 @@ import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.GroupRequest;
 import cn.edu.ustc.wsim.bean.GroupUser;
 import cn.edu.ustc.wsim.bean.User;
+import cn.edu.ustc.wsim.datastructure.ChattingGroups;
+import cn.edu.ustc.wsim.datastructure.OnlineUsers;
 import cn.edu.ustc.wsim.enumerates.GroupRequestResult;
 import cn.edu.ustc.wsim.enumerates.GroupRole;
 import cn.edu.ustc.wsim.service.GroupRequestService;
@@ -115,7 +117,9 @@ public class GroupRequestAction extends ActionSupport {
 				gu.setUser(groupRequest.getUser());
 				gu.setRole(GroupRole.USER);
 				groupUserService.add(gu);
-				//给用户发送消息
+				//如果当前用户在线，则将其加入到群组的数据结构中
+				if(OnlineUsers.isLogin(groupRequest.getUser()))
+					ChattingGroups.addUser(groupRequest.getGroup().getId(), groupRequest.getUser());
 				break;
 			case DENY:
 				//给用户发送消息

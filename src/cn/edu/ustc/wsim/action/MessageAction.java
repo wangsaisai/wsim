@@ -102,6 +102,10 @@ public class MessageAction extends ActionSupport {
 		
 		User other = new User(otherId);
 		this.page = this.pageInfo();
+		if(beginTime == null)
+			beginTime = new Date("2000/01/01");
+		if(endTime == null)
+			endTime = new Date();
 		Result result = messageService.getMessagesByTime(messageService.getLoginUser(), other, beginTime, endTime, page);
 		page = result.getPage();
 		messages = result.getList();

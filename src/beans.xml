@@ -58,7 +58,7 @@
 
 	<!-- 全局常量配置 -->
 	<bean id="globalFinal" class="cn.edu.ustc.wsim.datastructure.GlobalFinal">
-		<property name="serverIP" value="127.0.0.1"></property>
+		<property name="serverIP" value="192.168.23.1"></property>
 		<property name="defaultFriendGroupName" value="My Friends"></property>
 	</bean>
 	

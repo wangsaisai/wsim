@@ -7,6 +7,7 @@ import cn.edu.ustc.wsim.bean.Group;
 import cn.edu.ustc.wsim.bean.GroupUser;
 import cn.edu.ustc.wsim.bean.User;
 import cn.edu.ustc.wsim.dao.GroupUserDao;
+import cn.edu.ustc.wsim.enumerates.GroupRole;
 import cn.edu.ustc.wsim.service.GroupUserService;
 
 public class GroupUserServiceImpl extends BaseServiceImpl implements GroupUserService {
@@ -117,7 +118,8 @@ public class GroupUserServiceImpl extends BaseServiceImpl implements GroupUserSe
 		List<GroupUser> gus = groupUserDao.getGroupUsersByGroup(group);
 		List<User> users = new ArrayList<User>();
 		for (GroupUser gu : gus) {
-			users.add(gu.getUser());
+			if(gu.getRole() == GroupRole.CREATER || gu.getRole() == GroupRole.MANAGER)
+				users.add(gu.getUser());
 		}
 		return users;
 	}

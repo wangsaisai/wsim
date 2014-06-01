@@ -39,7 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			<td>${group.name }</td>
    			<td>${group.number }</td>
    			<td>${remark }</td>
-   			<td align="center"><a href="module/group/updateGroup.jsp?groupId=${group.id }">修改</a></td>
+   			<td align="center">
+   				<s:if test="role.toString()==@cn.edu.ustc.wsim.enumerates.GroupRole@CREATER.toString()">
+   					<a href="module/group/updateGroup.jsp?groupId=${group.id }">修改</a>
+   				</s:if>
+   			</td>
    			<td><a href="module/group/updateGroupUserRemark.jsp?groupId=${group.id }">修改群名片</a></td>
    			<td align="center">
    				<s:if test="role.toString()==@cn.edu.ustc.wsim.enumerates.GroupRole@CREATER.toString()">

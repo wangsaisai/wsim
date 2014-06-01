@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr id='head'><TH></TH><th>WSIM数据统计</th><TH></TH></tr>
 		<tr id='lightcolor'><td>总用户数：${countUser }</td><td></td><td></td></tr>
 		<tr id='heavycolor'><td>总群数：${countGroup }</td><td></td><td></td></tr>
-		<tr id='lightcolor'><td>总消息数：${countMessage }</td><td>总群消息数：${countGroupMessage }</td><td>共计：${countAllMessage }</td></tr>
+		<tr id='lightcolor'><td>总用户消息数：${countMessage }</td><td>总群消息数：${countGroupMessage }</td><td>共计：${countAllMessage }</td></tr>
 		<tr id='heavycolor'><td>在线用户数：${countOnlineUser }</td><td></td><td></td></tr>
 		<tr id='lightcolor'><td>当前聊天室数：${countRooms }</td><td></td><td></td></tr>
 		

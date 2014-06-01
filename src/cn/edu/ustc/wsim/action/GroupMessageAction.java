@@ -78,6 +78,10 @@ public class GroupMessageAction extends ActionSupport {
 	public String searchGroupMessageByTime() {
 		Group group = new Group(groupId);
 		page = this.pageInfo();
+		if(beginTime == null)
+			beginTime = new Date("2000/01/01");
+		if(endTime == null)
+			endTime = new Date();
 		Result result = groupMessageService.getGroupMessagesByTime(group, beginTime, endTime, page);
 		page = result.getPage();
 		groupMessages = result.getList();
